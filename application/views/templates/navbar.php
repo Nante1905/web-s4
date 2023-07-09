@@ -16,7 +16,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       aria-label="Toggle navigation"
     >
       <i class="fas fa-bars nav__i "></i>
-      <!-- toogle -->
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mb-2 mb-lg-0">
