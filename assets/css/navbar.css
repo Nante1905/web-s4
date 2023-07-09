@@ -1,0 +1,22 @@
+.navbar {
+    padding-inline: 3% !important;
+    /* height: 5rem; */
+}
+
+.nav__i {
+    color: black;
+}
+
+#navbarText {
+    justify-content: end;
+}
+
+.navbar-nav {
+    gap: 1rem;
+}
+
+.active {
+    border-bottom: 2px solid var(--theme-color) !important;
+    font-weight: bold !important;
+    color: var(--theme-color) !important;
+}

@@ -30,7 +30,8 @@ class Welcome extends CI_Controller
 			'metadata' => [
 				'styles' => [],
 				'script' => [],
-				'title' => 'Test template'
+				'title' => 'Test template',
+				'active' => 'Features'
 			],
 			'page' => 'test',
 			'test' => 'aa'
