@@ -62,7 +62,7 @@ class Regime_model extends CI_Model {
     $montantActuel = $this->utilisateur->getMontantPorteMonnaie($idutilisateur);
     $montantRegime = $this->utilisateur->getMontantRegime($id);
     if($montantActuel >= $montantRegime) {
-      $this->utilisateur->insererTransaction($idutilisateur, null, -$montantRegime);
+      $this->utilisateur->insererTransaction($idutilisateur, null, $id, -$montantRegime);
       return true;
     }
     else {

@@ -5,8 +5,6 @@ window.addEventListener("load", () => {
 		button.addEventListener("click", () => {
 			id = button.getAttribute("data-id");
 			let xhr = new XMLHttpRequest();
-			// xhr.send(formData);
-            // id = 2;
 			xhr.open("get", `http://localhost/web-s4/index.php/welcome/details/${ id }`, true);
             xhr.send();
 

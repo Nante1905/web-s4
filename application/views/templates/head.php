@@ -11,6 +11,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?= base_url()."assets/css/app.css" ?>">
     <!-- navbar -->
     <link rel="stylesheet" href="<?= base_url()."assets/css/navbar.css" ?>">
+    <?php if(isset($metadata['sidebar'])) { ?>
+        <link rel="stylesheet" href="<?= base_url()."assets/css/sidebar.css" ?>">
+    <?php } ?>
     <!-- Font Awesome -->
     <link
       rel="stylesheet"
@@ -26,6 +29,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </head>
 <body>
     <?php header('Content-Type: text/html; charset=utf-8'); ?>
-    <?php $this->load->view('templates/navbar') ?>
+    <?php if(isset($metadata['sidebar'])) {
+        $this->load->view('templates/sidebar');
+    } else {
+        $this->load->view('templates/navbar');
+    }?>
     
 
