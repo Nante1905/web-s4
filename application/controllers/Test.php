@@ -26,6 +26,7 @@ class Test extends CI_Controller
     parent::__construct();
     $this->load->model('regime_model');
     $this->load->model('utilisateur_model');
+    $this->load->model('sport_model');
   }
 
   public function index()
@@ -35,12 +36,13 @@ class Test extends CI_Controller
 
   public function test(){
     $user = new Utilisateur_model();
+    $user->id= 1;
     $user->idobjectif = 1;
     $user->poidsobjectif = 20;
 
     $model= new Regime_model();
     $model->id = 2;
-    $data = $user->getSuggestionRegime();
+    $data = $user->getSuggestionSport();
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
