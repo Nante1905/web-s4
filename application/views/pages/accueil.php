@@ -59,7 +59,6 @@
                                     <button class="btn secondary btn-details " type="button" data-mdb-toggle="collapse" data-mdb-target="#collapse_<?= $regime->id ?>" aria-controls="#collapse_<?= $regime->id ?>" aria-expanded="false" aria-label="Toggle navigation" data-id="<?= $regime->id ?>">
                                         Détails
                                     </button>
-                                    <a href="#" class="btn primary">Soumettre</a>
                                 </div>
                                 <div id="collapse_<?= $regime->id ?>" class="collapse details ">
                                     <h5 class="subtitle">Plats</h5>
