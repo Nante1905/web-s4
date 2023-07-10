@@ -1,6 +1,15 @@
 <div class="content">
     <div class="form">
-        <h3>Entrer vos objectifs</h3>
+        <div class="current-objectif">
+            <h3>Objectif actuel : <?php if ($objectif_actuel[1] == 1) { ?>
+                    <i class="fa-solid fa-caret-up success"></i>
+                <?php } else if ($objectif_actuel[1] == 2) { ?>
+                    <i class="fa-solid fa-caret-down danger "></i>
+                    <?php } ?><?= $objectif_actuel[0] ?>kg
+            </h3>
+        </div>
+        <br>
+        <h3>Nouvel Objectif : </h3>
         <form id="form-objectif" class="form_objectif">
             <div class="form-content">
                 <div class="select-content">
@@ -21,14 +30,7 @@
             </div>
         </form>
         <br>
-        <div class="current-objectif">
-            <h3>Objectif actuel : <?php if ($objectif_actuel[1] == 1) { ?>
-                    <i class="fa-solid fa-caret-up success"></i>
-                <?php } else if ($objectif_actuel[1] == 2) { ?>
-                    <i class="fa-solid fa-caret-down danger "></i>
-                    <?php } ?><?= $objectif_actuel[0] ?>kg
-            </h3>
-        </div>
+
     </div>
     <div class="title">
         <h1 class="title__h1">Régimes proposés</h1>
@@ -104,7 +106,7 @@
                                 </p>
                                 <p class="card-text__duree">
                                     <i class="fa-solid fa-clock"></i>
-                                    <?= ceil(format_number($sport["dureetotal"])) ?> jours    
+                                    <?= ceil(format_number($sport["dureetotal"])) ?> jours
                                 </p>
                             </div>
                         </div>

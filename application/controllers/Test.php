@@ -48,6 +48,12 @@ class Test extends CI_Controller
 		]);
   }
 
+  public function pdf() {
+    $this->load->library('Pdf', null, 'pdf');
+    $html = $this->load->view('pages/testpdf', [], true);
+    $this->pdf->createPDF($html);
+  }
+
 }
 
 

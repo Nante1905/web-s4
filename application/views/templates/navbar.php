@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <a class="nav-link <?php if($metadata['active'] == 'Mes Objectifs') { echo( 'active-link'); } ?> " href="<?= base_url() ?>index.php/mesobjectifs">Mes Objectifs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if($metadata['active'] == 'Profil') { echo( 'active-link'); } ?> " href="#">Profil</a>
+          <a class="nav-link <?php if($metadata['active'] == 'Profil') { echo( 'active-link'); } ?> " href="<?= base_url() ?>index.php/profil">Profil</a>
         </li>
         <li class="nav-item" >
           <a href="" class="nav-link">
