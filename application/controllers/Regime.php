@@ -20,11 +20,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Regime extends CI_Controller
 {
-    
+
   public function __construct()
   {
     parent::__construct();
     $this->load->model('Utilisateur_model', 'utilisateur', true);
+    $this->load->model('Regime_model', 'regime', true);
   }
 
   public function index()
@@ -32,13 +33,22 @@ class Regime extends CI_Controller
     // 
   }
 
-  public function accept($id) {
-    $montantActuel = $this->utilisateur->getMontantPorteMonnaie(null);
-    $montantRegime = $this->utilisateur-->getMontantRegime($id);
-    var_dump([$montantActuel, $montantRegime]);
-    
+  public function accept($id)
+  {
+    // $montantActuel = $this->utilisateur->getMontantPorteMonnaie(null);
+    // $montantRegime = $this->utilisateur-->getMontantRegime($id);
+    // var_dump([$montantActuel, $montantRegime]);
+    try {
+      if($this->regime->accept($id)) {
+        echo json_encode(['status' => 1]);
+      }
+      else {
+        echo json_encode(['status' => -1, 'msg' => 'Votre solde est insuffisant.']);
+      }
+    } catch (\Throwable $th) {
+      echo json_encode(['status' => -5, 'msg' => 'Erreur interne au serveur']);
+    }
   }
-
 }
 
 

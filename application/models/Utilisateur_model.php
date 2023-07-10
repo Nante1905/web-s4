@@ -45,13 +45,13 @@ class Utilisateur_model extends CI_Model {
     if(count($query->result()) == 0) {
       return 0;
     }
-    return $query->result()[0];
+    return $query->result()[0]->montant;
   }
 
   public function insererTransaction($idutilisateur, $idcode, $valeur){
     try {
-      $this->db->set("datetransaction","now()",false);
-      $this->db->set("statut",1,false);
+      $this->db->set("datetransaction","now() at time zone 'gmt-3'",false);
+      $this->db->set("statut",10,false);
       $this->db->insert('transaction_utilisateur',[
         'idutilisateur' => $idutilisateur,
         'idcode'=> $idcode,

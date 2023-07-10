@@ -60,13 +60,13 @@ class Regime_model extends CI_Model {
   public function accept($id) {
     $idutilisateur = $this->session->userid;
     $montantActuel = $this->utilisateur->getMontantPorteMonnaie($idutilisateur);
-    $montantRegime = $this->utilisateur-->getMontantRegime($id);
+    $montantRegime = $this->utilisateur->getMontantRegime($id);
     if($montantActuel >= $montantRegime) {
       $this->utilisateur->insererTransaction($idutilisateur, null, -$montantRegime);
       return true;
     }
     else {
-      throw new Exception("Montant insuffisant", 1);
+      return false;
     }
   }
 

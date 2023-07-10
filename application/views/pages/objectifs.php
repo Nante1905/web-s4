@@ -38,6 +38,7 @@
         <div class="title">
             <h1 class="title__h1">Régimes proposés</h1>
         </div>
+        <p class="message text-center danger"></p>
         <div class="liste">
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 <?php foreach ($regimes as $regime) { ?>
@@ -69,12 +70,13 @@
                                         <i class="fa-solid fa-clock"></i>
                                         <?= format_number(intval($regime["dureetotal"])) ?> jours
                                     </p>
+                                    <p class="card-text__msg__<?= $regime["regime"]->id ?>"></p>
                                 </div>
                                 <div class="card-actions" id="<?= $regime["regime"]->id ?>_card">
                                     <button class="btn secondary btn-details " type="button" data-mdb-toggle="collapse" data-mdb-target="#collapse_<?= $regime["regime"]->id ?>" aria-controls="#collapse_<?= $regime["regime"]->id ?>" aria-expanded="false" aria-label="Toggle navigation" data-id="<?= $regime["regime"]->id ?>">
                                         Détails
                                     </button>
-                                    <a href="#" class="btn primary btn-accept" data-id="<?= $regime["regime"]->id ?>" >Soumettre</a>
+                                    <button type="button" class="btn primary btn-accept" data-id="<?= $regime["regime"]->id ?>" >Soumettre</button>
                                 </div>
                                 <div id="collapse_<?= $regime["regime"]->id ?>" class="collapse details ">
                                     <h5 class="subtitle">Plats</h5>

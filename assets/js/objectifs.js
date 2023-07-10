@@ -11,7 +11,7 @@ window.addEventListener('load',() => {
 			let xhr = new XMLHttpRequest();
 			// xhr.send(formData);
             // id = 2;
-			xhr.open("get", `http://localhost/web-s4/index.php/welcome/details/${ id }`, true);
+			xhr.open("get", `${URL.APP_URL}welcome/details/${ id }`, true);
             xhr.send();
 
 			xhr.onload = () => {
@@ -35,7 +35,7 @@ window.addEventListener('load',() => {
         const fromData = new FormData(fromObjectif)
 
         const xhr = new XMLHttpRequest()
-        xhr.open("post", URL, true)
+        xhr.open("post", `${URL.APP_URL}mesobjectifs/submit`, true)
         xhr.send(fromData)
 
         xhr.addEventListener('load', (event) => {
@@ -73,6 +73,32 @@ window.addEventListener('load',() => {
 
             xhr.addEventListener('load', () => {
                 console.log(xhr.responseText);
+                try {
+                    let res = JSON.parse(xhr.responseText)
+                    if(res.status == 1) {
+                        Snackbar.show({
+                            text: "Régime entamé",
+                            duration: 2000
+                        })
+                        document.querySelector(`.message`).innerHTML = ''
+                        document.querySelector(`.card-text__msg__${id}`).innerHTML = 'Régime entamé'
+                    }
+                    else {
+                        Snackbar.show({
+                            text: res.msg,
+                            duration: 2000
+                        })
+    
+                        document.querySelector(`.message`).innerHTML = res.msg
+                    }
+                } catch (error) {
+                    Snackbar.show({
+                        text: "Erreur interne au serveur",
+                        duration: 2000
+                    })
+                    console.log(error);
+                    document.querySelector(`.message`).innerHTML = 'Erreur interne au serveur'
+                }
             })
         })
     })

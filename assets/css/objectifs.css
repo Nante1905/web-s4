@@ -52,3 +52,18 @@
   width: 90%;
   padding: 2rem;
 }
+
+.card-actions {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card .details {
+  margin-top: 10%;
+}
+.card .details .list-group {
+  list-style: none;
+}
+.card .details .list-group li {
+  text-transform: capitalize;
+}

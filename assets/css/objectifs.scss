@@ -59,3 +59,23 @@
     width: 90%;
     padding: 2rem;
 }
+.card {
+
+    &-actions {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .details {
+        margin-top: 10%;
+
+        .list-group {
+            list-style: none;
+
+            li {
+                text-transform: capitalize;
+            }
+        }
+    }
+}
