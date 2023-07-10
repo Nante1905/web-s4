@@ -13,10 +13,10 @@
         </div>
         <div class="liste">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <?php for($i=0; $i<10; $i++) { ?>
+                <?php for ($i = 0; $i < 10; $i++) { ?>
                     <div class="col">
                         <div class="card">
-                            <img src="<?= base_url(). 'assets/img/plat.jpg' ?>" class="card-img-top" alt="Plat" />
+                            <img src="<?= base_url() . 'assets/img/plat.jpg' ?>" class="card-img-top" alt="Plat" />
                             <div class="card-body">
                                 <h5 class="card-title strong ">Nom du plat</h5>
                                 <div class="card-text">
@@ -25,16 +25,21 @@
                                         5 kg en <strong>2</strong> semaine
                                     </p>
                                     <p class="card-text__prix">
-                                        <i class="fa-solid fa-money-bill " ></i>
-                                        12000 ar 
+                                        <i class="fa-solid fa-money-bill "></i>
+                                        12000 ar
                                     </p>
                                 </div>
-                                <div class="card-actions">
-                                    <a  class="btn secondary"  data-toggle="collapse" data-target="#<?= $i ?>_collapse" aria-expanded="true" aria-controls="<?= $i ?>_collapse" >Détails</a>
+                                <div class="card-actions" id="<?= $i ?>_card">
+                                    <button class="btn secondary btn-details " type="button" data-mdb-toggle="collapse" data-mdb-target="#collapse_<?= $i ?>" aria-controls="#collapse_<?= $i ?>" aria-expanded="false" aria-label="Toggle navigation" data-id="<?= $i ?>"  >
+                                        Détails
+                                    </button>
                                     <a href="#" class="btn primary">Soumettre</a>
                                 </div>
-                                <div id="<?= $i ?>_collapse" class="collapse" >
-                                    <p>haha</p>
+                                <div id="collapse_<?= $i ?>" class="collapse details ">
+                                    <h5 class="subtitle" >Plats</h5>
+                                    <ul class="list-group" id="details_<?= $i ?>">
+                                       
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -49,10 +54,10 @@
         </div>
         <div class="liste">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <?php for($i=0; $i<10; $i++) { ?>
+                <?php for ($i = 0; $i < 10; $i++) { ?>
                     <div class="col">
                         <div class="card">
-                            <img src="<?= base_url(). 'assets/img/sport.jpg' ?>" class="card-img-top" alt="Sport" />
+                            <img src="<?= base_url() . 'assets/img/sport.jpg' ?>" class="card-img-top" alt="Sport" />
                             <div class="card-body">
                                 <h5 class="card-title strong ">Nom du sport</h5>
                                 <div class="card-text">
@@ -64,7 +69,7 @@
                                 <div class="card-actions">
                                     <a href="#" class="btn primary">Soumettre</a>
                                 </div>
-                                <div id="<?= $i ?>_collapse" class="collapse" >
+                                <div id="<?= $i ?>_collapse" class="collapse">
                                     <p>haha</p>
                                 </div>
                             </div>

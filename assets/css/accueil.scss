@@ -53,16 +53,23 @@
         overflow-x: hidden;
     }
 
-    .card-actions {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        flex-flow: wrap;
+    .card {
+        .details {
+            margin-top: 5%;
+        }
 
-        &>* {
-            margin: 2% 0%;
+        .card-actions {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-flow: wrap;
+    
+            &>* {
+                margin: 2% 0%;
+            }
         }
     }
+
 }
 

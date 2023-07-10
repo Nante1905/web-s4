@@ -49,13 +49,16 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.main .card-actions {
+.main .card .details {
+  margin-top: 5%;
+}
+.main .card .card-actions {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
   flex-flow: wrap;
 }
-.main .card-actions > * {
+.main .card .card-actions > * {
   margin: 2% 0%;
 }

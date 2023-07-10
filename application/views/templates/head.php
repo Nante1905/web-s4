@@ -11,10 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- navbar -->
     <link rel="stylesheet" href="<?= base_url()."assets/css/navbar.css" ?>">
     <!-- Font Awesome -->
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
+    /> -->
     <link rel="stylesheet" href="<?= base_url()."assets/mdbootstrap/css/mdb.min.css" ?>">
     <?php 
     foreach($metadata['styles'] as $style) { ?>
@@ -26,4 +26,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
     <?php header('Content-Type: text/html; charset=utf-8'); ?>
     <?php $this->load->view('templates/navbar') ?>
+    
 
