@@ -18,15 +18,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Utilisateur_model extends CI_Model {
 
-  public $id;
-  public $nom;
-  public $email;
-  public $idgenre;
-  public $poids;
-  public $taille;
-  public $idobjectif;
-  public $poidsobjectif;
-  // ------------------------------------------------------------------------
 
   public function __construct()
   {
@@ -39,33 +30,22 @@ class Utilisateur_model extends CI_Model {
   //   $sql = "INSERT INTO transaction_utilisateur values()"
   // }
 
-  public function idPorteMonaie(){
-    $this->db->where('idutilisateur',$this->id);
+  public function idPorteMonaie($idutilisateur){
+    $this->db->where('idutilisateur',$idutilisateur);
     $query= $this->db->get('portemonaie');
     return $query->result()[0]->id;
   }
 
-  public function findTransaction(){
-    $this->db->where('v_utilisateur_transaction.idutilisateur',$this->id);
-    $this->db->where('v_utilisateur_transaction.statut',10); // le statut est validé
+  public function findTransaction($idutilisateur){
+    $this->db->where(['v_utilisateur_transaction.idutilisateur' => $idutilisateur,'v_utilisateur_transaction.statut' => 10 ]);
     $query = $this->db->get('v_utilisateur_transaction');
-    $result = array();
-    foreach ($query->result() as $row) {
-      $model = new Transaction_model();
-      $model->id = $row->id;;
-      $model->idcode = $row->idcode;
-      $model->valeur = $row->valeur;
-      $model->datetransaction = $row->datetransaction;
-      $model->statut = $row->statut;
-      array_push($result,$model);
-    }
-    return $result;
+    return $query->result();
   }
 
   public function getSuggestionSport($idutilisateur){
     $idobjectif = $this->getLastObjectif($idutilisateur);
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
-    $sports = $this->regime->findByObjectif($idobjectif);
+    $sports = $this->sport->findByObjectif($idobjectif);
     $result = array();
     foreach ($sports as $sport) {
       $data['sport']= $sport;

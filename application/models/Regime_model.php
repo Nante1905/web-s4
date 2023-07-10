@@ -30,15 +30,6 @@ class Regime_model extends CI_Model {
     parent::__construct();
   }
 
-  public function setAttributes($id, $nom, $prix,$apport,$duree,$idobj){
-    $this->id= $id;
-    $this->nom= $nom;
-    $this->prix= $prix;
-    $this->apport= $apport;
-    $this->duree= $duree;
-    $this->idobjectif= $idobj;
-  }
-
 
   public function findAllPlats($id){
     $this->db->where('v_regime_plat.iregime',$id);
