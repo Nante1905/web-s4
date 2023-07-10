@@ -28,7 +28,7 @@ class Dashboard_model extends CI_Model {
   public function getClassementRegime($annee, $mois){
       $sql= " select r.id idregime, coalesce(c.nbr_users,0) nbr_users from regime r
               LEFT JOIN get_classement(%s,%s) c
-              ON r.id = c.idregime;";
+              ON r.id = c.idregime order by nbr_users DESC";
       $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
       $query = $this->db->query($sql);
       return $query->result();
