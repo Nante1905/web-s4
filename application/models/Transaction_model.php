@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  *
- * Model Sport_model
+ * Model Transaction_model
  *
  * This Model for ...
  * 
@@ -16,12 +16,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  *
  */
 
-class Sport_model extends CI_Model {
+class Transaction_model extends CI_Model {
 
   public $id;
-  public $nom;
-  public $apportjour;
-  public $idobjectif;
+  public $idcode;
+  public $valeur;
+  public $datetransaction;
+  public $statut;
   // ------------------------------------------------------------------------
 
   public function __construct()
@@ -29,19 +30,9 @@ class Sport_model extends CI_Model {
     parent::__construct();
   }
 
-  public function findByObjectif($idobjectif){
-    $this->db->where('idobjectif', $idobjectif);
-    $query = $this->db->get('sport');
-    return $query->result();
-  }
-
-  public function findAll(){
-    $query = $this->db->get('sport');
-    return $query->result();
-  }
-
+  
 
 }
 
-/* End of file Sport_model.php */
-/* Location: ./application/models/Sport_model.php */
+/* End of file Transaction_model.php */
+/* Location: ./application/models/Transaction_model.php */
