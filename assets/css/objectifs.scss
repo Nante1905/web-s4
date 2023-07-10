@@ -1,4 +1,5 @@
 .content {
+    color: black;
     .primary {
         background-color: var(--theme-color) !important;
     }
@@ -23,10 +24,31 @@
     
                     .select {
                         padding: 0.25rem;
+                        text-transform: capitalize;
                     }
                 }
             }
         }
     }
+}
+.title {
+    color: black;
+    display: flex;
+    justify-content: center;
 
+    &__h1 {
+        width: fit-content;
+        position: relative;
+        font-weight: bold;
+
+        &::after {
+            content: "";
+            height: 4px;
+            position: absolute;
+            bottom: -2px;
+            width: 50%;
+            left: 25%;
+            background-color: var(--theme-color);
+        }
+    }
 }

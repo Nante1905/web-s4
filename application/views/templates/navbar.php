@@ -20,13 +20,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link <?php if($metadata['active'] == 'Accueil') { echo( 'active'); } ?>" aria-current="page" href="#">Accueil</a>
+          <a class="nav-link <?php if($metadata['active'] == 'Accueil') { echo( 'active-link'); } ?>" aria-current="page" href="#">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php if($metadata['active'] == 'Mes Objectifs') { echo( 'active'); } ?> " href="#">Mes Objectifs</a>
+          <a class="nav-link <?php if($metadata['active'] == 'Mes Objectifs') { echo( 'active-link'); } ?> " href="#">Mes Objectifs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" <?php if($metadata['active'] == 'Profil') { echo( 'active'); } ?> " href="#">Profil</a>
+          <a class="nav-link" <?php if($metadata['active'] == 'Profil') { echo( 'active-link'); } ?> " href="#">Profil</a>
         </li>
         <li class="nav-item" >
           <a href="" class="nav-link">
