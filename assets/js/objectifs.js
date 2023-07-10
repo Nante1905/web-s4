@@ -15,7 +15,8 @@ window.addEventListener('load',() => {
                 let res = JSON.parse(xhr.responseText)
                 Snackbar.show({
                     text: "Objectif mis a jour",
-                    duration: 5000
+                    duration: 5000,
+                    onClose: () => location.reload()
                 })
                 fromObjectif.reset()
             } catch(e) {

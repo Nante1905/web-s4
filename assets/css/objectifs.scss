@@ -36,7 +36,7 @@
     color: black;
     display: flex;
     justify-content: center;
-    padding-top: 2rem;
+    padding-block: 2rem;
 
     &__h1 {
         width: fit-content;
@@ -53,4 +53,9 @@
             background-color: var(--theme-color);
         }
     }
+}
+
+.liste {
+    width: 90%;
+    padding: 2rem;
 }

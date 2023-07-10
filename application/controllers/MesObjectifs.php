@@ -28,22 +28,27 @@ class MesObjectifs extends CI_Controller
     parent::__construct();
     $this->title = "Mes Objectifs";
     $this->load->model('Objectif_model', 'objectif', true);
+    $this->load->model('Utilisateur_model', 'user', true);
   }
 
   public function index()
   {
 
     $objectifs = $this->objectif->findAll();
+    // var_dump($this->user->getSuggestionSport(1));
 
     $this->load->view("templates/body", [
       'metadata' => [
         'styles' => ['objectifs'],
-        'script' => ['objectifs'],
+        'script' => ['objectifs', 'accueil'],
         'title' => $this->title,
         'active' => 'Mes Objectifs'
       ],
       'page' => 'objectifs',
-      'objectifs' => $objectifs
+      'objectifs' => $objectifs,
+      'objectif_actuel' => [$this->user->getLastPoidsObjectif(1), $this->user->getLastObjectif(1)],
+      'regimes' => $this->user->getSuggestionRegime(1),
+      'sports' => $this->user->getSuggestionSport(1)
     ]);
   }
 

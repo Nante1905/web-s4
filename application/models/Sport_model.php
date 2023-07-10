@@ -18,11 +18,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sport_model extends CI_Model {
 
-  public $id;
-  public $nom;
-  public $apportjour;
-  public $idobjectif;
-  // ------------------------------------------------------------------------
 
   public function __construct()
   {
@@ -32,38 +27,14 @@ class Sport_model extends CI_Model {
   public function findByObjectif($idobjectif){
     $this->db->where('idobjectif', $idobjectif);
     $query = $this->db->get('sport');
-    $result = array();
-    foreach ($query->result() as $row) {
-      $model = new Sport_model();
-      $model->id = $row->id;
-      $model->nom = $row->nom;
-      $model->apportjour = $row->apportjour;
-      $model->idobjectif = $row->idobjectif;
-      array_push($result,$model);
-    }
-    return $result;
+    return $query->result();
   }
 
   public function findAll(){
     $query = $this->db->get('sport');
-    $result = array();
-    foreach ($query->result() as $row) {
-      $model = new Sport_model();
-      $model->id = $row->id;
-      $model->nom = $row->nom;
-      $model->apportjour = $row->apportjour;
-      $model->idobjectif = $row->idobjectif;
-      array_push($result,$model);
-    }
-    return $result;
+    return $query->result();
   }
 
-  // ------------------------------------------------------------------------
-
-
-  // ------------------------------------------------------------------------
-
-  // ------------------------------------------------------------------------
 
 }
 

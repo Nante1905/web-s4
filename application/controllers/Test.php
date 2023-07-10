@@ -24,9 +24,10 @@ class Test extends CI_Controller
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('regime_model');
-    $this->load->model('utilisateur_model');
-    $this->load->model('sport_model');
+    $this->load->model('regime_model','regime',true);
+    $this->load->model('utilisateur_model','utilisateur',true);
+    $this->load->model('sport_model','sport',true);
+    $this->load->model('transaction_model','transaction',true);
   }
 
   public function index()
@@ -35,14 +36,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $user = new Utilisateur_model();
-    $user->id= 1;
-    $user->idobjectif = 1;
-    $user->poidsobjectif = 20;
-
-    $model= new Regime_model();
-    $model->id = 2;
-    $data = $user->getSuggestionSport();
+    $data = $this->sport->findByObjectif(1);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
