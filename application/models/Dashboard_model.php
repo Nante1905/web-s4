@@ -25,7 +25,14 @@ class Dashboard_model extends CI_Model {
     parent::__construct();
   }
 
-  public function 
+  public function getClassementRegime($annee, $mois){
+      $sql= " select r.id idregime, coalesce(c.nbr_users,0) nbr_users from regime r
+              LEFT JOIN get_classement(%s,%s) c
+              ON r.id = c.idregime;";
+      $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
+      $query = $this->db->query($sql);
+      return $query->result();
+  }
 
   public function getUsersPerMonth($annee, $mois){
       $sql= "SELECT * FROM nombre_utilisateurs_par_mois(%s, %s)";

@@ -37,7 +37,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->board->getUsersPerMonth(2023,7);
+    $data = $this->board->getClassementRegime(2023,7);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
