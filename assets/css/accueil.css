@@ -52,6 +52,15 @@
 .main .card .details {
   margin-top: 5%;
 }
+.main .card .details .subtitle {
+  font-weight: bold;
+}
+.main .card .details .list-group {
+  list-style: none;
+}
+.main .card .details .list-group li {
+  text-transform: capitalize;
+}
 .main .card .card-actions {
   display: flex;
   justify-content: space-around;

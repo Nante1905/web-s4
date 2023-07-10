@@ -22,7 +22,7 @@ class Welcome extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('RegimeTmp_model', 'regime', true);
+		$this->load->model('Regime_model', 'regime', true);
 	}
 
 	public function index()
@@ -32,6 +32,7 @@ class Welcome extends CI_Controller
 
 	public function accueil()
 	{
+		// var_dump($this->regime->findAll());
 		$this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => ['accueil'],
@@ -39,13 +40,14 @@ class Welcome extends CI_Controller
 				'title' => 'Test template',
 				'active' => 'Accueil'
 			],
+			'regimes' => $this->regime->findAll(),
 			'page' => 'accueil'
 		]);
 	}
 
 	public function details($id)
 	{
-		$data = $this->regime->getDetailsById($id);
+		$data = $this->regime->findAllPlats($id);
 		echo json_encode($data);
 	}
 }
