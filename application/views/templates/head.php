@@ -10,8 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?= base_url()."assets/css/app.css" ?>">
     <!-- navbar -->
     <link rel="stylesheet" href="<?= base_url()."assets/css/navbar.css" ?>">
-    <!-- sidebar -->
-    <link rel="stylesheet" href="<?= base_url()."assets/css/sidebar.css" ?>">
     <!-- Font Awesome -->
     <link
       rel="stylesheet"

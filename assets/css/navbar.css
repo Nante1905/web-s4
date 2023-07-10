@@ -1,6 +1,8 @@
 .navbar {
     padding-inline: 3% !important;
     /* height: 5rem; */
+    box-shadow: none !important;
+    background-color: transparent !important;
 }
 
 .nav__i {

@@ -28,13 +28,12 @@ class Welcome extends CI_Controller
 	{
 		$this->load->view('templates/body', [
 			'metadata' => [
-				'styles' => [],
+				'styles' => ['accueil'],
 				'script' => [],
 				'title' => 'Test template',
-				'active' => 'Features'
+				'active' => 'Accueil'
 			],
-			'page' => 'test',
-			'test' => 'aa'
+			'page' => 'accueil'
 		]);
 	}
 }

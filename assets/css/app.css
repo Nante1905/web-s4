@@ -1,3 +1,15 @@
 html {
-    --theme-color: cornflowerblue;
+    --theme-color: #64c14a;
+    height: 100%;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url('../font/Poppins-Regular.ttf');
+}
+
+body {
+    height: inherit;
+    margin: 0;
+    font-family: Poppins !important;
 }
