@@ -48,11 +48,20 @@ class Utilisateur_model extends CI_Model {
     return $query->result()[0];
   }
 
-  public function idPorteMonaie($idutilisateur){
-    $this->db->where('idutilisateur',$idutilisateur);
-    $query= $this->db->get('portemonaie');
-    return $query->result()[0]->id;
+  public function insererTransaction($idutilisateur, $idcode, $valeur){
+    try {
+      $this->db->set("datetransaction","now()",false);
+      $this->db->set("statut",1,false);
+      $this->db->insert('transaction_utilisateur',[
+        'idutilisateur' => $idutilisateur,
+        'idcode'=> $idcode,
+        'valeur'=> $valeur
+      ]);
+    } catch (Exception $e) {
+      echo $e;
+    }
   }
+
 
   public function findTransaction($idutilisateur){
     $this->db->where(['v_utilisateur_transaction.idutilisateur' => $idutilisateur,'v_utilisateur_transaction.statut' => 10 ]);

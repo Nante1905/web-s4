@@ -36,7 +36,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->sport->findByObjectif(1);
+    $data = $this->utilisateur->insererTransaction(1,5,12000);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
