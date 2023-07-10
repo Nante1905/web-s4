@@ -36,7 +36,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->utilisateur->insererTransaction(1,5,12000);
+    $data = $this->utilisateur->checklogin('mirija@gmail.com','mrija');
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
