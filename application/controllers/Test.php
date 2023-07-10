@@ -18,17 +18,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  */
 require_once APPPATH.'controllers/SessionSecure.php';
-class Test extends SessionSecure
+class Test extends CI_Controller 
 {
     
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('regime_model');
+    $this->load->model('utilisateur_model');
   }
 
   public function index()
   {
-    // 
+    
+  }
+
+  public function test(){
+    $user = new Utilisateur_model();
+    $user->idobjectif = 1;
+    $user->poidsobjectif = 20;
+
+    $model= new Regime_model();
+    $model->id = 2;
+    $data = $user->getSuggestionRegime();
+    $this->load->view('templates/body', [
+			'metadata' => [
+				'styles' => [],
+				'script' => [],
+				'title' => 'Test template'
+			],
+			'page' => 'test',
+			'test' => $data
+		]);
   }
 
 }

@@ -1,5 +1,6 @@
 html {
     --theme-color: #64c14a;
+    --danger-color: #f43434;
     height: 100%;
 }
 
@@ -15,3 +16,37 @@ body {
     font-family: Poppins !important;
     color: black;
 }
+
+.strong {
+    font-weight: bold;
+}
+
+.primary {
+    background-color: var(--theme-color) !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.secondary {
+    background-color: white !important;
+    color: var(--theme-color) !important;
+    border: 2px solid var(--theme-color) !important;
+    font-weight: bold !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.442);
+    border-radius: 6px;
+  }

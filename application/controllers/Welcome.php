@@ -19,6 +19,12 @@ class Welcome extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('RegimeTmp_model', 'regime', true);
+	}
+
 	public function index()
 	{
 		$this->load->view('welcome_message');
@@ -29,11 +35,17 @@ class Welcome extends CI_Controller
 		$this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => ['accueil'],
-				'script' => [],
+				'script' => ['accueil'],
 				'title' => 'Test template',
 				'active' => 'Accueil'
 			],
 			'page' => 'accueil'
 		]);
+	}
+
+	public function details($id)
+	{
+		$data = $this->regime->getDetailsById($id);
+		echo json_encode($data);
 	}
 }

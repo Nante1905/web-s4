@@ -27,4 +27,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
     <?php header('Content-Type: text/html; charset=utf-8'); ?>
     <?php $this->load->view('templates/navbar') ?>
+    
 
