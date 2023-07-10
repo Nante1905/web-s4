@@ -3,6 +3,9 @@
     /* height: 5rem; */
     box-shadow: none !important;
     background-color: transparent !important;
+    position: fixed !important;
+    width: 100%;
+    z-index: 999;
 }
 
 .nav__i {
