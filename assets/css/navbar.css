@@ -20,7 +20,7 @@
     gap: 1rem;
 }
 
-.active {
+.active-link {
     border-bottom: 2px solid var(--theme-color) !important;
     font-weight: bold !important;
     color: var(--theme-color) !important;

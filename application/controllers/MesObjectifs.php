@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require_once APPPATH.'controllers/SessionSecure.php';
 
 /**
  *
@@ -26,19 +27,42 @@ class MesObjectifs extends CI_Controller
   {
     parent::__construct();
     $this->title = "Mes Objectifs";
+    $this->load->model('Objectif_model', 'objectif', true);
+    $this->load->model('Utilisateur_model', 'user', true);
   }
 
   public function index()
   {
+
+    $objectifs = $this->objectif->findAll();
+    // var_dump($this->user->getSuggestionSport(1));
+
     $this->load->view("templates/body", [
       'metadata' => [
         'styles' => ['objectifs'],
-        'script' => [],
+        'script' => ['objectifs', 'accueil'],
         'title' => $this->title,
         'active' => 'Mes Objectifs'
       ],
-      'page' => 'objectifs'
+      'page' => 'objectifs',
+      'objectifs' => $objectifs,
+      'objectif_actuel' => [$this->user->getLastPoidsObjectif(1), $this->user->getLastObjectif(1)],
+      'regimes' => $this->user->getSuggestionRegime(1),
+      'sports' => $this->user->getSuggestionSport(1)
     ]);
+  }
+
+  public function submit() {
+    $idobjectif = $this->input->post("idobjectif");
+    $poids = $this->input->post("poids");
+    $userid = $this->session->userid;
+
+    try {
+      $this->objectif->insert($userid, $idobjectif, $poids);
+      echo json_encode(['OK' => true]);
+    } catch(Exception $e) {
+      echo json_encode(['OK' => false]);
+    }
   }
 
 }

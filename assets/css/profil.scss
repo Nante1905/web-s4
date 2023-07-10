@@ -1,0 +1,12 @@
+.content {
+    padding-top: 5rem;
+}
+
+.wallet-card-container {
+    display: flex;
+    justify-content: center;
+
+    .wallet-card {
+        width: 25%;
+    }
+}

@@ -18,11 +18,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Sport_model extends CI_Model {
 
-  public $id;
-  public $nom;
-  public $apportjour;
-  public $idobjectif;
-  // ------------------------------------------------------------------------
 
   public function __construct()
   {
