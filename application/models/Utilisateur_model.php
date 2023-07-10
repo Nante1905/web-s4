@@ -26,27 +26,6 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
-  public function getProfil() {
-    $id = $this->session->userid;
-    if($id == null) {
-      throw new Exception("USer not connected", 1);
-    }
-    $this->db->where('id',$id);
-    $query = $this->db->get('utilisateur');
-    return $query->result()[0];
-  }
-
-  public function getMontantPorteMonnaie($id = null) {
-    if($id == null) {
-      $id = $this->session->userid;
-    }
-    $this->db->where('idutilisateur', $id);
-    $query = $this->db->get('v_montant_utilisateur');
-    if(count($query->result()) == 0) {
-      return 0;
-    }
-    return $query->result()[0]->montant;
-  }
 
   public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
     $this->db->insert('utilisateur',[
@@ -68,10 +47,11 @@ class Utilisateur_model extends CI_Model {
 
 
 
-  public function insererTransaction($idutilisateur, $idcode, $valeur){
+  public function insererTransaction($idutilisateur, $idcode, $idRegime, $valeur){
     try {
       $this->db->set("datetransaction","now() at time zone 'gmt-3'",false);
       $this->db->set("statut",10,false);
+      $this->db->set("idregime", $idRegime, false);
       $this->db->insert('transaction_utilisateur',[
         'idutilisateur' => $idutilisateur,
         'idcode'=> $idcode,

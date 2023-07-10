@@ -1,15 +1,17 @@
 <div class="navContainer">
-    <nav class="d-lg-block sidebar bg-white">
+    <nav class="d-lg-block sidebar bg-white collapse ">
         <a class="navbar-brand" href="#">
             <strong>Nom App</strong>
         </a>
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
-        </button>
-        <div class="show"  id="sidebarMenu">
+        </button> -->
+        <div class=" navbar-content "  id="sidebarMenu">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 ">
-                    <a class="list-group-item list-group-item-action py-2 ripple" href="#">Home</a>
+                    <a class="list-group-item list-group-item-action py-2 ripple" href="#">
+                        <i class="fas fa-chart-line fa-fw me-3"></i><span>Tableau de bord</span>
+                    </a>
                 </div>
                 <div class="list-group list-group-flush mx-3">
                     <a class="list-group-item list-group-item-action py-2 ripple" aria-current="true" data-mdb-toggle="collapse" href="#collapseExample1" aria-expanded="true" aria-controls="collapseExample1">

@@ -9,8 +9,6 @@ window.addEventListener('load',() => {
 		button.addEventListener("click", () => {
 			id = button.getAttribute("data-id");
 			let xhr = new XMLHttpRequest();
-			// xhr.send(formData);
-            // id = 2;
 			xhr.open("get", `${URL.APP_URL}welcome/details/${ id }`, true);
             xhr.send();
 
