@@ -57,23 +57,21 @@
         </div>
         <div class="liste">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <?php for ($i = 0; $i < 10; $i++) { ?>
+                <?php foreach($sports as $sport) { ?>
                     <div class="col">
                         <div class="card">
                             <img src="<?= base_url() . 'assets/img/sport.jpg' ?>" class="card-img-top" alt="Sport" />
                             <div class="card-body">
-                                <h5 class="card-title strong ">Nom du sport</h5>
+                                <h5 class="card-title strong "><?= $sport->nom ?> </h5>
                                 <div class="card-text">
                                     <p class="card-text__kilo">
-                                        <i class="fa-solid fa-caret-down"></i>
-                                        5 kg en <strong>5</strong> jours
+                                        <?php if($sport->idobjectif == 1) { ?>
+                                            <i class="fa-solid fa-caret-up success"></i>
+                                        <?php } else if ($sport->idobjectif == 2) { ?>
+                                            <i class="fa-solid fa-caret-down danger "></i>
+                                        <?php } ?>
+                                        <?= $sport->apportjour ?> kg / jour
                                     </p>
-                                </div>
-                                <div class="card-actions">
-                                    <a href="#" class="btn primary">Soumettre</a>
-                                </div>
-                                <div id="<?= $i ?>_collapse" class="collapse">
-                                    <p>haha</p>
                                 </div>
                             </div>
                         </div>

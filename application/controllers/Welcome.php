@@ -23,11 +23,13 @@ class Welcome extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Regime_model', 'regime', true);
+		$this->load->model('Sport_model', 'sport', true);
+
 	}
 
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->accueil();
 	}
 
 	public function accueil()
@@ -41,6 +43,7 @@ class Welcome extends CI_Controller
 				'active' => 'Accueil'
 			],
 			'regimes' => $this->regime->findAll(),
+			'sports' => $this->sport->findAll(),
 			'page' => 'accueil'
 		]);
 	}

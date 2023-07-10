@@ -49,6 +49,9 @@
   overflow-y: scroll;
   overflow-x: hidden;
 }
+.main .card-title {
+  text-transform: capitalize;
+}
 .main .card .details {
   margin-top: 5%;
 }
