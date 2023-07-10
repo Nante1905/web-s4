@@ -44,9 +44,9 @@ class MesObjectifs extends CI_Controller
       ],
       'page' => 'objectifs',
       'objectifs' => $objectifs,
-      'objectif_actuel' => [$this->user->getLastPoidsObjectif(1), $this->user->getLastObjectif(1)],
-      'regimes' => $this->user->getSuggestionRegime(1),
-      'sports' => $this->user->getSuggestionSport(1)
+      'objectif_actuel' => [$this->user->getLastPoidsObjectif($this->session->userid), $this->user->getLastObjectif($this->session->userid)],
+      'regimes' => $this->user->getSuggestionRegime($this->session->userid),
+      'sports' => $this->user->getSuggestionSport($this->session->userid)
     ]);
   }
 

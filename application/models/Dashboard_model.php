@@ -25,6 +25,15 @@ class Dashboard_model extends CI_Model {
     parent::__construct();
   }
 
+  public function getClassementRegime($annee, $mois){
+      $sql= " select r.id idregime, coalesce(c.nbr_users,0) nbr_users from regime r
+              LEFT JOIN get_classement(%s,%s) c
+              ON r.id = c.idregime;";
+      $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
+      $query = $this->db->query($sql);
+      return $query->result();
+  }
+
   public function getUsersPerMonth($annee, $mois){
       $sql= "SELECT datedujour, nbr_users valeur FROM nombre_utilisateurs_par_mois(%s, %s)";
       if($annee == null) {
@@ -37,6 +46,26 @@ class Dashboard_model extends CI_Model {
       $query = $this->db->query($sql);
       return $query->result();
     
+  }
+  
+  public function getCodeTransactionsInMonth($year, $month) {
+    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, datetransaction::date from transaction_utilisateur where idregime is null group by datetransaction::date) t on d.date_genere=t.datetransaction";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res) > 0) {
+      return $res->result();
+    }
+  }
+
+  public function getRegimeTransactionsInMonth($year, $month) {
+    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, datetransaction::date from transaction_utilisateur where idregime is not null group by datetransaction::date) t on d.date_genere=t.datetransaction";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res) > 0) {
+      return $res->result();
+    }
   }
 
   // ------------------------------------------------------------------------
