@@ -1,0 +1,32 @@
+.content {
+    .primary {
+        background-color: var(--theme-color) !important;
+    }
+    .form {
+        padding-inline: 25%;
+        .form_objectif {
+            // width: 40%;
+            
+            .input-poids {
+                width: 25%;
+            }
+            
+            .form-content{
+                display: flex;
+                justify-content: space-between;
+        
+                .select-content {
+                    width: 40%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+    
+                    .select {
+                        padding: 0.25rem;
+                    }
+                }
+            }
+        }
+    }
+
+}
