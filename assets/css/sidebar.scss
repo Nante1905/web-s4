@@ -5,6 +5,15 @@
     }
 }
 
+nav, nav > * {
+    background-color: var(--back-theme) !important;
+
+    .list-group-item {
+        background-color: var(--back-theme) !important;
+        color: white !important;
+    }
+}
+
 /* Sidebar */
 .sidebar {
     position: fixed;

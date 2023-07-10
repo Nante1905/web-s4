@@ -3,6 +3,14 @@
     padding-left: 20rem;
   }
 }
+nav, nav > * {
+  background-color: var(--back-theme) !important;
+}
+nav .list-group-item, nav > * .list-group-item {
+  background-color: var(--back-theme) !important;
+  color: white !important;
+}
+
 /* Sidebar */
 .sidebar {
   position: fixed;

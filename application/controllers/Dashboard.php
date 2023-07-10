@@ -48,13 +48,15 @@ class Dashboard extends CI_Controller
   public function statistics() {
     $mois = $this->input->post('mois');
     $annee = $this->input->post('annee');
-    if(isset($mois, $annee)) {
-      $nbrUtilisateur = $this->dashboard->getUsersPerMonth($this->input->post('annee'), $this->input->post('mois'));
-    } else {
-      $nbrUtilisateur = $this->dashboard->getUsersPerMonth(null, null);
+    if(!isset($mois, $annee)) {
+      $mois = null;
+      $annee = null;
     }
+    $nbrUtilisateur = $this->dashboard->getUsersPerMonth($annee, $mois);
+    $regime = $this->dashboard->getClassementRegime($annee, $mois);
     echo json_encode([
-      'utilisateurs' => $nbrUtilisateur
+      'utilisateurs' => $nbrUtilisateur,
+      'classement' => $regime
     ]);
   }
 

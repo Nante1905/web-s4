@@ -17,7 +17,7 @@
   bottom: -2px;
   width: 50%;
   left: 25%;
-  background-color: var(--theme-color);
+  background-color: var(--back-theme);
 }
 
 .form-content {
@@ -33,15 +33,32 @@
   padding: 0.25rem;
   text-transform: capitalize;
 }
+.form-content .btn-submit {
+  background-color: var(--back-theme);
+}
 
 @media (max-width: 360px) {
   .form-submit {
     margin: 3% 0%;
   }
 }
+@media (max-width: 600px) {
+  .card-body {
+    width: 100%;
+  }
+  .card-body canvas {
+    width: 100% !important;
+  }
+}
 .statistics {
   padding: 2%;
 }
+.statistics canvas {
+  width: 100%;
+}
 .statistics .graphe-container {
-  width: 50%;
+  width: 70%;
+}
+.statistics section {
+  margin: 3% 0%;
 }

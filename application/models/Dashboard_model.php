@@ -25,10 +25,16 @@ class Dashboard_model extends CI_Model {
     parent::__construct();
   }
 
-  public function getClassementRegime($annee, $mois){
-      $sql= " select r.id idregime, coalesce(c.nbr_users,0) nbr_users from regime r
+  public function getClassementRegime($annee = null, $mois = null){
+      if($annee == null) {
+        $annee = date('Y');
+      }
+      if($mois == null) {
+        $mois = date('m');
+      }
+      $sql= " select r.*, coalesce(c.nbr_users,0) valeur from regime r
               LEFT JOIN get_classement(%s,%s) c
-              ON r.id = c.idregime;";
+              ON r.id = c.idregime order by valeur desc";
       $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
       $query = $this->db->query($sql);
       return $query->result();

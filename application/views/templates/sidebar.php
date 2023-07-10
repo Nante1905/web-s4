@@ -1,5 +1,5 @@
 <div class="navContainer">
-    <nav class="d-lg-block sidebar bg-white collapse ">
+    <nav class="d-lg-block sidebar collapse ">
         <a class="navbar-brand" href="#">
             <strong>Nom App</strong>
         </a>

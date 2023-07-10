@@ -1,6 +1,7 @@
 html {
   --theme-color: #64c14a;
   --danger-color: #f43434;
+  --back-theme: #528ebc;
   height: 100%;
 }
 

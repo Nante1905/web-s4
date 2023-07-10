@@ -16,7 +16,7 @@
             bottom: -2px;
             width: 50%;
             left: 25%;
-            background-color: var(--theme-color);
+            background-color: var(--back-theme);
         }
     }
 }
@@ -34,6 +34,10 @@
         padding: 0.25rem;
         text-transform: capitalize;
     }
+
+    .btn-submit {
+        background-color: var(--back-theme);
+    }
 }
 @media (max-width: 360px) {
     .form-submit {
@@ -41,10 +45,28 @@
     }   
 }
 
+@media (max-width: 600px) {
+    .card-body  {
+        width: 100%;
+
+        canvas {
+            width: 100% !important;
+        }
+    }
+}
+
 .statistics {
     padding: 2%;
 
+    canvas {
+        width: 100%;
+    }
+
     .graphe-container {
-        width: 50%;
+        width: 70%;
+    }
+
+    section {
+        margin: 3% 0%;
     }
 }

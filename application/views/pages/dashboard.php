@@ -22,7 +22,7 @@
                     </select>
                 </div>
                 <div class="form-submit">
-                    <button type="submit" class="btn btn-primary primary">Valider</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Valider</button>
                 </div>
             </div>
             <p class="text-center danger message"></p>
@@ -37,6 +37,18 @@
                 <div class="graphe-container card">
                     <div class="card-body">
                         <canvas id="graphInscripts" ></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="classement">
+            <div class="subtitle">
+                <h4>Classement des régimes par nombre de ventes</h4>
+            </div>
+            <div class="graphe">
+                <div class="graphe-container card">
+                    <div class="card-body">
+                        <canvas id="graphClassement" ></canvas>
                     </div>
                 </div>
             </div>
