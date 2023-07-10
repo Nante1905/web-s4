@@ -13,32 +13,35 @@
         </div>
         <div class="liste">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <?php for ($i = 0; $i < 10; $i++) { ?>
+                <?php foreach ($regimes as $regime ) { ?>
                     <div class="col">
                         <div class="card">
                             <img src="<?= base_url() . 'assets/img/plat.jpg' ?>" class="card-img-top" alt="Plat" />
                             <div class="card-body">
-                                <h5 class="card-title strong ">Nom du plat</h5>
+                                <h5 class="card-title strong "><?= $regime->nom ?></h5>
                                 <div class="card-text">
                                     <p class="card-text__kilo">
-                                        <i class="fa-solid fa-caret-up"></i>
-                                        5 kg en <strong>2</strong> semaine
+                                        <?php if($regime->idobjectif == 1) { ?>
+                                            <i class="fa-solid fa-caret-up success"></i>
+                                        <?php } else if ($regime->idobjectif == 2) { ?>
+                                            <i class="fa-solid fa-caret-down danger "></i>
+                                        <?php } ?>
+                                        <?= $regime->apport ?> kg en <strong><?= $regime->duree ?></strong> jours
                                     </p>
                                     <p class="card-text__prix">
                                         <i class="fa-solid fa-money-bill "></i>
-                                        12000 ar
+                                        <?= format_number(($regime->prix)) ?> ar
                                     </p>
                                 </div>
-                                <div class="card-actions" id="<?= $i ?>_card">
-                                    <button class="btn secondary btn-details " type="button" data-mdb-toggle="collapse" data-mdb-target="#collapse_<?= $i ?>" aria-controls="#collapse_<?= $i ?>" aria-expanded="false" aria-label="Toggle navigation" data-id="<?= $i ?>"  >
+                                <div class="card-actions" id="<?= $regime->id ?>_card">
+                                    <button class="btn secondary btn-details " type="button" data-mdb-toggle="collapse" data-mdb-target="#collapse_<?= $regime->id ?>" aria-controls="#collapse_<?= $regime->id ?>" aria-expanded="false" aria-label="Toggle navigation" data-id="<?= $regime->id ?>"  >
                                         Détails
                                     </button>
                                     <a href="#" class="btn primary">Soumettre</a>
                                 </div>
-                                <div id="collapse_<?= $i ?>" class="collapse details ">
-                                    <h5 class="subtitle" >Plats</h5>
-                                    <ul class="list-group" id="details_<?= $i ?>">
-                                       
+                                <div id="collapse_<?= $regime->id ?>" class="collapse details ">
+                                    <h5 class="subtitle">Plats</h5>
+                                    <ul class="list-group" id="details_<?= $regime->id ?>">
                                     </ul>
                                 </div>
                             </div>
@@ -54,23 +57,21 @@
         </div>
         <div class="liste">
             <div class="row row-cols-1 row-cols-md-4 g-4">
-                <?php for ($i = 0; $i < 10; $i++) { ?>
+                <?php foreach($sports as $sport) { ?>
                     <div class="col">
                         <div class="card">
                             <img src="<?= base_url() . 'assets/img/sport.jpg' ?>" class="card-img-top" alt="Sport" />
                             <div class="card-body">
-                                <h5 class="card-title strong ">Nom du sport</h5>
+                                <h5 class="card-title strong "><?= $sport->nom ?> </h5>
                                 <div class="card-text">
                                     <p class="card-text__kilo">
-                                        <i class="fa-solid fa-caret-down"></i>
-                                        5 kg en <strong>5</strong> jours
+                                        <?php if($sport->idobjectif == 1) { ?>
+                                            <i class="fa-solid fa-caret-up success"></i>
+                                        <?php } else if ($sport->idobjectif == 2) { ?>
+                                            <i class="fa-solid fa-caret-down danger "></i>
+                                        <?php } ?>
+                                        <?= $sport->apportjour ?> kg / jour
                                     </p>
-                                </div>
-                                <div class="card-actions">
-                                    <a href="#" class="btn primary">Soumettre</a>
-                                </div>
-                                <div id="<?= $i ?>_collapse" class="collapse">
-                                    <p>haha</p>
                                 </div>
                             </div>
                         </div>

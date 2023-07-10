@@ -54,8 +54,23 @@
     }
 
     .card {
+        &-title {
+            text-transform: capitalize;
+        }
+
         .details {
             margin-top: 5%;
+            .subtitle {
+                font-weight: bold;
+            }
+
+            .list-group {
+                list-style: none;
+
+                li {
+                    text-transform: capitalize;
+                }
+            }
         }
 
         .card-actions {

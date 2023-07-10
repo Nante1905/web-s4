@@ -22,7 +22,7 @@ class Regime_model extends CI_Model {
     public $prix;
     public $apport;
     public $duree;
-    public $idobjectif;
+    public $idobjectif;  //1 +, 2 -
   // ------------------------------------------------------------------------
 
   public function __construct()
@@ -40,8 +40,8 @@ class Regime_model extends CI_Model {
   }
 
 
-  public function findAllPlats(){
-    $this->db->where('v_regime_plat.iregime',$this->id);
+  public function findAllPlats($id){
+    $this->db->where('v_regime_plat.iregime', $id);
     $query= $this->db->get('v_regime_plat');
     $result = array();
     foreach ($query->result() as $row) {

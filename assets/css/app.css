@@ -17,6 +17,16 @@ body {
     color: black;
 }
 
+.danger {
+    color: var(--danger-color) !important;
+    /* background-color: var(--danger-color) !important; */
+}
+
+.success {
+    color: var(--theme-color) !important;
+    /* background-color: var(--theme-color) !important; */
+}
+
 .strong {
     font-weight: bold;
 }
