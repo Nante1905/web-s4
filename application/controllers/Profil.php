@@ -24,6 +24,7 @@ class Profil extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('Utilisateur_model', 'user', true);
   }
 
   public function index()
@@ -35,10 +36,22 @@ class Profil extends CI_Controller
         'title' => 'Profil',
         'active' => 'Profil'
       ],
-      'page' => 'profil'
+      'page' => 'profil',
+      'solde' => $this->user->getMontantPorteMonnaie()
     ]);
   }
 
+  public function ajoutSolde() {
+    $this->load->view('templates/body', [
+      'metadata' => [
+        'styles' => ['ajoutsolde'],
+        'script' => [],
+        'title' => 'Ajout solde',
+        'active' => 'Profil'
+      ],
+      'page' => 'ajoutsolde'
+    ]);
+  }
 }
 
 

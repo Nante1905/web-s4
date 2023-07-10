@@ -36,7 +36,7 @@ class Utilisateur_model extends CI_Model {
     return $query->result()[0];
   }
 
-  public function getMontantPorteMonnaie($id) {
+  public function getMontantPorteMonnaie($id = null) {
     if($id == null) {
       $id = $this->session->userid;
     }

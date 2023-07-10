@@ -1,13 +1,13 @@
 <div class="content">
     <div class="form">
-        <div class="current-objectif">
+        <!-- <div class="current-objectif">
             <h3>Objectif actuel : <?php if ($objectif_actuel[1] == 1) { ?>
                     <i class="fa-solid fa-caret-up success"></i>
                 <?php } else if ($objectif_actuel[1] == 2) { ?>
                     <i class="fa-solid fa-caret-down danger "></i>
                     <?php } ?><?= $objectif_actuel[0] ?>kg
             </h3>
-        </div>
+        </div> -->
         <br>
         <h3>Nouvel Objectif : </h3>
         <form id="form-objectif" class="form_objectif">

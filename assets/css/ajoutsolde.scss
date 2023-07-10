@@ -1,0 +1,21 @@
+.content {
+    padding-top: 5rem;
+
+    h2 {
+        text-align: center;
+    }
+}
+
+.form-code {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-block: 1rem;
+    }
+}
