@@ -19,8 +19,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Regime_model extends CI_Model {
     public $id;
     public $nom;
-    public $prixparjour;
-    public $apportjour;
+    public $prix;
+    public $apport;
+    public $duree;
     public $idobjectif;
   // ------------------------------------------------------------------------
 
@@ -29,11 +30,12 @@ class Regime_model extends CI_Model {
     parent::__construct();
   }
 
-  public function setAttributes($id, $nom, $prix,$apport,$idobj){
+  public function setAttributes($id, $nom, $prix,$apport,$duree,$idobj){
     $this->id= $id;
     $this->nom= $nom;
-    $this->prixparjour= $prix;
-    $this->apportjour= $apport;
+    $this->prix= $prix;
+    $this->apport= $apport;
+    $this->duree= $duree;
     $this->idobjectif= $idobj;
   }
 
@@ -56,7 +58,7 @@ class Regime_model extends CI_Model {
     $result = array();
     foreach ($query->result() as $row) {
       $model = new Regime_model();
-      $model->setAttributes($row->id,$row->nom,$row->prixparjour, $row->apportjour, $row->idobjectif);
+      $model->setAttributes($row->id,$row->nom,$row->prix, $row->apport,$row->duree, $row->idobjectif);
       array_push($result,$model);
     }
     return $result;
@@ -67,7 +69,7 @@ class Regime_model extends CI_Model {
     $result = array();
     foreach ($query->result() as $row) {
       $model = new Regime_model();
-      $model->setAttributes($row->id,$row->nom,$row->prixparjour, $row->apportjour, $row->idobjectif);
+      $model->setAttributes($row->id,$row->nom,$row->prix, $row->apport,$row->duree, $row->idobjectif);
       array_push($result,$model);
     }
     return $result;
