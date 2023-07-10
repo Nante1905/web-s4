@@ -36,6 +36,7 @@ class Regime extends CI_Controller
     $montantActuel = $this->utilisateur->getMontantPorteMonnaie(null);
     $montantRegime = $this->utilisateur-->getMontantRegime($id);
     var_dump([$montantActuel, $montantRegime]);
+    
   }
 
 }
