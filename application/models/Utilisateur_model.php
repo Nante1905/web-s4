@@ -35,9 +35,27 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
-  // public function insererTransaction(){
-  //   $sql = "INSERT INTO transaction_utilisateur values()"
-  // }
+  public function getProfil() {
+    $id = $this->session->userid;
+    if($id == null) {
+      throw new Exception("USer not connected", 1);
+    }
+    $this->db->where('id',$id);
+    $query = $this->db->get('utilisateur');
+    return $query->result()[0];
+  }
+
+  public function getMontantPorteMonnaie($id) {
+    if($id == null) {
+      $id = $this->session->userid;
+    }
+    $this->db->where('idutilisateur', $id);
+    $query = $this->db->get('v_montant_utilisateur');
+    if(count($query->result()) == 0) {
+      return 0;
+    }
+    return $query->result()[0];
+  }
 
   public function idPorteMonaie(){
     $this->db->where('idutilisateur',$this->id);

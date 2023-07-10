@@ -25,7 +25,7 @@ class Test extends CI_Controller
   {
     parent::__construct();
     $this->load->model('regime_model');
-    $this->load->model('utilisateur_model');
+    $this->load->model('Utilisateur_model', 'utilisateur', true);
     $this->load->model('sport_model');
     $this->load->model('transaction_model');
   }
@@ -53,6 +53,14 @@ class Test extends CI_Controller
 			'page' => 'test',
 			'test' => $data
 		]);
+  }
+
+  public function login() {
+    $this->session->set_userdata('userid', 1);
+  }
+
+  public function profil() {
+    var_dump($this->utilisateur->getMontantPorteMonnaie(null));
   }
 
 }
