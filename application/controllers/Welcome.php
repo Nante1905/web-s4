@@ -19,21 +19,38 @@ class Welcome extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
-	public function index()
+	public function __construct()
 	{
-		$this->load->view('welcome_message');
+		parent::__construct();
+		$this->load->model('Regime_model', 'regime', true);
+		$this->load->model('Sport_model', 'sport', true);
+
 	}
 
-	public function view()
+	public function index()
 	{
+		$this->accueil();
+	}
+
+	public function accueil()
+	{
+		// var_dump($this->regime->findAll());
 		$this->load->view('templates/body', [
 			'metadata' => [
-				'styles' => [],
-				'script' => [],
-				'title' => 'Test template'
+				'styles' => ['accueil'],
+				'script' => ['accueil'],
+				'title' => 'Test template',
+				'active' => 'Accueil'
 			],
-			'page' => 'test',
-			'test' => 'aa'
+			'regimes' => $this->regime->findAll(),
+			'sports' => $this->sport->findAll(),
+			'page' => 'accueil'
 		]);
+	}
+
+	public function details($id)
+	{
+		$data = $this->regime->findAllPlats($id);
+		echo json_encode($data);
 	}
 }

@@ -46,11 +46,32 @@ class Utilisateur_model extends CI_Model {
   }
 
 
+  public function getProfil() {
+    $id = $this->session->userid;
+    if($id == null) {
+      throw new Exception("USer not connected", 1);
+    }
+    $this->db->where('id',$id);
+    $query = $this->db->get('utilisateur');
+    return $query->result()[0];
+  }
+
+  public function getMontantPorteMonnaie($id) {
+    if($id == null) {
+      $id = $this->session->userid;
+    }
+    $this->db->where('idutilisateur', $id);
+    $query = $this->db->get('v_montant_utilisateur');
+    if(count($query->result()) == 0) {
+      return 0;
+    }
+    return $query->result()[0]->montant;
+  }
 
   public function insererTransaction($idutilisateur, $idcode, $valeur){
     try {
-      $this->db->set("datetransaction","now()",false);
-      $this->db->set("statut",1,false);
+      $this->db->set("datetransaction","now() at time zone 'gmt-3'",false);
+      $this->db->set("statut",10,false);
       $this->db->insert('transaction_utilisateur',[
         'idutilisateur' => $idutilisateur,
         'idcode'=> $idcode,
@@ -88,11 +109,23 @@ class Utilisateur_model extends CI_Model {
     $result = array();
     foreach ($regimes as $regime){
         $data['regime']= $regime;
-        $data['dureetotal']=$poidsobjectif*($regime->duree/$regime->apport);
-        $data['prixtotal']= $regime->prix*( $data['dureetotal']/$regime->duree);
+        $data['dureetotal']=ceil($poidsobjectif*($regime->duree/$regime->apport));
+        $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
         array_push($result, $data);
     }
     return $result;
+  }
+
+  public function getMontantRegime($idregime) {
+    $regime = $this->regime->findById($idregime);
+    if($regime == null) {
+      return null;
+    }
+    $idutilisateur = $this->session->userid;
+    $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+    $duree = ceil($poidsobjectif*($regime->duree/$regime->apport));
+    $montant = ceil($regime->prix*( $duree/$regime->duree));
+    return $montant;
   }
 
   public function getLastPoidsObjectif($idutilisateur){
@@ -100,6 +133,9 @@ class Utilisateur_model extends CI_Model {
     $this->db->order_by('dateobjectif','DESC');
     $this->db->limit(1);
     $query = $this->db->get('utilisateur_objectif');
+    if(count($query->result()) == 0) {
+      return null;
+    }
     return $query->result()[0]->poids;
   }
 
@@ -108,6 +144,9 @@ class Utilisateur_model extends CI_Model {
     $this->db->order_by('dateobjectif','DESC');
     $this->db->limit(1);
     $query = $this->db->get('utilisateur_objectif');
+    if(count($query->result()) == 0) {
+      return null;
+    }
     return $query->result()[0]->idobjectif;
   }
 

@@ -1,0 +1,121 @@
+.head {
+    background-image: url('../img/bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .content {
+        display: flex;
+        align-items: center;
+        
+        .text-content {
+            width: 50%;
+            background: #ffffff9e;
+            border-radius: 10px;
+            color: black;
+            padding: 2%;
+        }
+    }
+}
+
+.title {
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin: 3% 0%;
+
+    &__h1 {
+        width: fit-content;
+        position: relative;
+        font-weight: bold;
+
+        &::after {
+            content: "";
+            height: 4px;
+            position: absolute;
+            bottom: -2px;
+            width: 50%;
+            left: 25%;
+            background-color: var(--theme-color);
+        }
+    }
+}
+
+.main {
+    @keyframes fade {
+        from {
+            opacity: 0%;
+        }
+        to {
+            opacity: 100%;
+        }
+    }
+    margin: 5% 0%;
+    padding-bottom: 5%;
+
+    .col {
+        animation: fade 0.5s ease-in-out;
+    }
+
+    .liste {
+        height: 30rem;
+        width: 90%;
+        margin: auto;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        // transition: 2s ease-in-out;
+
+
+        &.perte .gain{
+            display: none;
+        }
+
+        &.gain .perte {
+            display: none;
+        }
+    }
+
+    .filter {
+        color: black;
+        width: 90%;
+        margin: 2% 5%;
+        display: inline-flex;
+        align-items: center;
+        gap: 2%;
+    }
+
+    .card {
+        &-title {
+            text-transform: capitalize;
+        }
+
+        .details {
+            margin-top: 5%;
+            .subtitle {
+                font-weight: bold;
+            }
+
+            .list-group {
+                list-style: none;
+
+                li {
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-flow: wrap;
+    
+            &>* {
+                margin: 2% 0%;
+            }
+        }
+    }
+
+}
+
