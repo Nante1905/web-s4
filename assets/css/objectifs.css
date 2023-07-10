@@ -1,0 +1,22 @@
+.content .primary {
+  background-color: var(--theme-color) !important;
+}
+.content .form {
+  padding-inline: 25%;
+}
+.content .form .form_objectif .input-poids {
+  width: 25%;
+}
+.content .form .form_objectif .form-content {
+  display: flex;
+  justify-content: space-between;
+}
+.content .form .form_objectif .form-content .select-content {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content .form .form_objectif .form-content .select-content .select {
+  padding: 0.25rem;
+}
