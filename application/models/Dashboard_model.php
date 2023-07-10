@@ -41,9 +41,25 @@ class Dashboard_model extends CI_Model {
       return $query->result();
     
   }
-  public function index()
-  {
-    // 
+  
+  public function getCodeTransactionsInMonth($year, $month) {
+    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, datetransaction::date from transaction_utilisateur where idregime is null group by datetransaction::date) t on d.date_genere=t.datetransaction";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res) > 0) {
+      return $res->result();
+    }
+  }
+
+  public function getRegimeTransactionsInMonth($year, $month) {
+    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, datetransaction::date from transaction_utilisateur where idregime is not null group by datetransaction::date) t on d.date_genere=t.datetransaction";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res) > 0) {
+      return $res->result();
+    }
   }
 
   // ------------------------------------------------------------------------
