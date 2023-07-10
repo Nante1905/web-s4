@@ -33,6 +33,18 @@ class Utilisateur_model extends CI_Model {
     parent::__construct();
   }
 
+  public function getSuggestionSport(){
+    $model = new Sport_model();
+    $sports = $model->findByObjectif($this->idobjectif);
+    $result = array();
+    foreach ($sports as $sport) {
+      $data['sport']= $sport;
+      $data['dureetotal']= $this->poidsobjectif/$sport->apportjour;
+      array_push($result, $data);
+    }
+    return $result;
+  }
+
   public function getSuggestionRegime(){
     $model = new Regime_model();
     $regimes= $model->findByObjectif($this->idobjectif);
@@ -43,19 +55,18 @@ class Utilisateur_model extends CI_Model {
         $data['prixtotal']= $regime->prix*( $data['dureetotal']/$regime->duree);
         array_push($result, $data);
     }
-    return $data;
+    return $result;
   }
 
-  // ------------------------------------------------------------------------
-
-
-  // ------------------------------------------------------------------------
-  public function index()
-  {
-    // 
+  public function getLastPoidsObjectif(){
+    $this->db->where('idutilisateur', $this->id);
+    $this->db->order_by('dateobjectif','DESC');
+    $this->db->limit(1);
+    $query = $this->db->get('utilisateur_objectif');
+    foreach ($query->result() as $row) {
+       return $row->poids;
+    }
   }
-
-  // ------------------------------------------------------------------------
 
 }
 
