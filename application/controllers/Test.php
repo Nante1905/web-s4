@@ -29,6 +29,7 @@ class Test extends CI_Controller
     $this->load->model('sport_model','sport',true);
     $this->load->model('transaction_model','transaction',true);
     $this->load->model('dashboard_model','board',true);
+    $this->load->model('code_model','code',true);
   }
 
   public function index()
@@ -37,7 +38,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->board->getClassementRegime(2023,7);
+    $data = $this->code->delete(1);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
