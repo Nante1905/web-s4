@@ -35,12 +35,10 @@ class MesObjectifs extends CI_Controller
   {
 
     $objectifs = $this->objectif->findAll();
-    // var_dump($this->user->getSuggestionSport(1));
-
     $this->load->view("templates/body", [
       'metadata' => [
         'styles' => ['objectifs'],
-        'script' => ['objectifs', 'accueil'],
+        'script' => ['objectifs'],
         'title' => $this->title,
         'active' => 'Mes Objectifs'
       ],

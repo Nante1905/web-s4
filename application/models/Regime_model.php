@@ -48,6 +48,17 @@ class Regime_model extends CI_Model {
     return $query->result();
   }
 
+  public function findById($id) {
+    $this->db->where('id', $id);
+    $query = $this->db->get('regime');
+    if(count($query->result()) == 0) {
+      return null;
+    }
+    return $query->result()[0];
+  }
+
+  
+
 }
 
 /* End of file Regime_model.php */

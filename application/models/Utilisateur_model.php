@@ -69,11 +69,26 @@ class Utilisateur_model extends CI_Model {
     return $result;
   }
 
+  public function getMontantRegime($idregime) {
+    $regime = $this->regime->findById($idregime);
+    if($regime == null) {
+      return null;
+    }
+    $idutilisateur = $this->session->userid;
+    $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+    $duree = ceil($poidsobjectif*($regime->duree/$regime->apport));
+    $montant = ceil($regime->prix*( $duree/$regime->duree));
+    return $montant;
+  }
+
   public function getLastPoidsObjectif($idutilisateur){
     $this->db->where('idutilisateur', $idutilisateur);
     $this->db->order_by('dateobjectif','DESC');
     $this->db->limit(1);
     $query = $this->db->get('utilisateur_objectif');
+    if(count($query->result()) == 0) {
+      return null;
+    }
     return $query->result()[0]->poids;
   }
 
@@ -82,6 +97,9 @@ class Utilisateur_model extends CI_Model {
     $this->db->order_by('dateobjectif','DESC');
     $this->db->limit(1);
     $query = $this->db->get('utilisateur_objectif');
+    if(count($query->result()) == 0) {
+      return null;
+    }
     return $query->result()[0]->idobjectif;
   }
 
