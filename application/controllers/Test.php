@@ -27,6 +27,7 @@ class Test extends CI_Controller
     $this->load->model('regime_model');
     $this->load->model('utilisateur_model');
     $this->load->model('sport_model');
+    $this->load->model('transaction_model');
   }
 
   public function index()
@@ -42,7 +43,7 @@ class Test extends CI_Controller
 
     $model= new Regime_model();
     $model->id = 2;
-    $data = $user->getSuggestionSport();
+    $data = $user->idPorteMonaie();
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],

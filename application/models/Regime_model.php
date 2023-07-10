@@ -40,48 +40,22 @@ class Regime_model extends CI_Model {
   }
 
 
-  public function findAllPlats(){
-    $this->db->where('v_regime_plat.iregime',$this->id);
+  public function findAllPlats($id){
+    $this->db->where('v_regime_plat.iregime',$id);
     $query= $this->db->get('v_regime_plat');
-    $result = array();
-    foreach ($query->result() as $row) {
-      $data['idplat']= $row->idplat;
-      $data['nomplat']= $row->nom;
-      array_push($result,$data);
-    }
-    return $result;
+    return $query->result();
   }
 
   public function findByObjectif($idobjectif){
     $this->db->where('idobjectif', $idobjectif);
     $query = $this->db->get('regime');
-    $result = array();
-    foreach ($query->result() as $row) {
-      $model = new Regime_model();
-      $model->setAttributes($row->id,$row->nom,$row->prix, $row->apport,$row->duree, $row->idobjectif);
-      array_push($result,$model);
-    }
-    return $result;
+    return $query->result();
   }
 
   public function findAll(){
     $query = $this->db->get('regime');
-    $result = array();
-    foreach ($query->result() as $row) {
-      $model = new Regime_model();
-      $model->setAttributes($row->id,$row->nom,$row->prix, $row->apport,$row->duree, $row->idobjectif);
-      array_push($result,$model);
-    }
-    return $result;
+    return $query->result();
   }
-
-  // ------------------------------------------------------------------------
-
-
-  // ------------------------------------------------------------------------
-  
-
-  // ------------------------------------------------------------------------
 
 }
 
