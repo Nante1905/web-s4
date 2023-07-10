@@ -24,6 +24,7 @@ class Regime extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    $this->load->model('Utilisateur_model', 'utilisateur', true);
   }
 
   public function index()
@@ -32,8 +33,9 @@ class Regime extends CI_Controller
   }
 
   public function accept($id) {
-    // var_dump($id);
-    echo json_encode($id);
+    $montantActuel = $this->utilisateur->getMontantPorteMonnaie(null);
+    $montantRegime = $this->utilisateur-->getMontantRegime($id);
+    var_dump([$montantActuel, $montantRegime]);
   }
 
 }
