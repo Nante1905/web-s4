@@ -15,9 +15,10 @@
                 </div>
                 <div class="select-content">
                     <select name="annee"  class="mdb-select md-form select">
-                        <?php for ($i=$annee-5; $i<=$annee; $i++) { ?>
-                            <option value="<?= $annee ?>"><?= $annee ?></option>
+                        <?php for ($i=$annee-5; $i<$annee; $i++) { ?>
+                            <option value="<?= $i ?>"><?= $i ?></option>
                         <?php } ?>
+                        <option value="<?= $annee ?>" selected><?= $annee ?></option>
                     </select>
                 </div>
                 <div class="form-submit">
