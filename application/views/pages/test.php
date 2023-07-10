@@ -1,2 +1,2 @@
 <h1>Test work</h1>
-<?= $test ?>
+<?= var_dump($test) ?>
