@@ -48,7 +48,7 @@
                                         <?php } else if ($regime->idobjectif == 2) { ?>
                                             <i class="fa-solid fa-caret-down danger "></i>
                                         <?php } ?>
-                                        <?= $regime->apport ?> kg en <strong><?= $regime->duree ?></strong> jours
+                                        <?= $regime->apport ?> kg en <?= format_semaine($regime->duree)  ?>
                                     </p>
                                     <p class="card-text__prix">
                                         <i class="fa-solid fa-money-bill "></i>

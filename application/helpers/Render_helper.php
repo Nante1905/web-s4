@@ -28,6 +28,18 @@ function format_number($value) {
   return number_format($value, 2, '.', ' ');
 }
 
+function format_semaine($jour) {
+  $semaine = intval($jour/7);
+  $jour = $jour%7;
+  $string = '';
+  if($semaine != 0) {
+    $string .= $semaine. ' semaine(s) ';
+  }
+  if($jour != 0) {
+    $string .= $jour. ' jour(s)';
+  }
+  return $string;
+}
 
 function format_str_date($str_date) {
   return date_format(date_create($str_date),"d-m-Y");
