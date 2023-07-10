@@ -8,9 +8,9 @@ DECLARE
 f record;
 BEGIN
     for f in (select distinct(r.id) idregime, count(t.idregime) nbr from regime r
-                LEFT JOIN  transaction_utilisateur t
+                LEFT JOIN  achat_utilisateur t
                 ON r.id = t.idregime
-                WHERE t.datetransaction BETWEEN DATE_TRUNC('MONTH', DATE(year || '-' || month || '-01')) 
+                WHERE t.dateachat BETWEEN DATE_TRUNC('MONTH', DATE(year || '-' || month || '-01')) 
                 AND DATE_TRUNC('MONTH', DATE(year || '-' || month || '-01')) + INTERVAL '1 MONTH' - INTERVAL '1 DAY'
                 GROUP BY r.id)
     loop

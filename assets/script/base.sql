@@ -69,7 +69,8 @@ create table recharge_utilisateur(
 create table achat_utilisateur (
     id serial primary key not null,
     idutilisateur int references utilisateur(id),
-    valeur numeric,
+    montant numeric,
+    idregime int references regime(id),
     dateachat timestamp not null
 );
 
