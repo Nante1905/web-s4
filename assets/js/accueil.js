@@ -16,11 +16,36 @@ window.addEventListener("load", () => {
                 const div = document.querySelector(`#details_${ id }`)
                 let html = '';
                 for (const res of JSON.parse(response)) {
-                    html += `<li> ${ res.nomplat } </li>`
+                    html += `<li> ${ res.nom } </li>`
                 }
 
                 div.innerHTML = html;
 			};
 		});
 	}
+
+
+	//filter 
+	const liste = document.querySelectorAll('.liste')
+	const inputTous = document.querySelector('#tous')
+	const defaultClass = 'liste'
+	inputTous.addEventListener('click', () => {
+		liste.forEach(l => {
+			l.classList = defaultClass
+		})
+	})
+
+	const inputGain = document.querySelector('#gain')
+	inputGain.addEventListener('click', () => {
+		liste.forEach(l => {
+			l.classList = defaultClass + ' gain'
+		})
+	})
+
+	const inputPerte = document.querySelector('#perte')
+	inputPerte.addEventListener('click', () => {
+		liste.forEach(l => {
+			l.classList = defaultClass + ' perte'
+		})
+	})
 });

@@ -35,20 +35,18 @@ class MesObjectifs extends CI_Controller
   {
 
     $objectifs = $this->objectif->findAll();
-    // var_dump($this->user->getSuggestionSport(1));
-
     $this->load->view("templates/body", [
       'metadata' => [
         'styles' => ['objectifs'],
-        'script' => ['objectifs', 'accueil'],
+        'script' => ['objectifs'],
         'title' => $this->title,
         'active' => 'Mes Objectifs'
       ],
       'page' => 'objectifs',
       'objectifs' => $objectifs,
-      'objectif_actuel' => [$this->user->getLastPoidsObjectif(1), $this->user->getLastObjectif(1)],
-      'regimes' => $this->user->getSuggestionRegime(1),
-      'sports' => $this->user->getSuggestionSport(1)
+      'objectif_actuel' => [$this->user->getLastPoidsObjectif($this->session->userid), $this->user->getLastObjectif($this->session->userid)],
+      'regimes' => $this->user->getSuggestionRegime($this->session->userid),
+      'sports' => $this->user->getSuggestionSport($this->session->userid)
     ]);
   }
 
@@ -56,12 +54,16 @@ class MesObjectifs extends CI_Controller
     $idobjectif = $this->input->post("idobjectif");
     $poids = $this->input->post("poids");
     $userid = $this->session->userid;
-
-    try {
-      $this->objectif->insert($userid, $idobjectif, $poids);
-      echo json_encode(['OK' => true]);
-    } catch(Exception $e) {
+    if($userid == null) {
       echo json_encode(['OK' => false]);
+    }
+    else {
+      try {
+        $this->objectif->insert($userid, $idobjectif, $poids);
+        echo json_encode(['OK' => true]);
+      } catch(Exception $e) {
+        echo json_encode(['OK' => false]);
+      }
     }
   }
 

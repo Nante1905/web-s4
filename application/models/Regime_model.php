@@ -48,6 +48,30 @@ class Regime_model extends CI_Model {
     return $query->result();
   }
 
+  public function findById($id) {
+    $this->db->where('id', $id);
+    $query = $this->db->get('regime');
+    if(count($query->result()) == 0) {
+      return null;
+    }
+    return $query->result()[0];
+  }
+
+  public function accept($id) {
+    $idutilisateur = $this->session->userid;
+    $montantActuel = $this->utilisateur->getMontantPorteMonnaie($idutilisateur);
+    $montantRegime = $this->utilisateur->getMontantRegime($id);
+    if($montantActuel >= $montantRegime) {
+      $this->utilisateur->insererTransaction($idutilisateur, null, -$montantRegime);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  
+
 }
 
 /* End of file Regime_model.php */
