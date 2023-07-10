@@ -1,4 +1,4 @@
-.main {
+.head {
     background-image: url('../img/bg.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -16,5 +16,31 @@
             padding: 2%;
         }
     }
+}
 
+.main {
+    height: 100%;
+    margin-top: 5%;
+}
+
+.title {
+    color: black;
+    display: flex;
+    justify-content: center;
+
+    &__h1 {
+        width: fit-content;
+        position: relative;
+        font-weight: bold;
+
+        &::after {
+            content: "";
+            height: 4px;
+            position: absolute;
+            bottom: -2px;
+            width: 50%;
+            left: 25%;
+            background-color: var(--theme-color);
+        }
+    }
 }

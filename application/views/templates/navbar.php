@@ -28,6 +28,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="nav-item">
           <a class="nav-link" <?php if($metadata['active'] == 'Profil') { echo( 'active'); } ?> " href="#">Profil</a>
         </li>
+        <li class="nav-item" >
+          <a href="" class="nav-link">
+            <i class="fa-solid fa-wallet" style="color: #1f5125;"></i>
+            <span>15k</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
