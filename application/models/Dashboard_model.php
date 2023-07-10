@@ -55,21 +55,21 @@ class Dashboard_model extends CI_Model {
   }
   
   public function getStatRecharge($year, $month) {
-    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge;";
+    $query = "select date_genere datedujour, COALESCE(valeur, 0) valeur  from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) valeur, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge;";
     $query = sprintf($query, $year, $month);
 
     $res = $this->db->query($query);
-    if(count($res) > 0) {
+    if(count($res->result()) > 0) {
       return $res->result();
     }
   }
 
   public function getStatAchat($year, $month) {
-    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(montant) montant, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat;";
+    $query = "select date_genere datedujour, COALESCE(valeur, 0) valeur from get_all_dates_in_month(%d,%d) d left outer join (select sum(montant) valeur, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat;";
     $query = sprintf($query, $year, $month);
 
     $res = $this->db->query($query);
-    if(count($res) > 0) {
+    if(count($res->result()) > 0) {
       return $res->result();
     }
   }

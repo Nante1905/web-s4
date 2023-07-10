@@ -75,8 +75,12 @@ window.addEventListener("load", () => {
 	xhr.send();
 	let canvaUtilisateurs = document.querySelector("#graphInscripts");
 	let canvaClassement = document.querySelector("#graphClassement");
+	let canvaRecharge = document.querySelector("#graphRecharge");
+	let canvaVente = document.querySelector("#graphVente");
 	let chartUtilisateur = null;
 	let chartClassement = null;
+	let chartRecharge = null;
+	let chartVente = null;
 	xhr.onreadystatechange = () => {
 		if (xhr.readyState === 4) {
 			console.log(xhr.responseText);
@@ -84,9 +88,14 @@ window.addEventListener("load", () => {
 				let res = JSON.parse(xhr.responseText);
 				let inscrits = res.utilisateurs;
 				let classement = res.classement;
+				let recharge = res.recharge
+				let vente = res.vente
+			
 				if (chartUtilisateur) {
 					chartUtilisateur.destroy();
 					chartClassement.destroy();
+					chartRecharge.destroy();
+					chartVente.destroy();
 				}
 				chartUtilisateur = chartData(
 					inscrits,
@@ -99,6 +108,18 @@ window.addEventListener("load", () => {
 					canvaClassement,
 					"Classement des régimes",
 					"#6495ed"
+				);
+				chartRecharge = chartData(
+					recharge,
+					canvaRecharge,
+					"Recharge de code",
+					"#64c14a"
+				);
+				chartVente = chartData(
+					vente,
+					canvaVente,
+					"Recharge de code",
+					"#64c14a"
 				);
 			} else {
 				document.querySelector(".message").innerHTML =
@@ -122,9 +143,13 @@ window.addEventListener("load", () => {
 					let res = JSON.parse(xhr.responseText);
 					let inscrits = res.utilisateurs;
 					let classement = res.classement;
+					let recharge = res.recharge
+					let vente = res.vente
 					if (chartUtilisateur) {
 						chartUtilisateur.destroy();
 						chartClassement.destroy();
+						chartRecharge.destroy();
+						chartVente.destroy();
 					}
 					chartUtilisateur = chartData(
 						inscrits,
@@ -137,6 +162,18 @@ window.addEventListener("load", () => {
 						canvaClassement,
 						"Classement des régimes",
 						"#6495ed"
+					);
+					chartRecharge = chartData(
+						recharge,
+						canvaRecharge,
+						"Recharge de code",
+						"#64c14a"
+					);
+					chartVente = chartData(
+						vente,
+						canvaVente,
+						"Recharge de code",
+						"#64c14a"
 					);
 				} else {
 					document.querySelector(".message").innerHTML =

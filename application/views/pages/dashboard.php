@@ -7,15 +7,15 @@
             <div class="form-content col-md-8 ">
                 <div class="select-content">
                     <label for="mois">Mois : </label>
-                    <select name="mois"  class="mdb-select md-form select">
-                        <?php for ($i=0; $i<count($mois); $i++) { ?>
-                            <option value="<?= $i+1 ?>"><?= $mois[$i] ?></option>
+                    <select name="mois" class="mdb-select md-form select">
+                        <?php for ($i = 0; $i < count($mois); $i++) { ?>
+                            <option value="<?= $i + 1 ?>"><?= $mois[$i] ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="select-content">
-                    <select name="annee"  class="mdb-select md-form select">
-                        <?php for ($i=$annee-5; $i<$annee; $i++) { ?>
+                    <select name="annee" class="mdb-select md-form select">
+                        <?php for ($i = $annee - 5; $i < $annee; $i++) { ?>
                             <option value="<?= $i ?>"><?= $i ?></option>
                         <?php } ?>
                         <option value="<?= $annee ?>" selected><?= $annee ?></option>
@@ -36,7 +36,31 @@
             <div class="graphe">
                 <div class="graphe-container card">
                     <div class="card-body">
-                        <canvas id="graphInscripts" ></canvas>
+                        <canvas id="graphInscripts"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="recharge">
+            <div class="subtitle">
+                <h4>Revenu par recharge code</h4>
+            </div>
+            <div class="graphe">
+                <div class="graphe-container card">
+                    <div class="card-body">
+                        <canvas id="graphRecharge"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="vente">
+            <div class="subtitle">
+                <h4>Revenu par vente de régime</h4>
+            </div>
+            <div class="graphe">
+                <div class="graphe-container card">
+                    <div class="card-body">
+                        <canvas id="graphVente"></canvas>
                     </div>
                 </div>
             </div>
@@ -48,7 +72,7 @@
             <div class="graphe">
                 <div class="graphe-container card">
                     <div class="card-body">
-                        <canvas id="graphClassement" ></canvas>
+                        <canvas id="graphClassement"></canvas>
                     </div>
                 </div>
             </div>

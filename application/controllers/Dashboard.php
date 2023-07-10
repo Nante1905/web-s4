@@ -49,14 +49,18 @@ class Dashboard extends CI_Controller
     $mois = $this->input->post('mois');
     $annee = $this->input->post('annee');
     if(!isset($mois, $annee)) {
-      $mois = null;
-      $annee = null;
+      $mois = date('m');
+      $annee = date('Y');
     }
     $nbrUtilisateur = $this->dashboard->getUsersPerMonth($annee, $mois);
     $regime = $this->dashboard->getClassementRegime($annee, $mois);
+    $recharge = $this->dashboard->getStatRecharge($annee, $mois);
+    $vente = $this->dashboard->getStatAchat($annee, $mois);
     echo json_encode([
       'utilisateurs' => $nbrUtilisateur,
-      'classement' => $regime
+      'classement' => $regime,
+      'recharge' => $recharge,
+      'vente' => $vente
     ]);
   }
 
