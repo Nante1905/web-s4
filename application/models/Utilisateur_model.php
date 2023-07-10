@@ -50,7 +50,11 @@ class Utilisateur_model extends CI_Model {
   public function insererTransaction($idutilisateur, $idcode, $idRegime, $valeur){
     try {
       $this->db->set("datetransaction","now() at time zone 'gmt-3'",false);
-      $this->db->set("statut",10,false);
+      if($idRegime == null) {
+        $this->db->set("statut",1,false);
+      } else {
+        $this->db->set("statut",10,false);
+      }
       $this->db->set("idregime", $idRegime, false);
       $this->db->insert('transaction_utilisateur',[
         'idutilisateur' => $idutilisateur,
