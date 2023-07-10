@@ -26,12 +26,26 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
+
+  public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
+    $this->db->insert('utilisateur',[
+      "nom" => $nom,
+      "email" => $email,
+      "password" => md5($mdp),
+      "idgenre" => $idgenre,
+      "poids" => $poids,
+      "taille" => $taille
+    ]);
+  }
+
   public function checklogin($email, $mdp){
     $this->db->where(["email"=> trim($email), "password" => md5(trim(($mdp)))]);
     $query = $this->db->get('utilisateur');
     if (count($query->result())<=0) return false;
     else return true;
   }
+
+
 
   public function insererTransaction($idutilisateur, $idcode, $valeur){
     try {
