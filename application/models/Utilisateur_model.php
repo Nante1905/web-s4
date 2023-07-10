@@ -45,21 +45,70 @@ class Utilisateur_model extends CI_Model {
     else return true;
   }
 
+  public function getProfil() {
+    $id = $this->session->userid;
+    if($id == null) {
+      throw new Exception("USer not connected", 1);
+    }
+    $this->db->where('id',$id);
+    $query = $this->db->get('utilisateur');
+    return $query->result()[0];
+  }
 
+  public function getMontantPorteMonnaie($id=null) {
+    if($id == null) {
+      $id = $this->session->userid;
+    }
+    $recharge = 0;
+    $achat = 0;
+    // $this->db->where('idutilisateur', $id);
+    $query = $this->db->get_where('v_recharge_utilisateur', ['idutilisateur' => $id]);
+    $queryAchat = $this->db->get_where('v_achat_total_utilisateur', ['idutilisateur' => $id]);
 
-  public function insererTransaction($idutilisateur, $idcode, $idRegime, $valeur){
+    if(count($query->result()) > 0) {
+      $recharge = $query->result()[0]->montant;
+    }
+    if(count($queryAchat->result()) > 0) {
+      $achat = $queryAchat->result()[0]->montant;
+    }
+
+    return $recharge-$achat;
+  }
+
+  public function recharger($idutilisateur, $idcode) {
     try {
-      $this->db->set("datetransaction","now() at time zone 'gmt-3'",false);
-      $this->db->set("statut",10,false);
-      $this->db->set("idregime", $idRegime, false);
-      $this->db->insert('transaction_utilisateur',[
-        'idutilisateur' => $idutilisateur,
-        'idcode'=> $idcode,
-        'valeur'=> $valeur
-      ]);
+
+      // code exist ?
+      $code = $this->db->get_where('code', ['status' => 1, 'id' => $idcode])->result();
+      if(count($code) > 0) {
+        $this->db->trans_begin();
+
+        $this->db->set("daterecharge","now() at time zone 'gmt-3'",false);
+  
+        $this->db->set("statut",1,false);
+        $this->db->insert('recharge_utilisateur',[
+          'idutilisateur' => $idutilisateur,
+          'idcode'=> $idcode
+        ]);
+
+        $this->db->update('code', ['statut' => 10], ['id' => $idcode]);
+
+        $this->db->trans_commit();
+      }
+
     } catch (Exception $e) {
+      $this->db->trans_rollback();
       echo $e;
     }
+  }
+
+  public function buy($idutilisateur, $idregime, $montant) {
+    $this->db->set('dateachat', "now() at time zone 'gmt-3'", false);
+    $this->db->insert('achat_utilisateur', [
+      'idutilisateur' => $idutilisateur,
+      'montant' => $montant,
+      'idregime' => $idregime
+    ]);
   }
 
 

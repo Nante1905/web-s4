@@ -54,8 +54,8 @@ class Dashboard_model extends CI_Model {
     
   }
   
-  public function getCodeTransactionsInMonth($year, $month) {
-    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, datetransaction::date from transaction_utilisateur where idregime is null group by datetransaction::date) t on d.date_genere=t.datetransaction";
+  public function getStatRecharge($year, $month) {
+    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge;";
     $query = sprintf($query, $year, $month);
 
     $res = $this->db->query($query);
@@ -64,8 +64,8 @@ class Dashboard_model extends CI_Model {
     }
   }
 
-  public function getRegimeTransactionsInMonth($year, $month) {
-    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) montant, datetransaction::date from transaction_utilisateur where idregime is not null group by datetransaction::date) t on d.date_genere=t.datetransaction";
+  public function getStatAchat($year, $month) {
+    $query = "select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(%d,%d) d left outer join (select sum(montant) montant, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat;";
     $query = sprintf($query, $year, $month);
 
     $res = $this->db->query($query);
