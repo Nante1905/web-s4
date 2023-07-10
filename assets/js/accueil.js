@@ -16,7 +16,7 @@ window.addEventListener("load", () => {
                 const div = document.querySelector(`#details_${ id }`)
                 let html = '';
                 for (const res of JSON.parse(response)) {
-                    html += `<li> ${ res.nomplat } </li>`
+                    html += `<li> ${ res.nom } </li>`
                 }
 
                 div.innerHTML = html;
