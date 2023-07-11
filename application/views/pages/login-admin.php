@@ -18,13 +18,13 @@
             <?= form_open("admin/seconnecter", ['method' => 'post']) ?>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="text" id="form1Example1" class="form-control" name="id"/>
+                    <input type="text" id="form1Example1" class="form-control" name="id" value="admin"/>
                     <label class="form-label" for="form1Example1">Identifiant</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                    <input type="password" id="form1Example2" class="form-control" name="mdp"/>
+                    <input type="password" id="form1Example2" class="form-control" name="mdp" value="admin"/>
                     <label class="form-label" for="form1Example2">Mot de passe</label>
                 </div>
 
