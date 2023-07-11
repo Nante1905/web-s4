@@ -33,6 +33,18 @@ class Regime extends CI_Controller
     // 
   }
 
+  public function insertView(){
+    $this->load->view('templates/body', [
+			'metadata' => [
+				'styles' => [],
+				'script' => [],
+				'title' => 'Test template',
+        'active' => 'Mes Objectifs'
+			],
+			'page' => 'regime'
+		]);
+  }
+
   public function accept($id)
   {
     // $montantActuel = $this->utilisateur->getMontantPorteMonnaie(null);

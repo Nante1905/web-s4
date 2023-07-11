@@ -38,12 +38,13 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->code->delete(1);
+    $data = $this->regime->insertRegime('regime draconien',12333,12,21,'regime.png',1);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
 				'script' => [],
-				'title' => 'Test template'
+				'title' => 'Test template',
+        'active' => 'Mes Objectifs'
 			],
 			'page' => 'test',
 			'test' => $data

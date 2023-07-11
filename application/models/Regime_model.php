@@ -30,6 +30,24 @@ class Regime_model extends CI_Model {
     parent::__construct();
   }
 
+  public function insertRegime($nom, $prix, $apport, $duree, $photo, $idobjectif){
+    $this->db->insert('regime',[
+      "nom" => $nom,
+      "prix" => $prix,
+      "apport" => $apport,
+      "duree" => $duree,
+      "photo" => $this->getLastId().'_'.$photo,
+      "idobjectif" => $idobjectif
+    ]);
+  }
+
+  public function getLastId(){
+    $this->db->order_by('id', 'DESC');
+    $this->db->limit(1);
+    $query = $this->db->get('regime');
+    return $query->result()[0]->id;
+  }
+
 
   public function findAllPlats($id){
     $this->db->where('v_regime_plat.iregime',$id);
