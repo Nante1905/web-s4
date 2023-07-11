@@ -1,0 +1,40 @@
+.title {
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin: 3% 0%;
+
+    &__h1 {
+        width: fit-content;
+        position: relative;
+        font-weight: bold;
+
+        &::after {
+            content: "";
+            height: 4px;
+            position: absolute;
+            bottom: -2px;
+            width: 50%;
+            left: 25%;
+            background-color: var(--back-theme);
+        }
+    }
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 50%;
+
+    &-body {
+        form {
+            display: flex;
+            flex-direction: column;
+            row-gap: 1rem;
+        }
+    }
+}

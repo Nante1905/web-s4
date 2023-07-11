@@ -1,4 +1,4 @@
-<div class="main">
+<div class="escape-nav">
     <div class="form card">
         <div class="card-body text-center">
             <h3>Prix: <?= format_number($prix) ?> Ar</h3>

@@ -32,11 +32,11 @@ class Regime_model extends CI_Model {
 
   public function upload_img($input_name){
     if(!empty($_FILES[$input_name]['name'])){
-      $config['upload_path']= './assets/upload/';
-      $config['allowed_types']='gif|jpg|png';
-      $config['max_size']= 100;
+      $config['upload_path']= './assets/img';
+      $config['allowed_types']='gif|jpg|png|jpeg';
+      $config['max_size']= 1000;
       $config['max_width'] = 1024;
-      $config['max_height']= 768;
+      $config['max_height']= 2048;
       $extensions= explode('.', $_FILES[$input_name]['name']);
       $config['file_name']= $this->getNextId().'.'.end($extensions);
 
@@ -63,6 +63,16 @@ class Regime_model extends CI_Model {
       "photo" =>$photo,
       "idobjectif" => $idobjectif
     ]);
+
+    $plats = $this->getAllPlat();
+    $data = [];
+    foreach($plats as $plat) {
+      $this->db->insert('regime_plat', [
+        "idregime" => $this->getNextId() - 1,
+        "idplat" => $plat->id,
+        "pourcentage" => 30
+      ]);
+    }
   }
 
   public function getNextId(){
@@ -70,6 +80,11 @@ class Regime_model extends CI_Model {
     $this->db->limit(1);
     $query = $this->db->get('regime');
     return $query->result()[0]->id+1;
+  }
+
+  public function getAllPlat() {
+    $query = $this->db->get('plat');
+    return $query->result();
   }
 
 

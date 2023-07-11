@@ -2,7 +2,7 @@ import Chart from "./chart/package/auto/auto.js";
 import URL from "./env.js";
 window.addEventListener("load", () => {
 	//générer chart
-	const chartData = (data, canva, label, color) => {
+	const chartData = (data, canva, label, color,step, marge) => {
 		let inscritsData = data.map((item) => item.valeur);
 		canva.innerHTML = "";
 		return new Chart(canva, {
@@ -25,11 +25,11 @@ window.addEventListener("load", () => {
 				scales: {
 					y: {
 						beginAtZero: true,
-						max: Math.max(...inscritsData) + 3,
+						max: Math.max(...inscritsData) + marge,
 						ticks: {
 							min: 0,
 							beginAtZero: true,
-							stepSize: 1,
+							stepSize: step,
 						},
 					},
 				},
@@ -37,7 +37,7 @@ window.addEventListener("load", () => {
 		});
 	};
 
-	const diagramme = (data, canva, label, color) => {
+	const diagramme = (data, canva, label, color, step) => {
 		let dataToUse = data.map((item) => item.valeur);
 		canva.innerHTML = "";
 		return new Chart(canva, {
@@ -46,7 +46,7 @@ window.addEventListener("load", () => {
 				labels: data.map((item) => item.nom),
 				datasets: [
 					{
-						label: "Ventes",
+						label: label,
 						data: dataToUse,
 						backgroundColor: color,
 						borderWidth: 1,
@@ -63,7 +63,7 @@ window.addEventListener("load", () => {
 						ticks: {
 							min: 0,
 							beginAtZero: true,
-							stepSize: 1
+							stepSize: step
 						},
 					},
 				},
@@ -108,34 +108,40 @@ window.addEventListener("load", () => {
 					inscrits,
 					canvaUtilisateurs,
 					"Utilisateurs inscrits",
-					"#64c14a"
+					"#64c14a",
+					1,
+					3
 				);
 				chartClassement = diagramme(
 					classement,
 					canvaClassement,
 					"Classement des régimes",
-					"#6495ed"
+					"#6495ed",
+					1
 				);
 				chartRecharge = chartData(
 					recharge,
 					canvaRecharge,
 					"Recharge de code",
-					"#64c14a"
+					"#64c14a",
+					10000,
+					10000
 				);
 				chartVente = chartData(
 					vente,
 					canvaVente,
 					"Recharge de code",
-					"#64c14a"
+					"#64c14a",
+					10000,
+					10000
 				);
-				console.log(spinners);
 				for (const spinner of spinners) {
 					spinner.style.display = 'None'
 				}
 				divUtilisateur.innerHTML = res.totalUtilisateur
-				divVente.innerHTML = res.totalVente
-				divClassement.innerHTML = res.totalRegime
-				divRecharge.innerHTML = res.totalRecharge
+				divVente.innerHTML = res.totalVente + ' Ar'
+				divClassement.innerHTML = res.totalRegime  
+				divRecharge.innerHTML = res.totalRecharge + ' Ar'
 			} else {
 				document.querySelector(".message").innerHTML =
 					"Erreur de chargement des données";
@@ -171,30 +177,38 @@ window.addEventListener("load", () => {
 						inscrits,
 						canvaUtilisateurs,
 						"Utilisateurs inscrits",
-						"#64c14a"
+						"#64c14a",
+						1,
+						3
 					);
 					chartClassement = diagramme(
 						classement,
 						canvaClassement,
 						"Classement des régimes",
-						"#6495ed"
+						"#6495ed",
+						1,
+						3
 					);
 					chartRecharge = chartData(
 						recharge,
 						canvaRecharge,
 						"Recharge de code",
-						"#64c14a"
+						"#64c14a",
+						10000,
+						10000
 					);
 					chartVente = chartData(
 						vente,
 						canvaVente,
 						"Recharge de code",
-						"#64c14a"
+						"#64c14a",
+						10000,
+						10000
 					);
 					divUtilisateur.innerHTML = res.totalUtilisateur
-					divVente.innerHTML = res.totalVente
-					divClassement.innerHTML = res.totalRegime
-					divRecharge.innerHTML = res.totalRecharge
+					divVente.innerHTML = res.totalVente + ' Ar'
+					divClassement.innerHTML = res.totalRegime  
+					divRecharge.innerHTML = res.totalRecharge + ' Ar'
 				} else {
 					document.querySelector(".message").innerHTML =
 						"Erreur de chargement des données";

@@ -18,7 +18,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  */
 
-class Dashboard extends CI_Controller
+require_once APPPATH.'controllers/AdminSecure.php';
+class Dashboard extends AdminSecure
 {
     
   public function __construct()
@@ -79,7 +80,7 @@ class Dashboard extends CI_Controller
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => ['validation'],
-				'script' => [],
+				'script' => [], 
 				'title' => 'Validation',
         'active' => '',
         'sidebar' => true

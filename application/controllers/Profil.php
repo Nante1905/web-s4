@@ -17,8 +17,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @return    ...
  *
  */
+require_once APPPATH.'controllers/SessionSecure.php';
 
-class Profil extends CI_Controller
+class Profil extends SessionSecure
 {
     
   public function __construct()

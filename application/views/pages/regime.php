@@ -1,35 +1,47 @@
-<!-- <div>
-    <form action="<?= site_url().'/regime/inserer' ?>" method="post" enctype="multipart/form-data">
-        <p><input type="text" name="nom"></p>
-        <p><input type="text" name="prix"></p>
-        <p><input type="text" name="apport"></p>
-        <p><input type="text" name="duree"></p>
-        <p><input type="file" name="photo" size="20"></p>
-        <p>
-            <select name="idbojectif">
-                <option value="1">Augmentation du poids</option>
-                <option value="2">Diminution du poids</option>
-            </select>
-        </p>
-        <p><button type="submit">Valider</button></p>
-        
-        
-    </form>
-</div> -->
-<div style="padding-top:100px;">
-<?php echo form_open_multipart('regime/inserer');?>
-        <p>Nom du régime:<input type="text" name="nom"></p>
-        <p><input type="file" name="photo" size="20"></p>
-        <p>Apport: <input type="number" name="apport"></p>
-        <p>Durée du Regime<input type="number" name="duree"></p>
-        <p>Prix du régime: <input type="number" name="prix"></p>
-        <p>Objectif
-            <select name="idobjectif">
-                <option value="1">Augmentation du poids</option>
-                <option value="2">Diminution du poids</option>
-                <option value="3">Atteindre IMC idéal</option>
-            </select>
-        </p>
-        <p><button type="submit">Valider</button></p>
-</form>
-</p>
+<div class="main">
+    <div class="title">
+        <h1 class="title__h1">Nouveau régime</h1>
+    </div>
+    <div class="form">
+        <div class="card">
+            <div class="card-body">
+                <?php echo form_open_multipart('regime/inserer'); ?>
+                <div class="form-outline">
+                    <input type="text"  name="nom" class="form-control" value="<?php echo set_value('nom'); ?>" />
+                    <label class="form-label" for="nom">Nom du régime</label>
+                </div>
+                <div class="form-outline">
+                    <input type="file"  name="photo" class="form-control" />
+                </div>
+                <div class="form-outline">
+                    <label class="form-label" for="idobjectif">Type de régime</label>
+                    <select name="idobjectif">
+                        <?php foreach ($objectifs as $obj) { ?>
+                            <option value="<?= $obj->id ?>" ><?= $obj->nom ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form">
+                    <label class="form-label" for="apport">Apport</label>
+                    <input type="text"  name="apport" class="form-control" min="0" value="<?php echo set_value('apport'); ?>" />
+                </div>
+                <div class="form">
+                    <label class="form-label" for="code-input">Durée(jours)</label>
+                    <input type="number"  name="duree" class="form-control" min="0" value="<?php echo set_value('duree'); ?>" />
+                </div>
+                <div class="form">
+                    <label class="form-label" for="code-input">Prix du régime</label>
+                    <input type="number"  name="prix" class="form-control" min="0" value="<?php echo set_value('prix'); ?>" />
+                </div>
+                
+                <div class="button-container text-center">
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </div>
+                <div class="text-center danger" >
+                    <?php echo validation_errors(); ?>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,8 +17,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @return    ...
  *
  */
+require_once APPPATH.'controllers/SessionSecure.php';
 
-class Regime extends CI_Controller
+class Regime extends SessionSecure
 {
 
   public function __construct()
@@ -26,11 +27,26 @@ class Regime extends CI_Controller
     parent::__construct();
     $this->load->model('Utilisateur_model', 'utilisateur', true);
     $this->load->model('Regime_model', 'regime', true);
+    $this->load->model('Objectif_model', 'objectif', true);
   }
 
   public function index()
   {
     // 
+  }
+
+  public function nouveau() {
+    $this->load->view('templates/body', [
+			'metadata' => [
+				'styles' => ['create-regime'],
+				'script' => [],
+				'title' => 'Nouveau régime',
+        'active' => '',
+        'sidebar' => true
+			],
+			'page' => 'regime',
+      'objectifs' => $this->objectif->findAll()
+		]);
   }
 
   public function inserer(){
@@ -68,19 +84,44 @@ class Regime extends CI_Controller
       $error_msg
     );
     if ($this->form_validation->run() == false){
-      $errors =array();
-      foreach ($this->input->post() as $key => $value) {
-        $errors[$key]= form_error($key);
-      }
-      var_dump(validation_errors());
-      echo 'tsy mety';
+      $this->load->view('templates/body', [
+        'metadata' => [
+          'styles' => ['create-regime'],
+          'script' => [],
+          'title' => 'Nouveau régime',
+          'active' => '',
+          'sidebar' => true
+        ],
+        'page' => 'regime',
+        'objectifs' => $this->objectif->findAll()
+      ]);
     }else{
       $photo = $this->regime->upload_img('photo');
-      $this->regime->insertRegime($nom, $prix, $apport, $duree, $photo, $idobjectif);
-      redirect(site_url("dashboard"));
+      if($photo == -1) {
+        // redirect(site_url('regime/nouveau'));
+        $form_error['photo'] = 'Erreur lors de l\'import';
+        $this->load->view('templates/body', [
+          'metadata' => [
+            'styles' => ['create-regime'],
+            'script' => [],
+            'title' => 'Nouveau régime',
+            'active' => '',
+            'sidebar' => true
+          ],
+          'page' => 'regime',
+          'objectifs' => $this->objectif->findAll(),
+          'plats' => $this->regime->getAllPlat()
+        ]);
+      }
+      else {
+        $this->regime->insertRegime($nom, $prix, $apport, $duree, $photo, $idobjectif);
+        redirect('dashboard');
+      }
     }
     
   }
+
+  
 
   public function insertView(){
     $this->load->view('templates/body', [
@@ -88,7 +129,8 @@ class Regime extends CI_Controller
 				'styles' => [],
 				'script' => [],
 				'title' => 'Test template',
-        'active' => 'Mes Objectifs'
+        'active' => 'Mes Objectifs',
+        'sidebar' => true
 			],
 			'page' => 'regime'
 		]);
@@ -96,9 +138,6 @@ class Regime extends CI_Controller
 
   public function accept($id)
   {
-    // $montantActuel = $this->utilisateur->getMontantPorteMonnaie(null);
-    // $montantRegime = $this->utilisateur-->getMontantRegime($id);
-    // var_dump([$montantActuel, $montantRegime]);
     try {
       if($this->regime->accept($id)) {
         echo json_encode(['status' => 1]);

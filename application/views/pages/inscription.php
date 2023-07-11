@@ -61,8 +61,9 @@
                     <!-- genre -->
                     <div class="form-outline mb-4">
                         <select name="idgenre" class="select-genre">
-                            <option value="1">Masculin</option>
-                            <option value="2">Féminin</option>
+                            <?php foreach($genres as $genre) { ?>
+                                <option value="<?= $genre->nom ?>"><?= $genre->nom ?></option>
+                            <?php } ?>
                         </select>
                     </div>
 

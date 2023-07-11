@@ -58,7 +58,7 @@
                 <?php foreach ($regimes as $regime) { ?>
                     <div class="col">
                         <div class="card">
-                            <img src="<?= base_url() . 'assets/img/plat.jpg' ?>" class="card-img-top" alt="Plat" />
+                            <img src="<?= base_url() . 'assets/img/'. $regime['regime']->photo ?>" class="card-img-top" alt="Plat" />
                             <div class="card-body">
                                 <h5 class="card-title strong "><?= $regime["regime"]->nom ?></h5>
                                 <div class="card-text">

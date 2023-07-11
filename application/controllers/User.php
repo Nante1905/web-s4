@@ -25,6 +25,8 @@ class User extends CI_Controller
   {
     parent::__construct();
     $this->load->model('utilisateur_model','utilisateur',true);
+    $this->load->model('genre_model','genre',true);
+
   }
 
   public function index()
@@ -33,11 +35,11 @@ class User extends CI_Controller
   }
 
   public function inscription(){
-    $this->load->view('pages/inscription');
+    $this->load->view('pages/inscription', ['genres' => $this->genre->findAll()]);
   }
 
   public function login() {
-    $this->load->view('pages/login');
+    $this->load->view('pages/login', ['error' => '']);
   }
 
   public function seconnecter() {
@@ -48,11 +50,16 @@ class User extends CI_Controller
     $check = $this->utilisateur->checklogin($email, $pass);
 
     if($check == false) {
-
+      $this->load->view('pages/login', ['error' => 'Email ou mot de passe invalide']);
     } else {
       $this->session->set_userdata('userid', $check);
       redirect("/");
     }
+  }
+
+  public function logout() {
+    $this->session->unset_userdata("userid");
+    redirect("user/login");
   }
 
   public function insert(){
@@ -104,7 +111,7 @@ class User extends CI_Controller
     }else{
       // Mapiditra anle user
       $this->utilisateur->inscription($nom, $email, $mdp, $idgenre, $poids, $taille);
-      echo 'inserer';
+      redirect("user/login");
     }
 
   }
