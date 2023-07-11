@@ -38,7 +38,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->regime->insertRegime('regime draconien',12333,12,21,'regime.png',1);
+    $data = $this->board->getTotalUserPerMonth(2023,7);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
