@@ -225,9 +225,8 @@ class Utilisateur_model extends CI_Model {
 
   public function getSuggestionRegime($idutilisateur){
     $objectif = $this->getLastObjectif($idutilisateur);
-    if($objectif != null) {
-      $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
-      $idobjectif = $objectif->idobjectif;
+    $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+    $idobjectif = $objectif->idobjectif;
       if($objectif->idobjectif == 3) {
         if($poidsobjectif > 0) {
           $idobjectif = 1;
@@ -236,17 +235,18 @@ class Utilisateur_model extends CI_Model {
           $idobjectif = 2;
         }
       }
-      $regimes= $this->regime->findByObjectif($idobjectif);
-      $result = array();
-      foreach ($regimes as $regime){
-          $data['regime']= $regime;
-          $data['dureetotal']=ceil(abs($poidsobjectif)*($regime->duree/$regime->apport));
-          $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
-          array_push($result, $data);
-      }
-      return $result;
+    $regimes= $this->regime->findByObjectif($idobjectif);
+    $remiseGold = $this->getLastRemise();
+    $result = array();
+    foreach ($regimes as $regime){
+        $data['regime']= $regime;
+        $data['dureetotal']=ceil(abs($poidsobjectif)*($regime->duree/$regime->apport));
+        $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
+        $data['prixremise']= ceil($data["prixtotal"] - ($data["prixtotal"]*$remiseGold->valeur/100));
+        // manova merge
+        array_push($result, $data);
     }
-    return [];
+    return $result;
   }
 
   public function getLastRemise() {
