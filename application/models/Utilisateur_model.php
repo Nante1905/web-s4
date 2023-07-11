@@ -180,6 +180,7 @@ class Utilisateur_model extends CI_Model {
         $data['dureetotal']=ceil($poidsobjectif*($regime->duree/$regime->apport));
         $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
         $data['prixremise']= ceil($data["prixtotal"] - ($data["prixtotal"]*$remiseGold->valeur/100));
+        // manova merge
         array_push($result, $data);
     }
     return $result;
