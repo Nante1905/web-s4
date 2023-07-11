@@ -1,3 +1,4 @@
+import env from './env.js'
 window.addEventListener("load", () => {
 	const buttons = document.querySelectorAll(".btn-details");
 	let id;
@@ -5,7 +6,7 @@ window.addEventListener("load", () => {
 		button.addEventListener("click", () => {
 			id = button.getAttribute("data-id");
 			let xhr = new XMLHttpRequest();
-			xhr.open("get", `http://localhost/web-s4/index.php/welcome/details/${ id }`, true);
+			xhr.open("get", `${env.APP_URL}/welcome/details/${ id }`, true);
             xhr.send();
 
 			xhr.onload = () => {

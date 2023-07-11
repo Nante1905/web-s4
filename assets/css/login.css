@@ -8,3 +8,8 @@ h3 {
   align-items: center;
   height: calc(100vh - 2rem);
 }
+
+.error {
+  text-align: center;
+  color: red;
+}

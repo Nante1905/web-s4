@@ -43,6 +43,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="nav-item">
           <a class="nav-link <?php if($metadata['active'] == 'Profil') { echo( 'active-link'); } ?> " href="<?= base_url() ?>index.php/profil">Profil</a>
         </li>
+        <li class="nav-item">
+          <?= anchor("user/logout", "<i class='fas fa-sign-out fa-fw me-3'></i>", ['class' => "nav-link"]) ?>
+        </li>
       </ul>
     </div>
   </div>

@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once APPPATH.'controllers/SessionSecure.php';
 
-class Welcome extends CI_Controller
+class Welcome extends SessionSecure
 {
 
 	/**
