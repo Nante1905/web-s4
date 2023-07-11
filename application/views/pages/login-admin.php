@@ -13,29 +13,19 @@
 <body>
     <div class="form-container">
         <div class="form">
-            <h3>Se connecter</h3>
-            <div class="error"><?= $error ?></div>
+            <h3>Admin panel</h3>
             <br><br>
-            <?= form_open("user/seconnecter", ['method' => 'post']) ?>
+            <?= form_open("admin/seconnecter", ['method' => 'post']) ?>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="email" id="form1Example1" class="form-control" name="email"/>
-                    <label class="form-label" for="form1Example1">Email</label>
+                    <input type="text" id="form1Example1" class="form-control" name="id"/>
+                    <label class="form-label" for="form1Example1">Identifiant</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
                     <input type="password" id="form1Example2" class="form-control" name="mdp"/>
                     <label class="form-label" for="form1Example2">Mot de passe</label>
-                </div>
-
-                <!-- 2 column grid layout for inline styling -->
-                <div class="row mb-4">
-                    <div class="col">
-                        <!-- Simple link -->
-                        <?= anchor('user/inscription', "Pas de compte ?") ?>
-                        <!-- <a href=""></a> -->
-                    </div>
                 </div>
 
                 <!-- Submit button -->

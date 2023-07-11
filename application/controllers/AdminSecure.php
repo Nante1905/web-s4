@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  *
- * Controller SessionSecure
+ * Controller AdminSecure
  *
  * This controller for ...
  *
@@ -18,13 +18,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
  *
  */
 
-class SessionSecure extends CI_Controller
+class AdminSecure extends CI_Controller
 {
     
   public function __construct()
   {
     parent::__construct();
-    if( $this->session->has_userdata('userid') == false) {
+    if($this->session->has_userdata('adminid') == false ) {
       redirect('user/login');
     }
   }
@@ -37,5 +37,5 @@ class SessionSecure extends CI_Controller
 }
 
 
-/* End of file SessionSecure.php */
-/* Location: ./application/controllers/SessionSecure.php */
+/* End of file AdminSecure.php */
+/* Location: ./application/controllers/AdminSecure.php */

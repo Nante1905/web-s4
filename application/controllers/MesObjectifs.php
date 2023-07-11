@@ -18,8 +18,9 @@ require_once APPPATH.'controllers/SessionSecure.php';
  * @return    ...
  *
  */
+require_once APPPATH.'controllers/SessionSecure.php';
 
-class Mesobjectifs extends CI_Controller
+class Mesobjectifs extends SessionSecure
 {
   public $title;
     

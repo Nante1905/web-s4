@@ -51,6 +51,9 @@
                         </li>
                     </ul>
                 </div>
+                <div class="list-group list-group-flush mx-3">
+                    <?= anchor("admin/deconnexion", "<i class='fas fa-sign-out fa-fw me-3'></i><span>Deconnexion</span>", ['class' => "list-group-item list-group-item-action py-2 ripple"]) ?>    
+                </div>
             </div>
         </div>
     </nav>
