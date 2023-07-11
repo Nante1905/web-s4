@@ -15,16 +15,16 @@
         <div class="form">
             <h3>Se connecter</h3>
             <br><br>
-            <form>
+            <?= form_open("user/seconnecter", ['method' => 'post']) ?>
                 <!-- Email input -->
                 <div class="form-outline mb-4">
-                    <input type="email" id="form1Example1" class="form-control" />
+                    <input type="email" id="form1Example1" class="form-control" name="email"/>
                     <label class="form-label" for="form1Example1">Email</label>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-outline mb-4">
-                    <input type="password" id="form1Example2" class="form-control" />
+                    <input type="password" id="form1Example2" class="form-control" name="mdp"/>
                     <label class="form-label" for="form1Example2">Mot de passe</label>
                 </div>
 

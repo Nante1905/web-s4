@@ -69,7 +69,7 @@ class Utilisateur_model extends CI_Model {
     $this->db->where(["email"=> trim($email), "password" => md5(trim(($mdp)))]);
     $query = $this->db->get('utilisateur');
     if (count($query->result())<=0) return false;
-    else return true;
+    else return $query->result()[0]->id;
   }
 
   public function getProfil() {

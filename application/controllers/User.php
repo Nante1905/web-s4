@@ -41,7 +41,18 @@ class User extends CI_Controller
   }
 
   public function seconnecter() {
-    $this->user->checklogin();
+
+    $email = trim($this->input->post("email"));
+    $pass = trim($this->input->post("mdp"));
+
+    $check = $this->utilisateur->checklogin($email, $pass);
+
+    if($check == false) {
+
+    } else {
+      $this->session->set_userdata('userid', $check);
+      redirect("/");
+    }
   }
 
   public function insert(){

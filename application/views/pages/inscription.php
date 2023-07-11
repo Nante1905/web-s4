@@ -79,6 +79,8 @@
                         <label class="form-label">Taille en cm</label>
                     </div>
                 </div>
+                <?= anchor('user/login', "Deja membre ?") ?>
+                <br><br>
                 <button type="submit" class="btn btn-primary btn-block mb-4">S'inscrire</button>
                 </form>
             </div>
