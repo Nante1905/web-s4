@@ -1,0 +1,23 @@
+.form-container {
+    display: grid;
+    place-items: center;
+    height: calc(100vh - 2rem);
+    .form {
+        width: 20%;
+        h4 {
+            text-align: center;
+        }
+    }
+
+    .errors {
+        color: red;
+    }
+
+    .fade:not(.show) {
+        display: none;
+    }
+
+    .select-genre {
+        padding: .25rem;
+    }
+}

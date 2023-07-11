@@ -24,17 +24,17 @@ class Welcome extends CI_Controller
 		parent::__construct();
 		$this->load->model('Regime_model', 'regime', true);
 		$this->load->model('Sport_model', 'sport', true);
-
 	}
-
+	
 	public function index()
 	{
 		$this->accueil();
 	}
-
+	
 	public function accueil()
 	{
 		// var_dump($this->regime->findAll());
+		$this->load->model('Utilisateur_model', 'user', true);
 		$this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => ['accueil'],
@@ -42,9 +42,10 @@ class Welcome extends CI_Controller
 				'title' => 'Test template',
 				'active' => 'Accueil'
 			],
+			'page' => 'accueil',
 			'regimes' => $this->regime->findAll(),
 			'sports' => $this->sport->findAll(),
-			'page' => 'accueil'
+			'isGold' => $this->user->is_gold($this->session->userid)
 		]);
 	}
 

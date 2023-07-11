@@ -1,0 +1,20 @@
+.form-container {
+  display: grid;
+  place-items: center;
+  height: calc(100vh - 2rem);
+}
+.form-container .form {
+  width: 20%;
+}
+.form-container .form h4 {
+  text-align: center;
+}
+.form-container .errors {
+  color: red;
+}
+.form-container .fade:not(.show) {
+  display: none;
+}
+.form-container .select-genre {
+  padding: 0.25rem;
+}

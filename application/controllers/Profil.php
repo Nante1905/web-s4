@@ -26,7 +26,7 @@ class Profil extends CI_Controller
     parent::__construct();
     $this->load->model('Utilisateur_model', 'user', true);
     $this->load->model('Code_model', 'code', true);
-
+  
   }
 
   public function index()
@@ -39,6 +39,7 @@ class Profil extends CI_Controller
         'active' => 'Profil'
       ],
       'page' => 'profil',
+      'isGold' => $this->user->is_gold( $this->session->userid),
       'solde' => $this->user->getMontantPorteMonnaie()
       // 'codes' => $this->code->findAll()
     ]);
@@ -53,6 +54,7 @@ class Profil extends CI_Controller
         'active' => 'Profil'
       ],
       'page' => 'ajoutsolde',
+      'isGold' => $this->user->is_gold( $this->session->userid),
       'codes' => $this->code->findAll()
     ]);
   }
@@ -85,6 +87,37 @@ class Profil extends CI_Controller
         ]);
       }
     }
+  }
+
+  public function gold() {
+    $this->load->model('Transaction_model', 'transaction', true);
+    $this->load->view('templates/body', [
+      'metadata' => [
+        'styles' => ['gold'],
+        'script' => ['gold'],
+        'title' => 'Passez à gold',
+        'active' => 'Profil'
+      ],
+      'page' => 'gold',
+      'isGold' => $this->user->is_gold( $this->session->userid),
+      'prix' => $this->transaction->getLastGold()
+    ]);
+  }
+  public function toGold() {
+    $idUtilisateur = $this->session->userid;
+    try {
+      if($this->user->transformToGold($idUtilisateur) == false) {
+        echo json_encode(['OK' => false, 'msg' => 'Solde insuffisant']); 
+      }
+      else {
+        echo json_encode(['OK' => true]);
+      }
+    } catch (\Throwable $th) {
+      //throw $th;
+      var_dump($th);
+      echo json_encode(['OK' => false]);
+    }
+    // var_dump($this->user->transformToGold($idUtilisateur));
   }
 }
 

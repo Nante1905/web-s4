@@ -97,8 +97,6 @@ window.addEventListener('load',() => {
                             text: "Régime entamé",
                             duration: 2000
                         })
-                        document.querySelector(`.message`).innerHTML = ''
-                        document.querySelector(`.card-text__msg__${id}`).innerHTML = 'Régime entamé'
                     }
                     else {
                         Snackbar.show({
