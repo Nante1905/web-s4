@@ -76,6 +76,10 @@
                                         <?= format_number(($regime["prixtotal"])) ?> ar
                                     </p>
                                     <p class="card-text__prix">
+                                        <span class="badge rounded-pill gold-badge">Gold</span>
+                                        <?= format_number(($regime["prixremise"])) ?> ar
+                                    </p>
+                                    <p class="card-text__prix">
                                         <i class="fa-solid fa-clock"></i>
                                         <?= format_semaine(intval($regime["dureetotal"])) ?>
                                     </p>

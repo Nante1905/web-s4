@@ -67,3 +67,6 @@
 .card .details .list-group li {
   text-transform: capitalize;
 }
+.card .gold-badge {
+  background-color: #fbc934;
+}

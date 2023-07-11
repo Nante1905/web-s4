@@ -88,7 +88,7 @@ insert into achat_utilisateur values
     (default,1,2600,1,'2023-07-30',15);
 
 
-
+insert into remise values (default, 15, now());
 
 
 

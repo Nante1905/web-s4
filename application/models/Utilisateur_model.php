@@ -54,6 +54,7 @@ class Utilisateur_model extends CI_Model {
 
 
   public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
+    $this->db->set('dateinscription', "now() at time zone 'gmt-3'", false);
     $this->db->insert('utilisateur',[
       "nom" => $nom,
       "email" => $email,
@@ -133,11 +134,18 @@ class Utilisateur_model extends CI_Model {
   }
 
   public function buy($idutilisateur, $idregime, $montant) {
+
+    $remise = 0;
+    if($this->isGold($idutilisateur)) {
+      $remise = $this->getLastRemise()->valeur;
+    }
+
     $this->db->set('dateachat', "now() at time zone 'gmt-3'", false);
     $this->db->insert('achat_utilisateur', [
       'idutilisateur' => $idutilisateur,
       'montant' => $montant,
-      'idregime' => $idregime
+      'idregime' => $idregime,
+      'remise' => $remise
     ]);
   }
 
@@ -165,14 +173,22 @@ class Utilisateur_model extends CI_Model {
     $idobjectif = $this->getLastObjectif($idutilisateur);
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
     $regimes= $this->regime->findByObjectif($idobjectif);
+    $remiseGold = $this->getLastRemise();
     $result = array();
     foreach ($regimes as $regime){
         $data['regime']= $regime;
         $data['dureetotal']=ceil($poidsobjectif*($regime->duree/$regime->apport));
         $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
+        $data['prixremise']= ceil($data["prixtotal"] - ($data["prixtotal"]*$remiseGold->valeur/100));
         array_push($result, $data);
     }
     return $result;
+  }
+
+  public function getLastRemise() {
+    $res = $this->db->query("select * from remise where dateremise = (select max(dateremise) from remise)")->result();
+
+    return $res[0];
   }
 
   public function getMontantRegime($idregime) {
@@ -181,10 +197,29 @@ class Utilisateur_model extends CI_Model {
       return null;
     }
     $idutilisateur = $this->session->userid;
+
+    $remise = 0;
+    if($this->isGold($idutilisateur)) {
+      $remise = $this->getLastRemise()->valeur;
+    }
+
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
     $duree = ceil($poidsobjectif*($regime->duree/$regime->apport));
     $montant = ceil($regime->prix*( $duree/$regime->duree));
+    if($remise > 0) {
+      $montant = $montant - $montant*$remise/100;
+    }
     return $montant;
+  }
+
+  public function isGold($idutilisateur) {
+    $res = $this->db->get_where('utilisateur_gold', ['idutilisateur' => $idutilisateur])->result();
+    if(count($res) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   public function getLastPoidsObjectif($idutilisateur){

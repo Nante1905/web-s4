@@ -58,7 +58,7 @@ class Test extends CI_Controller
     $this->pdf->createPDF($html);
   }
   public function login() {
-    $this->session->set_userdata('userid', 2);
+    $this->session->set_userdata('userid', 1);
   }
 
   public function profil() {
