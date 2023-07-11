@@ -38,7 +38,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->board->getTotalRegimePerMonth(2023,7);
+    $data = $this->utilisateur->IMC_ideal(1);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
