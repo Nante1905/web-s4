@@ -33,14 +33,15 @@ class User extends CI_Controller
   }
 
   public function inscription(){
-    $this->load->view('templates/body', [
-			'metadata' => [
-				'styles' => [],
-				'script' => [],
-				'title' => 'inscription'
-			],
-			'page' => 'inscription'
-		]);
+    $this->load->view('pages/inscription');
+  }
+
+  public function login() {
+    $this->load->view('pages/login');
+  }
+
+  public function seconnecter() {
+    $this->user->checklogin();
   }
 
   public function insert(){
@@ -88,7 +89,7 @@ class User extends CI_Controller
       foreach ($this->input->post() as $key => $value) {
         $errors[$key]= form_error($key);
       }
-      echo 'tsy mety';
+      $this->load->view("pages/inscription");
     }else{
       // Mapiditra anle user
       $this->utilisateur->inscription($nom, $email, $mdp, $idgenre, $poids, $taille);

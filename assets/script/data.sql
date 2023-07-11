@@ -89,7 +89,7 @@ insert into achat_utilisateur values
 
 insert into prix_gold values ('2023-07-01', 15000);
 
-
+insert into remise values (default, 15, now());
 
 
 

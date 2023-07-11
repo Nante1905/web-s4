@@ -96,6 +96,7 @@ class Utilisateur_model extends CI_Model {
 
 
   public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
+    $this->db->set('dateinscription', "now() at time zone 'gmt-3'", false);
     $this->db->insert('utilisateur',[
       "nom" => $nom,
       "email" => $email,
@@ -175,11 +176,18 @@ class Utilisateur_model extends CI_Model {
   }
 
   public function buy($idutilisateur, $idregime, $montant) {
+
+    $remise = 0;
+    if($this->isGold($idutilisateur)) {
+      $remise = $this->getLastRemise()->valeur;
+    }
+
     $this->db->set('dateachat', "now() at time zone 'gmt-3'", false);
     $this->db->insert('achat_utilisateur', [
       'idutilisateur' => $idutilisateur,
       'montant' => $montant,
-      'idregime' => $idregime
+      'idregime' => $idregime,
+      'remise' => $remise
     ]);
   }
 
@@ -241,16 +249,41 @@ class Utilisateur_model extends CI_Model {
     return [];
   }
 
+  public function getLastRemise() {
+    $res = $this->db->query("select * from remise where dateremise = (select max(dateremise) from remise)")->result();
+
+    return $res[0];
+  }
+
   public function getMontantRegime($idregime) {
     $regime = $this->regime->findById($idregime);
     if($regime == null) {
       return null;
     }
     $idutilisateur = $this->session->userid;
+
+    $remise = 0;
+    if($this->isGold($idutilisateur)) {
+      $remise = $this->getLastRemise()->valeur;
+    }
+
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
     $duree = ceil($poidsobjectif*($regime->duree/$regime->apport));
     $montant = ceil($regime->prix*( $duree/$regime->duree));
+    if($remise > 0) {
+      $montant = $montant - $montant*$remise/100;
+    }
     return $montant;
+  }
+
+  public function isGold($idutilisateur) {
+    $res = $this->db->get_where('utilisateur_gold', ['idutilisateur' => $idutilisateur])->result();
+    if(count($res) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   public function getLastPoidsObjectif($idutilisateur){
