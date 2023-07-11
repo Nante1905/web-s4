@@ -40,7 +40,7 @@ class Welcome extends SessionSecure
 			'metadata' => [
 				'styles' => ['accueil'],
 				'script' => ['accueil'],
-				'title' => 'Test template',
+				'title' => 'Bienvenue',
 				'active' => 'Accueil'
 			],
 			'page' => 'accueil',
