@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -18,9 +19,38 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Regime_model', 'regime', true);
+		$this->load->model('Sport_model', 'sport', true);
+
+	}
+
 	public function index()
 	{
-		echo "hello world";
-		$this->load->view('welcome_message');
+		$this->accueil();
+	}
+
+	public function accueil()
+	{
+		// var_dump($this->regime->findAll());
+		$this->load->view('templates/body', [
+			'metadata' => [
+				'styles' => ['accueil'],
+				'script' => ['accueil'],
+				'title' => 'Test template',
+				'active' => 'Accueil'
+			],
+			'regimes' => $this->regime->findAll(),
+			'sports' => $this->sport->findAll(),
+			'page' => 'accueil'
+		]);
+	}
+
+	public function details($id)
+	{
+		$data = $this->regime->findAllPlats($id);
+		echo json_encode($data);
 	}
 }

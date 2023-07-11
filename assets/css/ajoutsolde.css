@@ -1,0 +1,27 @@
+.content {
+  padding-top: 5rem;
+}
+.content h2 {
+  text-align: center;
+}
+
+.form-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+.form-code .button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 1rem;
+}
+
+.codes-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  padding-inline: 25%;
+}

@@ -1,0 +1,80 @@
+.content {
+    color: black;
+    padding-top: 4rem;
+    .primary {
+        background-color: var(--theme-color) !important;
+    }
+    .form {
+        padding-inline: 25%;
+        .form_objectif {
+            
+            .input-poids {
+                width: 25%;
+            }
+            
+            .form-content{
+                display: flex;
+                justify-content: space-between;
+        
+                .select-content {
+                    width: 40%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+    
+                    .select {
+                        padding: 0.25rem;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+    }
+}
+.title {
+    color: black;
+    display: flex;
+    justify-content: center;
+    padding-block: 2rem;
+
+    &__h1 {
+        width: fit-content;
+        position: relative;
+        font-weight: bold;
+
+        &::after {
+            content: "";
+            height: 4px;
+            position: absolute;
+            bottom: -2px;
+            width: 50%;
+            left: 25%;
+            background-color: var(--theme-color);
+        }
+    }
+}
+
+.liste {
+    width: 90%;
+    padding: 2rem;
+}
+.card {
+
+    &-actions {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    .details {
+        margin-top: 10%;
+
+        .list-group {
+            list-style: none;
+
+            li {
+                text-transform: capitalize;
+            }
+        }
+    }
+}

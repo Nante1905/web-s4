@@ -1,0 +1,7 @@
+.recharges-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  padding-inline: 10%;
+}

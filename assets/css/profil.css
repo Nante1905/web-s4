@@ -1,0 +1,16 @@
+.content {
+  padding-top: 5rem;
+}
+
+.transactions {
+  display: flex;
+  justify-content: space-evenly;
+}
+.transactions .wallet-card-container {
+  display: flex;
+  justify-content: center;
+}
+.transactions .wallet-card-container .wallet-card {
+  height: -moz-max-content;
+  height: max-content;
+}
