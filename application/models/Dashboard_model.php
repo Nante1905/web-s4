@@ -75,6 +75,7 @@ class Dashboard_model extends CI_Model {
   }
 
   public function findInvalideRecharge() {
+    $this->db->order_by('daterecharge', 'desc');
     $recharges = $this->db->get_where('v_recharge_details', ['statut' => 1])->result();
 
     return $recharges;
