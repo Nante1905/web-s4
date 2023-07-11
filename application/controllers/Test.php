@@ -54,6 +54,7 @@ class Test extends CI_Controller
   public function pdf() {
     $this->load->library('Pdf', null, 'pdf');
     $html = $this->load->view('pages/testpdf', [], true);
+    // var_dump($html);
     $this->pdf->createPDF($html);
   }
   public function login() {

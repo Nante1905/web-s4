@@ -38,15 +38,24 @@ window.addEventListener('load',() => {
 
         xhr.addEventListener('load', (event) => {
             try {
+                console.log(xhr.responseText);
                 let res = JSON.parse(xhr.responseText)
-                Snackbar.show({
-                    text: "Objectif mis a jour",
-                    duration: 2000,
-                    onClose: () => location.reload()
-                })
-                fromObjectif.reset()
+                if(res.OK) {
+                    Snackbar.show({
+                        text: "Objectif mis a jour",
+                        duration: 2000,
+                        onClose: () => location.reload()
+                    })
+                    fromObjectif.reset()
+                }
+                else {
+                    Snackbar.show({
+                        text: res.message,
+                        duration: 2000
+                    })
+                }
             } catch(e) {
-                console.log(xhr.responseText)
+                // console.log(xhr.responseText)
                 Snackbar.show({
                     text: "Une erreur s'est produite",
                     duration: 2000

@@ -24,6 +24,8 @@ window.addEventListener("load", () => {
 				responsive: true,
 				scales: {
 					y: {
+						beginAtZero: true,
+						max: Math.max(...inscritsData) + 3,
 						ticks: {
 							min: 0,
 							beginAtZero: true,
@@ -38,7 +40,6 @@ window.addEventListener("load", () => {
 	const diagramme = (data, canva, label, color) => {
 		let dataToUse = data.map((item) => item.valeur);
 		canva.innerHTML = "";
-		console.log([data.map((item) => item.valeur)]);
 		return new Chart(canva, {
 			type: "bar",
 			data: {
@@ -46,7 +47,7 @@ window.addEventListener("load", () => {
 				datasets: [
 					{
 						label: "Ventes",
-						data: data.map((item) => item.valeur),
+						data: dataToUse,
 						backgroundColor: color,
 						borderWidth: 1,
 					},
@@ -57,11 +58,12 @@ window.addEventListener("load", () => {
 				responsive: true,
 				scales: {
 					y: {
+						beginAtZero: true,
+						max: Math.max(...dataToUse) + 3,
 						ticks: {
 							min: 0,
 							beginAtZero: true,
-							stepSize: 1,
-							max: 5,
+							stepSize: 1
 						},
 					},
 				},
