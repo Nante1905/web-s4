@@ -88,6 +88,7 @@ class User extends CI_Controller
       foreach ($this->input->post() as $key => $value) {
         $errors[$key]= form_error($key);
       }
+      var_dump(validation_errors());
       echo 'tsy mety';
     }else{
       // Mapiditra anle user

@@ -30,22 +30,46 @@ class Regime_model extends CI_Model {
     parent::__construct();
   }
 
+  public function upload_img($input_name){
+    if(!empty($_FILES[$input_name]['name'])){
+      $config['upload_path']= './assets/upload/';
+      $config['allowed_types']='gif|jpg|png';
+      $config['max_size']= 100;
+      $config['max_width'] = 1024;
+      $config['max_height']= 768;
+      $extensions= explode('.', $_FILES[$input_name]['name']);
+      $config['file_name']= $this->getNextId().'.'.end($extensions);
+
+      $this->load->library('upload',$config);
+      if($this->upload->do_upload($input_name)){
+          $upload = $this->upload->data();
+          // var_dump($upload);
+          return $upload['file_name'];
+      }else{
+        $error = array('error' => $this->upload->display_errors());
+        var_dump($error);
+        return -1;
+      }
+    }
+    return NULL;
+  }
+
   public function insertRegime($nom, $prix, $apport, $duree, $photo, $idobjectif){
     $this->db->insert('regime',[
       "nom" => $nom,
       "prix" => $prix,
       "apport" => $apport,
       "duree" => $duree,
-      "photo" => $this->getLastId().'_'.$photo,
+      "photo" =>$photo,
       "idobjectif" => $idobjectif
     ]);
   }
 
-  public function getLastId(){
+  public function getNextId(){
     $this->db->order_by('id', 'DESC');
     $this->db->limit(1);
     $query = $this->db->get('regime');
-    return $query->result()[0]->id;
+    return $query->result()[0]->id+1;
   }
 
 

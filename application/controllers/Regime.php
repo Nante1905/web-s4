@@ -33,6 +33,55 @@ class Regime extends CI_Controller
     // 
   }
 
+  public function inserer(){
+    $nom = $this->input->post('nom');
+    $prix = $this->input->post('prix');
+    $apport = $this->input->post('apport');
+    $duree = $this->input->post('duree');
+    $idobjectif = $this->input->post('idobjectif');
+    $photo = $_FILES['photo'];
+    
+    require APPPATH.'constant\validation_msg.php';
+    $this->form_validation->set_rules(
+      "nom","Nom du Reégime",
+      'trim|required',
+      $error_msg
+    );
+    $this->form_validation->set_rules(
+      "prix", "Prix du Régime",
+      'required|greater_than[0]',
+      $error_msg
+    );
+    $this->form_validation->set_rules(
+      "apport", "Apport du Régime",
+      'required|greater_than[0]',
+      $error_msg
+    );
+    $this->form_validation->set_rules(
+      "duree","Durée du Régime",
+      'required|greater_than[0]',
+      $error_msg
+    );
+    $this->form_validation->set_rules(
+      "idobjectif", "Idobjectif",
+      'required',
+      $error_msg
+    );
+    if ($this->form_validation->run() == false){
+      $errors =array();
+      foreach ($this->input->post() as $key => $value) {
+        $errors[$key]= form_error($key);
+      }
+      var_dump(validation_errors());
+      echo 'tsy mety';
+    }else{
+      $photo = $this->regime->upload_img('photo');
+      $this->regime->insertRegime($nom, $prix, $apport, $duree, $photo, $idobjectif);
+      redirect(site_url("dashboard"));
+    }
+    
+  }
+
   public function insertView(){
     $this->load->view('templates/body', [
 			'metadata' => [
