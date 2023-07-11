@@ -1,8 +1,11 @@
 create or replace view v_regime_plat as(
-    select r.id iregime ,p.id idplat, p.nom from regime_plat rp
+    select r.id iregime ,p.id idplat, p.nom, rp.pourcentage from regime_plat rp
     JOIN regime r ON r.id = rp.idregime
     JOIN plat p ON p.id = rp.idplat
 );
+
+select  from regime_plat rp
+JOIN regime r ON r.i
 
 create or replace view v_recharge_details as select ru.*, c.valeur from recharge_utilisateur ru join code c on ru.idcode=c.id;
 
