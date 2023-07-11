@@ -26,6 +26,32 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
+  public function IMC_ideal($idutilisateur){
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    $poids = $this->poidsIdeal($idutilisateur);
+    $denom = $query->result()[0]->taille*0.01;
+    return $poids/($denom*$denom);
+  }
+
+  public function poidsIdeal($idutilisateur){
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    $idgenre = $query->result()[0]->idgenre;
+    $taille = $query->result()[0]->taille;
+    if ($idgenre == 1) return $taille - 100 - (($taille - 150) / 4);
+    else if ($idgenre == 2) return $taille - 100 - (($taille - 150) / 2.5);
+  }
+
+
+  public function IMC($idutilisateur){
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    $poids = $query->result()[0]->poids;
+    $denom = $query->result()[0]->taille*0.01;
+    return $poids/($denom*$denom);
+  }
+
 
   public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
     $this->db->insert('utilisateur',[
