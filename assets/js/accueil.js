@@ -6,7 +6,7 @@ window.addEventListener("load", () => {
 		button.addEventListener("click", () => {
 			id = button.getAttribute("data-id");
 			let xhr = new XMLHttpRequest();
-			xhr.open("get", `${env.APP_URL}index.php/welcome/details/${ id }`, true);
+			xhr.open("get", `${env.APP_URL}/welcome/details/${ id }`, true);
             xhr.send();
 
 			xhr.onload = () => {
