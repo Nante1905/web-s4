@@ -83,12 +83,22 @@ class Dashboard_model extends CI_Model {
   }
   
   public function getStatRecharge($year, $month) {
-    $query = "select date_genere datedujour, COALESCE(valeur, 0) valeur  from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) valeur, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge;";
+    $query = "select date_genere datedujour, COALESCE(valeur, 0) valeur  from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) valeur, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge";
     $query = sprintf($query, $year, $month);
 
     $res = $this->db->query($query);
     if(count($res->result()) > 0) {
       return $res->result();
+    }
+  }
+
+  public function getSumRecharge($year, $month) {
+    $query = "select sum(valeur) montant from ( select date_genere datedujour, COALESCE(valeur, 0) valeur  from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) valeur, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge) somme";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res->result()) > 0) {
+      return $res->result()[0]->montant;
     }
   }
 
@@ -107,6 +117,16 @@ class Dashboard_model extends CI_Model {
     $recharges = $this->db->get_where('v_recharge_details', ['statut' => 1])->result();
 
     return $recharges;
+  }
+  
+  public function getSumAchat($year, $month) {
+    $query = "select sum(valeur) montant from (select date_genere datedujour, COALESCE(valeur, 0) valeur from get_all_dates_in_month(%d,%d) d left outer join (select sum(montant) valeur, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat) somme";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res->result()) > 0) {
+      return $res->result()[0]->montant;
+    }
   }
 
   // ------------------------------------------------------------------------

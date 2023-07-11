@@ -9,7 +9,7 @@
                     <label for="mois">Mois : </label>
                     <select name="mois" class="mdb-select md-form select">
                         <?php for ($i = 0; $i < count($mois); $i++) { ?>
-                            <option value="<?= $i + 1 ?>"><?= $mois[$i] ?></option>
+                            <option value="<?= $i + 1 ?>"  <?php  if($i+1 == $moisCourant) { echo 'selected'; } ?> ><?= $mois[$i] ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -31,12 +31,23 @@
     <div class="statistics">
         <section class="inscription">
             <div class="subtitle">
-                <h4>Nombre d'utilisateurs inscripts</h4>
+                <h4>Nombre d'utilisateurs inscrits</h4>
             </div>
             <div class="graphe">
                 <div class="graphe-container card">
                     <div class="card-body">
                         <canvas id="graphInscripts"></canvas>
+                    </div>
+                </div>
+                <div class="info-container card" >
+                    <div class="card-body">
+                        <h3 class="card-title">Total</h3>
+                        <p class="card-text text-center fs-2" id="utilisateur" ></p>
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,6 +62,17 @@
                         <canvas id="graphRecharge"></canvas>
                     </div>
                 </div>
+                <div class="info-container card" >
+                    <div class="card-body">
+                        <h3 class="card-title">Total</h3>
+                        <p class="card-text text-center fs-2" id="recharge" ></p>
+                        <div class="d-flex justify-content-center">
+                            <div class="spinner-grow text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <section class="vente">
@@ -63,6 +85,18 @@
                         <canvas id="graphVente"></canvas>
                     </div>
                 </div>
+                <div class="info-container card" >
+                    <div class="card-body">
+                        <h3 class="card-title">Total</h3>
+                        <p class="card-text text-center fs-2" id="vente" >
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
         <section class="classement">
@@ -73,6 +107,18 @@
                 <div class="graphe-container card">
                     <div class="card-body">
                         <canvas id="graphClassement"></canvas>
+                    </div>
+                </div>
+                <div class="info-container card" >
+                    <div class="card-body">
+                        <h3 class="card-title">Total</h3>
+                        <p class="card-text text-center fs-2" id="classement" >
+                            <div class="d-flex justify-content-center">
+                                <div class="spinner-grow text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </p>
                     </div>
                 </div>
             </div>

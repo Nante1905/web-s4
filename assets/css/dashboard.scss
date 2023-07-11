@@ -54,9 +54,26 @@
         width: 100%;
     }
 
-    .graphe-container {
-        width: 50%;
+    .graphe {
+        display: flex;
+        align-items: start;
+        justify-content: space-around;
+        flex-wrap: wrap-reverse;
+        row-gap: 1rem;
+        
+        .graphe-container {
+            width: 70%;
+        }
+
+        .info-container {
+            width: 25%;
+
+            .card-text {
+                margin: 0;
+            }
+        }
     }
+
 
     section {
         margin: 3% 0%;

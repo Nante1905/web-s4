@@ -48,8 +48,21 @@
 .statistics canvas {
   width: 100%;
 }
-.statistics .graphe-container {
-  width: 50%;
+.statistics .graphe {
+  display: flex;
+  align-items: start;
+  justify-content: space-around;
+  flex-wrap: wrap-reverse;
+  row-gap: 1rem;
+}
+.statistics .graphe .graphe-container {
+  width: 70%;
+}
+.statistics .graphe .info-container {
+  width: 25%;
+}
+.statistics .graphe .info-container .card-text {
+  margin: 0;
 }
 .statistics section {
   margin: 3% 0%;
