@@ -226,6 +226,9 @@ class Utilisateur_model extends CI_Model {
   public function getSuggestionRegime($idutilisateur){
     $objectif = $this->getLastObjectif($idutilisateur);
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+    if($objectif == null) {
+      return [];
+    }
     $idobjectif = $objectif->idobjectif;
       if($objectif->idobjectif == 3) {
         if($poidsobjectif > 0) {
