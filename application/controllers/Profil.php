@@ -26,7 +26,7 @@ class Profil extends CI_Controller
     parent::__construct();
     $this->load->model('Utilisateur_model', 'user', true);
     $this->load->model('Code_model', 'code', true);
-
+  
   }
 
   public function index()
@@ -39,6 +39,7 @@ class Profil extends CI_Controller
         'active' => 'Profil'
       ],
       'page' => 'profil',
+      'isGold' => $this->user->is_gold( $this->session->userid),
       'solde' => $this->user->getMontantPorteMonnaie()
       // 'codes' => $this->code->findAll()
     ]);
@@ -53,6 +54,7 @@ class Profil extends CI_Controller
         'active' => 'Profil'
       ],
       'page' => 'ajoutsolde',
+      'isGold' => $this->user->is_gold( $this->session->userid),
       'codes' => $this->code->findAll()
     ]);
   }
@@ -85,6 +87,19 @@ class Profil extends CI_Controller
         ]);
       }
     }
+  }
+
+  public function gold() {
+    $this->load->view('templates/body', [
+      'metadata' => [
+        'styles' => ['gold'],
+        'script' => [],
+        'title' => 'Passez à gold',
+        'active' => 'Profil'
+      ],
+      'page' => 'gold',
+      'isGold' => $this->user->is_gold( $this->session->userid)
+    ]);
   }
 }
 

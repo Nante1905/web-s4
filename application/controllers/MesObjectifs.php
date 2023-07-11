@@ -33,7 +33,7 @@ class Mesobjectifs extends CI_Controller
 
   public function index()
   {
-
+    $idUtilisateur = $this->session->userid;
     $objectifs = $this->objectif->findAll();
     $this->load->view("templates/body", [
       'metadata' => [
@@ -43,11 +43,12 @@ class Mesobjectifs extends CI_Controller
         'active' => 'Mes Objectifs'
       ],
       'page' => 'objectifs',
+      'isGold' => $this->user->is_gold($idUtilisateur),
       'objectifs' => $objectifs,
-      'objectif_actuel' => $this->user->getLastObjectif($this->session->userid),
-      'regimes' => $this->user->getSuggestionRegime($this->session->userid),
-      'sports' => $this->user->getSuggestionSport($this->session->userid),
-      'IMC_ideal' => $this->user->IMC_ideal(),
+      'objectif_actuel' => $this->user->getLastObjectif($idUtilisateur),
+      'regimes' => $this->user->getSuggestionRegime($idUtilisateur),
+      'sports' => $this->user->getSuggestionSport($idUtilisateur),
+      'IMC_ideal' => $this->user->IMC_ideal($idUtilisateur),
       'IMC' => $this->user->IMC()
     ]);
   }

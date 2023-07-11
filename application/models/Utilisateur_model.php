@@ -47,7 +47,6 @@ class Utilisateur_model extends CI_Model {
     $query = $this->db->get('utilisateur');
     if ($query->result()[0]->isgold == "t") return true;
     return false;
-
   }
 
   public function IMC_ideal($idutilisateur){
