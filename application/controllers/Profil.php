@@ -41,7 +41,9 @@ class Profil extends SessionSecure
       ],
       'page' => 'profil',
       'isGold' => $this->user->is_gold( $this->session->userid),
-      'solde' => $this->user->getMontantPorteMonnaie()
+      'solde' => $this->user->getMontantPorteMonnaie(),
+      'user' =>$this->user->getProfil(),
+      'imc' => format_number( $this->user->IMC())
       // 'codes' => $this->code->findAll()
     ]);
   }

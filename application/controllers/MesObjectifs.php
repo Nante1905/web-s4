@@ -18,9 +18,8 @@ require_once APPPATH.'controllers/SessionSecure.php';
  * @return    ...
  *
  */
-require_once APPPATH.'controllers/SessionSecure.php';
 
-class Mesobjectifs extends SessionSecure
+class Mesobjectifs extends CI_Controller
 {
   public $title;
     
@@ -36,7 +35,6 @@ class Mesobjectifs extends SessionSecure
   {
     $idUtilisateur = $this->session->userid;
     $objectifs = $this->objectif->findAll();
-    var_dump($this->user->getLastObjectif($idUtilisateur));
     $this->load->view("templates/body", [
       'metadata' => [
         'styles' => ['objectifs'],

@@ -1,7 +1,7 @@
 <div class="container-fluid head h-100">
     <div class="content h-100">
         <div class="text-content">
-            <h1>Titre ngeza</h1>
+            <h1>Regime APP</h1>
             <p>Ici, vous trouverez une multitude de recettes savoureuses et d'activités physiques pour vous accompagner dans votre parcours vers un régime alimentaire épanouissant et adapté à vos besoins. Explorez nos rubriques et laissez-nous vous guider vers une meilleure santé et un bien-être durable.</p>
         </div>
     </div>
@@ -38,7 +38,7 @@
                 ?>
                     <div class="col <?= $class ?>">
                         <div class="card ">
-                            <img src="<?= base_url() . 'assets/img/plat.jpg' ?>" class="card-img-top" alt="Plat" />
+                            <img src="<?= base_url() . 'assets/img/'. $regime->photo ?>" class="card-img-top" alt="Plat" />
                             <div class="card-body">
                                 <h5 class="card-title strong "><?= $regime->nom ?></h5>
                                 <div class="card-text">

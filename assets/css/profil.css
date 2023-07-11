@@ -2,9 +2,46 @@
   padding-top: 5rem;
 }
 
+img, svg {
+  vertical-align: middle;
+  width: 61px;
+}
+
+.alignement_style{
+  display: flex;
+  align-items: flex-start;
+}
+
+.icon_user{
+  vertical-align: middle;
+  width: 61px;
+  margin-left: -2px;
+}
+.bookmarker{
+  vertical-align: middle;
+  width: 61px;
+  margin-left: -2px;
+}
+
+h6.card-subtitle.mb-2.text-muted {
+  /* padding-bottom: 15px; */
+  margin-left: 62PX;
+  margin-top: -36px;
+}
+
+.detailProfil {
+  width: 41%;
+  position: relative;
+  float: left;
+  left: 8%;
+}
+
 .transactions {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  position: relative;
+  left: 40px;
+  float: left;
 }
 .transactions .wallet-card-container {
   display: flex;
