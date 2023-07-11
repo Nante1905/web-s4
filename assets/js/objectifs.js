@@ -18,7 +18,7 @@ window.addEventListener('load',() => {
                 const div = document.querySelector(`#details_${ id }`)
                 let html = '';
                 for (const res of JSON.parse(response)) {
-                    html += `<li> ${ res.nom } </li>`
+                    html += `<li> ${ res.nom } : ${ res.pourcentage }% </li>`
                 }
 
                 div.innerHTML = html;
@@ -28,6 +28,16 @@ window.addEventListener('load',() => {
 
     let fromObjectif = document.querySelector('#form-objectif')
     console.log(URL)
+
+    const select = document.querySelector('.select')
+    select.addEventListener('change', (event) => {
+        if(event.target.value == 3) {
+            document.querySelector('#input-poids').setAttribute('disabled', true)
+        } else {
+            document.querySelector('#input-poids').removeAttribute('disabled')
+        }
+    })
+
     fromObjectif.addEventListener('submit', (event) => {
         event.preventDefault()
         const fromData = new FormData(fromObjectif)

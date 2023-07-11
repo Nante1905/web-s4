@@ -15,7 +15,8 @@ create table utilisateur(
     idgenre int references genre(id),
     poids numeric not null,
     taille numeric not null,
-    dateinscription date not null
+    dateinscription date not null,
+    isgold boolean not null default FALSE
 );
 
 create table objectif(
@@ -47,7 +48,8 @@ create table plat(
 
 create table regime_plat(
     idregime int references regime(id),
-    idplat int references plat(id)
+    idplat int references plat(id),
+    pourcentage numeric not null
 );
 
 
@@ -71,7 +73,8 @@ create table achat_utilisateur (
     idutilisateur int references utilisateur(id),
     montant numeric,
     idregime int references regime(id),
-    dateachat timestamp not null
+    dateachat timestamp not null,
+    remise numeric not null
 );
 
 create table sport(
@@ -80,4 +83,16 @@ create table sport(
     apportjour numeric not null,
     photo varchar(255) not null,
     idobjectif int references objectif(id)
+);
+
+create table remise(
+    id serial primary key,
+    valeur numeric not null,
+    dateremise date not null
+);
+
+create table utilisateur_gold(
+    id serial primary key,
+    idutilisateur int references utilisateur(id),
+    date_gold date not null
 );

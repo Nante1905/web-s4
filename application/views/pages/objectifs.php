@@ -1,13 +1,14 @@
 <div class="content">
     <div class="form">
         <!-- <div class="current-objectif">
-            <h3>Objectif actuel : <?php if ($objectif_actuel[1] == 1) { ?>
+            <h3>Objectif actuel : <?php if ($objectif_actuel->idobjectif == 1) { ?>
                     <i class="fa-solid fa-caret-up success"></i>
-                <?php } else if ($objectif_actuel[1] == 2) { ?>
+                <?php } else if ($objectif_actuel->idobjectif == 2) { ?>
                     <i class="fa-solid fa-caret-down danger "></i>
-                    <?php } ?><?= $objectif_actuel[0] ?>kg
+                    <?php } ?><?= $objectif_actuel->poids ?>kg
             </h3>
         </div> -->
+
         <br>
         <h3>Nouvel Objectif : </h3>
         <form id="form-objectif" class="form_objectif">
@@ -16,12 +17,12 @@
                     <label for="obj">Objectif : </label>
                     <select name="idobjectif" id="" class="mdb-select md-form select">
                         <?php foreach ($objectifs as $obj) { ?>
-                            <option value="<?= $obj->id ?>"><?= $obj->nom ?></option>
+                            <option value="<?= $obj->id ?>" class="<?php if($obj->id == 3) { echo 'imc'; } ?>" ><?= $obj->nom ?></option>
                         <?php } ?>
                     </select>
                 </div>
                 <div class="form-outline input-poids">
-                    <input type="number" class="form-control" name="poids" />
+                    <input type="number" class="form-control" name="poids" id="input-poids" />
                     <label class="form-label">Poids</label>
                 </div>
                 <div class="form-submit">
@@ -30,20 +31,24 @@
             </div>
         </form>
         <br>
-        <?php if($objectif_actuel[0] != null) { ?>
+        <?php if($objectif_actuel != null) { ?>
             <div class="current-objectif">
-                <h3>Objectif actuel : <?php if ($objectif_actuel[1] == 1) { ?>
+                <h3>Objectif actuel : <?php if ($objectif_actuel->idobjectif == 1 || ( $objectif_actuel->idobjectif == 3 && $objectif_actuel->poids > 0) ) { ?>
                         <i class="fa-solid fa-caret-up success"></i>
-                    <?php } else if ($objectif_actuel[1] == 2) { ?>
+                    <?php } else if ($objectif_actuel->idobjectif == 2 || ( $objectif_actuel->idobjectif == 3 && $objectif_actuel->poids < 0) ) { ?>
                         <i class="fa-solid fa-caret-down danger "></i>
-                        <?php } ?><?= $objectif_actuel[0] ?>kg
+                        <?php } ?><?= $objectif_actuel->poids ?>kg ( <?= $objectif_actuel->nom ?> )
                 </h3>
+                <div class="d-flex align-item-center info-imc">
+                    <h5>Votre IMC: <?= format_number($IMC) ?></h5>
+                    <h5>Votre IMC idéal: <?= format_number($IMC_ideal) ?></h5>
+                </div>
             </div>
         <?php } else { ?>
             <h3 class="message">Pas encore d'objectifs</h3>
         <?php } ?>
     </div>
-    <?php if($objectif_actuel[0] != null) { ?>
+    <?php if($objectif_actuel != null) { ?>
         <div class="title">
             <h1 class="title__h1">Régimes proposés</h1>
         </div>

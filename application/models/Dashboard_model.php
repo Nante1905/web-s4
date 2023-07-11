@@ -25,6 +25,21 @@ class Dashboard_model extends CI_Model {
     parent::__construct();
   }
 
+  public function getTotalRegimePerMonth($annee = null, $mois = null){
+    if($annee == null) {
+      $annee = date('Y');
+    }
+    if($mois == null) {
+      $mois = date('m');
+    }
+    $sql= " select sum(coalesce(c.nbr_users,0)) valeur from regime r
+            LEFT JOIN get_classement(%s,%s) c
+            ON r.id = c.idregime";
+    $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
+    $query = $this->db->query($sql);
+    return $query->result()[0]->valeur;
+  }
+
   public function getClassementRegime($annee = null, $mois = null){
       if($annee == null) {
         $annee = date('Y');
@@ -40,7 +55,20 @@ class Dashboard_model extends CI_Model {
       return $query->result();
   }
 
-  public function getUsersPerMonth($annee, $mois){
+  public function getTotalUserPerMonth($annee = null, $mois = null){
+    $sql= "SELECT sum(nbr_users) valeur FROM nombre_utilisateurs_par_mois(%s, %s)";
+    if($annee == null) {
+      $annee = date('Y');
+    }
+    if($mois == null) {
+      $mois = date('m');
+    }
+    $sql = sprintf($sql, $this->db->escape($annee), $this->db->escape($mois));
+      $query = $this->db->query($sql);
+    return $query->result()[0]->valeur;
+  }
+
+  public function getUsersPerMonth($annee = null, $mois = null){
       $sql= "SELECT datedujour, nbr_users valeur FROM nombre_utilisateurs_par_mois(%s, %s)";
       if($annee == null) {
         $annee = date('Y');

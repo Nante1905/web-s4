@@ -61,7 +61,7 @@
                                     </button>
                                 </div>
                                 <div id="collapse_<?= $regime->id ?>" class="collapse details ">
-                                    <h5 class="subtitle">Plats</h5>
+                                    <h5 class="subtitle">Compositions</h5>
                                     <ul class="list-group" id="details_<?= $regime->id ?>">
                                     </ul>
                                 </div>

@@ -38,7 +38,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->regime->insertRegime('regime draconien',12333,12,21,'regime.png',1);
+    $data = $this->utilisateur->IMC_ideal(1);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],

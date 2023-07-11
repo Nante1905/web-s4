@@ -26,6 +26,35 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
+  public function IMC_ideal(){
+    $idutilisateur = $this->session->userid;
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    $poids = $this->poidsIdeal($idutilisateur);
+    $denom = $query->result()[0]->taille*0.01;
+    return $poids/($denom*$denom);
+  }
+
+  public function poidsIdeal(){
+    $idutilisateur = $this->session->userid;
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    $idgenre = $query->result()[0]->idgenre;
+    $taille = $query->result()[0]->taille;
+    if ($idgenre == 1) return $taille - 100 - (($taille - 150) / 4);
+    else if ($idgenre == 2) return $taille - 100 - (($taille - 150) / 2.5);
+  }
+
+
+  public function IMC(){
+    $idutilisateur = $this->session->userid;
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    $poids = $query->result()[0]->poids;
+    $denom = $query->result()[0]->taille*0.01;
+    return $poids/($denom*$denom);
+  }
+
 
   public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
     $this->db->insert('utilisateur',[
@@ -123,26 +152,44 @@ class Utilisateur_model extends CI_Model {
   }
 
   public function getSuggestionSport($idutilisateur){
-    $idobjectif = $this->getLastObjectif($idutilisateur);
+    $objectif = $this->getLastObjectif($idutilisateur);
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+    $idobjectif = $objectif->idobjectif;
+    if($objectif->idobjectif == 3) {
+      if($poidsobjectif > 0) {
+        $idobjectif = 1;
+      }
+      else {
+        $idobjectif = 2;
+      }
+    }
     $sports = $this->sport->findByObjectif($idobjectif);
     $result = array();
     foreach ($sports as $sport) {
       $data['sport']= $sport;
-      $data['dureetotal']=$poidsobjectif/$sport->apportjour;
+      $data['dureetotal']=ceil(abs($poidsobjectif)/$sport->apportjour);
       array_push($result, $data);
     }
     return $result;
   }
 
   public function getSuggestionRegime($idutilisateur){
-    $idobjectif = $this->getLastObjectif($idutilisateur);
+    $objectif = $this->getLastObjectif($idutilisateur);
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+    $idobjectif = $objectif->idobjectif;
+    if($objectif->idobjectif == 3) {
+      if($poidsobjectif > 0) {
+        $idobjectif = 1;
+      }
+      else {
+        $idobjectif = 2;
+      }
+    }
     $regimes= $this->regime->findByObjectif($idobjectif);
     $result = array();
     foreach ($regimes as $regime){
         $data['regime']= $regime;
-        $data['dureetotal']=ceil($poidsobjectif*($regime->duree/$regime->apport));
+        $data['dureetotal']=ceil(abs($poidsobjectif)*($regime->duree/$regime->apport));
         $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
         array_push($result, $data);
     }
@@ -176,11 +223,12 @@ class Utilisateur_model extends CI_Model {
     $this->db->where('idutilisateur', $idutilisateur);
     $this->db->order_by('dateobjectif','DESC');
     $this->db->limit(1);
+    $this->db->join('objectif', 'idobjectif=id');
     $query = $this->db->get('utilisateur_objectif');
     if(count($query->result()) == 0) {
       return null;
     }
-    return $query->result()[0]->idobjectif;
+    return $query->result()[0];
   }
 
 }
