@@ -74,7 +74,7 @@ insert into utilisateur_objectif values
 
 
 
-
+select sum(valeur) montant from (select date_genere datedujour, COALESCE(valeur, 0) valeur from get_all_dates_in_month(2023,7) d left outer join (select sum(montant) valeur, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat) somme
 
 
 

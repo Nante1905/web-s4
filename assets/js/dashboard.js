@@ -92,6 +92,7 @@ window.addEventListener("load", () => {
 				let classement = res.classement;
 				let recharge = res.recharge
 				let vente = res.vente
+				console.log(res);
 			
 				if (chartUtilisateur) {
 					chartUtilisateur.destroy();
