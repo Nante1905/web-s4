@@ -38,7 +38,7 @@ class Test extends CI_Controller
   }
 
   public function test(){
-    $data = $this->utilisateur->IMC_ideal(1);
+    $data = $this->utilisateur->is_gold(1);
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => [],
