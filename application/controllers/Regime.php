@@ -17,9 +17,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @return    ...
  *
  */
-require_once APPPATH.'controllers/SessionSecure.php';
+require_once APPPATH.'controllers/AdminSecure.php';
 
-class Regime extends SessionSecure
+class Regime extends AdminSecure
 {
 
   public function __construct()
