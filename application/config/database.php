@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'postgres',
-	'password' => '2003',
-	'database' => 'regime',
+	'hostname' => 'postgresql-nante-it.alwaysdata.net',
+	'username' => 'nante-it',
+	'password' => 'Nantedata05',
+	'database' => 'nante-it_regime',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
