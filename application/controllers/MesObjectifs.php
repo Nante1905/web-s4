@@ -36,6 +36,7 @@ class Mesobjectifs extends SessionSecure
   {
     $idUtilisateur = $this->session->userid;
     $objectifs = $this->objectif->findAll();
+    var_dump($this->user->getLastObjectif($idUtilisateur));
     $this->load->view("templates/body", [
       'metadata' => [
         'styles' => ['objectifs'],
