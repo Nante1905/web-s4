@@ -55,14 +55,15 @@ class MesObjectifs extends CI_Controller
     $poids = $this->input->post("poids");
     $userid = $this->session->userid;
     if($userid == null) {
-      echo json_encode(['OK' => false]);
+      echo json_encode(['OK' => false, 'message' => 'Veuillez vous connectez']);
     }
     else {
       try {
         $this->objectif->insert($userid, $idobjectif, $poids);
         echo json_encode(['OK' => true]);
       } catch(Exception $e) {
-        echo json_encode(['OK' => false]);
+        echo $e;
+        // echo json_encode(['OK' => false]);
       }
     }
   }

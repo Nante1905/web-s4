@@ -42,14 +42,6 @@
     margin: 3% 0%;
   }
 }
-@media (max-width: 600px) {
-  .card-body {
-    width: 100%;
-  }
-  .card-body canvas {
-    width: 100% !important;
-  }
-}
 .statistics {
   padding: 2%;
 }
@@ -61,4 +53,16 @@
 }
 .statistics section {
   margin: 3% 0%;
+}
+
+@media (max-width: 600px) {
+  .card-body {
+    width: 100%;
+  }
+  .card-body canvas {
+    width: 100% !important;
+  }
+  .graphe-container {
+    width: inherit !important;
+  }
 }

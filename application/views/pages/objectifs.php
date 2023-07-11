@@ -63,7 +63,7 @@
                                         <?php } else if ($regime["regime"]->idobjectif == 2) { ?>
                                             <i class="fa-solid fa-caret-down danger "></i>
                                         <?php } ?>
-                                        <?= $regime["regime"]->apport ?> kg en <strong><?= $regime["regime"]->duree ?></strong> jours
+                                        <?= $regime["regime"]->apport ?> kg en <strong><?= format_semaine($regime["regime"]->duree) ?></strong>
                                     </p>
                                     <p class="card-text__prix">
                                         <i class="fa-solid fa-money-bill "></i>
@@ -77,7 +77,7 @@
                                     </p>
                                     <p class="card-text__prix">
                                         <i class="fa-solid fa-clock"></i>
-                                        <?= format_number(intval($regime["dureetotal"])) ?> jours
+                                        <?= format_semaine(intval($regime["dureetotal"])) ?>
                                     </p>
                                     <p class="card-text__msg__<?= $regime["regime"]->id ?>"></p>
                                 </div>
@@ -120,7 +120,7 @@
                                     </p>
                                     <p class="card-text__duree">
                                         <i class="fa-solid fa-clock"></i>
-                                        <?= ceil(format_number($sport["dureetotal"])) ?> jours    
+                                        <?= format_semaine(ceil(format_number($sport["dureetotal"]))) ?>    
                                     </p>
                                 </div>
                             </div>
