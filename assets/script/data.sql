@@ -87,6 +87,9 @@ insert into achat_utilisateur values
     (default,2,2300,1,'2023-07-31',15),
     (default,1,2600,1,'2023-07-30',15);
 
+insert into prix_gold values ('2023-07-01', 15000);
+
+insert into remise values (default, 15, now());
 
 
 
@@ -95,9 +98,7 @@ insert into achat_utilisateur values
 
 
 
-
-
-
+select sum(valeur) montant from (select date_genere datedujour, COALESCE(valeur, 0) valeur from get_all_dates_in_month(2023,7) d left outer join (select sum(montant) valeur, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat) somme
 
 
 

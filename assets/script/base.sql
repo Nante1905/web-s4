@@ -96,3 +96,8 @@ create table utilisateur_gold(
     idutilisateur int references utilisateur(id),
     date_gold date not null
 );
+
+create table prix_gold (
+    date date not null,
+    montant numeric
+);

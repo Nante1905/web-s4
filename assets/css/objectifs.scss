@@ -31,6 +31,12 @@
         }
     }
 }
+
+.info-imc {
+    justify-content: space-around;
+    padding: 2%;
+}
+
 .title {
     color: black;
     display: flex;
@@ -76,5 +82,9 @@
                 text-transform: capitalize;
             }
         }
+    }
+
+    .gold-badge {
+        background-color: #fbc934;
     }
 }

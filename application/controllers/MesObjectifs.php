@@ -19,7 +19,7 @@ require_once APPPATH.'controllers/SessionSecure.php';
  *
  */
 
-class MesObjectifs extends CI_Controller
+class Mesobjectifs extends CI_Controller
 {
   public $title;
     
@@ -33,7 +33,7 @@ class MesObjectifs extends CI_Controller
 
   public function index()
   {
-
+    $idUtilisateur = $this->session->userid;
     $objectifs = $this->objectif->findAll();
     $this->load->view("templates/body", [
       'metadata' => [
@@ -43,16 +43,26 @@ class MesObjectifs extends CI_Controller
         'active' => 'Mes Objectifs'
       ],
       'page' => 'objectifs',
+      'isGold' => $this->user->is_gold($idUtilisateur),
       'objectifs' => $objectifs,
-      'objectif_actuel' => [$this->user->getLastPoidsObjectif($this->session->userid), $this->user->getLastObjectif($this->session->userid)],
-      'regimes' => $this->user->getSuggestionRegime($this->session->userid),
-      'sports' => $this->user->getSuggestionSport($this->session->userid)
+      'objectif_actuel' => $this->user->getLastObjectif($idUtilisateur),
+      'regimes' => $this->user->getSuggestionRegime($idUtilisateur),
+      'sports' => $this->user->getSuggestionSport($idUtilisateur),
+      'IMC_ideal' => $this->user->IMC_ideal($idUtilisateur),
+      'IMC' => $this->user->IMC()
     ]);
   }
 
   public function submit() {
     $idobjectif = $this->input->post("idobjectif");
-    $poids = $this->input->post("poids");
+    if($this->input->post("poids") != null) {
+      $poids = $this->input->post("poids");
+    }
+    else {
+      $poids_ideal = $this->user->poidsIdeal();
+      $poids_actuel = $this->user->getProfil()->poids;
+      $poids = $poids_ideal-$poids_actuel ;
+    }
     $userid = $this->session->userid;
     if($userid == null) {
       echo json_encode(['OK' => false, 'message' => 'Veuillez vous connectez']);
@@ -60,7 +70,7 @@ class MesObjectifs extends CI_Controller
     else {
       try {
         $this->objectif->insert($userid, $idobjectif, $poids);
-        echo json_encode(['OK' => true]);
+        echo json_encode(['OK' => true ]);
       } catch(Exception $e) {
         echo $e;
         // echo json_encode(['OK' => false]);

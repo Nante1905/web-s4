@@ -24,7 +24,15 @@ class Transaction_model extends CI_Model {
     parent::__construct();
   }
 
-  
+  public function getLastGold() {
+    $this->db->order_by('date','DESC');
+    $this->db->limit(1);
+    $query = $this->db->get('prix_gold');
+    if(count($query->result()) == 0) {
+      return null;
+    }
+    return $query->result()[0]->montant;
+  }
 
 }
 

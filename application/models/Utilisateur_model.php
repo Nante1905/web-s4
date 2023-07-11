@@ -26,29 +26,36 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
-  public function transformToGold($idutilisateur, $volagold){
+  public function transformToGold($idutilisateur){
     try {
+      $this->load->model('Transaction_model', 'transaction', true);
+      $volagold = $this->transaction->getLastGold();
       $portmonaie = $this->getMontantPorteMonnaie($idutilisateur);
+      
       if ($portmonaie<$volagold){
-        throw new Exception("Argent insuffisant", 1);
+        return false;
       }
-      $this->db->trans_begin();
-      $this->db->where('id', $$idutilisateur);
-      $this->db->update('utilisateur',["isgold" => 't']);
-      $this->db->set('date_gold',"now() at time zone 'gmt-3'",false);
-      $this->db->insert('utilisateur_gold',[
-        "idutilisateur" => $idutilisateur
-      ]);
-      $this->db->set('dateachat',"now() at time zone 'gmt-3'",false);
-      $this->db->insert('achat_utilisateur',[
-        "idutilisateur" =>$idutilisateur,
-        "montant" =>$volagold,
-        "remise"=>0
-      ]);
-      $this->db->trans_commit();
+      else {
+        $this->db->trans_begin();
+        $this->db->where('id', $idutilisateur);
+        $this->db->update('utilisateur',["isgold" => 't']);
+        $this->db->set('date_gold',"now() at time zone 'gmt-3'",false);
+        $this->db->insert('utilisateur_gold',[
+          "idutilisateur" => $idutilisateur
+        ]);
+        $this->db->set('dateachat',"now() at time zone 'gmt-3'",false);
+        $this->db->insert('achat_utilisateur',[
+          "idutilisateur" =>$idutilisateur,
+          "montant" =>$volagold,
+          "remise"=>0
+        ]);
+        $this->db->trans_commit();
+        return true;
+      }
     } catch (Exception $ex) {
       $this->db->trans_rollback();
-      echo $ex;
+      // echo $ex;
+      throw $ex;
     }
   }
 
@@ -57,7 +64,6 @@ class Utilisateur_model extends CI_Model {
     $query = $this->db->get('utilisateur');
     if ($query->result()[0]->isgold == "t") return true;
     return false;
-
   }
 
   public function IMC_ideal($idutilisateur){
@@ -68,7 +74,8 @@ class Utilisateur_model extends CI_Model {
     return $poids/($denom*$denom);
   }
 
-  public function poidsIdeal($idutilisateur){
+  public function poidsIdeal(){
+    $idutilisateur = $this->session->userid;
     $this->db->where('id',$idutilisateur);
     $query = $this->db->get('utilisateur');
     $idgenre = $query->result()[0]->idgenre;
@@ -78,7 +85,8 @@ class Utilisateur_model extends CI_Model {
   }
 
 
-  public function IMC($idutilisateur){
+  public function IMC(){
+    $idutilisateur = $this->session->userid;
     $this->db->where('id',$idutilisateur);
     $query = $this->db->get('utilisateur');
     $poids = $query->result()[0]->poids;
@@ -88,6 +96,7 @@ class Utilisateur_model extends CI_Model {
 
 
   public function inscription($nom, $email,$mdp,$idgenre,$poids, $taille){
+    $this->db->set('dateinscription', "now() at time zone 'gmt-3'", false);
     $this->db->insert('utilisateur',[
       "nom" => $nom,
       "email" => $email,
@@ -102,7 +111,7 @@ class Utilisateur_model extends CI_Model {
     $this->db->where(["email"=> trim($email), "password" => md5(trim(($mdp)))]);
     $query = $this->db->get('utilisateur');
     if (count($query->result())<=0) return false;
-    else return true;
+    else return $query->result()[0]->id;
   }
 
   public function getProfil() {
@@ -135,12 +144,12 @@ class Utilisateur_model extends CI_Model {
     return $recharge-$achat;
   }
 
-  public function recharger($idutilisateur, $idcode) {
+  public function recharger($idutilisateur, $code) {
     try {
 
-      // code exist ?
-      $code = $this->db->get_where('code', ['status' => 1, 'id' => $idcode])->result();
-      if(count($code) > 0) {
+      // code exist and dispo ?
+      $idcode = $this->db->get_where('code', ['statut' => 1, 'token' => $code])->result();
+      if(count($idcode) > 0) {
         $this->db->trans_begin();
 
         $this->db->set("daterecharge","now() at time zone 'gmt-3'",false);
@@ -148,26 +157,37 @@ class Utilisateur_model extends CI_Model {
         $this->db->set("statut",1,false);
         $this->db->insert('recharge_utilisateur',[
           'idutilisateur' => $idutilisateur,
-          'idcode'=> $idcode
+          'idcode'=> $idcode[0]->id
         ]);
 
-        $this->db->update('code', ['statut' => 10], ['id' => $idcode]);
+        $this->db->update('code', ['statut' => 10], ['id' => $idcode[0]->id]);
 
         $this->db->trans_commit();
+        return true;
+      } else {
+        return false;
       }
 
     } catch (Exception $e) {
       $this->db->trans_rollback();
       echo $e;
+      throw $e;
     }
   }
 
   public function buy($idutilisateur, $idregime, $montant) {
+
+    $remise = 0;
+    if($this->isGold($idutilisateur)) {
+      $remise = $this->getLastRemise()->valeur;
+    }
+
     $this->db->set('dateachat', "now() at time zone 'gmt-3'", false);
     $this->db->insert('achat_utilisateur', [
       'idutilisateur' => $idutilisateur,
       'montant' => $montant,
-      'idregime' => $idregime
+      'idregime' => $idregime,
+      'remise' => $remise
     ]);
   }
 
@@ -179,30 +199,63 @@ class Utilisateur_model extends CI_Model {
   }
 
   public function getSuggestionSport($idutilisateur){
-    $idobjectif = $this->getLastObjectif($idutilisateur);
+    $objectif = $this->getLastObjectif($idutilisateur);
+    if($objectif != null) {
+      $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+      $idobjectif = $objectif->idobjectif;
+      if($objectif->idobjectif == 3) {
+        if($poidsobjectif > 0) {
+          $idobjectif = 1;
+        }
+        else {
+          $idobjectif = 2;
+        }
+      }
+      $sports = $this->sport->findByObjectif($idobjectif);
+      $result = array();
+      foreach ($sports as $sport) {
+        $data['sport']= $sport;
+        $data['dureetotal']=ceil(abs($poidsobjectif)/$sport->apportjour);
+        array_push($result, $data);
+      }
+      return $result;
+    }
+    return [];
+  }
+
+  public function getSuggestionRegime($idutilisateur){
+    $objectif = $this->getLastObjectif($idutilisateur);
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
-    $sports = $this->sport->findByObjectif($idobjectif);
+    if($objectif == null) {
+      return [];
+    }
+    $idobjectif = $objectif->idobjectif;
+      if($objectif->idobjectif == 3) {
+        if($poidsobjectif > 0) {
+          $idobjectif = 1;
+        }
+        else {
+          $idobjectif = 2;
+        }
+      }
+    $regimes= $this->regime->findByObjectif($idobjectif);
+    $remiseGold = $this->getLastRemise();
     $result = array();
-    foreach ($sports as $sport) {
-      $data['sport']= $sport;
-      $data['dureetotal']=$poidsobjectif/$sport->apportjour;
-      array_push($result, $data);
+    foreach ($regimes as $regime){
+        $data['regime']= $regime;
+        $data['dureetotal']=ceil(abs($poidsobjectif)*($regime->duree/$regime->apport));
+        $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
+        $data['prixremise']= ceil($data["prixtotal"] - ($data["prixtotal"]*$remiseGold->valeur/100));
+        // manova merge
+        array_push($result, $data);
     }
     return $result;
   }
 
-  public function getSuggestionRegime($idutilisateur){
-    $idobjectif = $this->getLastObjectif($idutilisateur);
-    $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
-    $regimes= $this->regime->findByObjectif($idobjectif);
-    $result = array();
-    foreach ($regimes as $regime){
-        $data['regime']= $regime;
-        $data['dureetotal']=ceil($poidsobjectif*($regime->duree/$regime->apport));
-        $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
-        array_push($result, $data);
-    }
-    return $result;
+  public function getLastRemise() {
+    $res = $this->db->query("select * from remise where dateremise = (select max(dateremise) from remise)")->result();
+
+    return $res[0];
   }
 
   public function getMontantRegime($idregime) {
@@ -211,10 +264,29 @@ class Utilisateur_model extends CI_Model {
       return null;
     }
     $idutilisateur = $this->session->userid;
+
+    $remise = 0;
+    if($this->isGold($idutilisateur)) {
+      $remise = $this->getLastRemise()->valeur;
+    }
+
     $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
     $duree = ceil($poidsobjectif*($regime->duree/$regime->apport));
     $montant = ceil($regime->prix*( $duree/$regime->duree));
+    if($remise > 0) {
+      $montant = $montant - $montant*$remise/100;
+    }
     return $montant;
+  }
+
+  public function isGold($idutilisateur) {
+    $res = $this->db->get_where('utilisateur_gold', ['idutilisateur' => $idutilisateur])->result();
+    if(count($res) > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   public function getLastPoidsObjectif($idutilisateur){
@@ -232,11 +304,12 @@ class Utilisateur_model extends CI_Model {
     $this->db->where('idutilisateur', $idutilisateur);
     $this->db->order_by('dateobjectif','DESC');
     $this->db->limit(1);
+    $this->db->join('objectif', 'idobjectif=id');
     $query = $this->db->get('utilisateur_objectif');
     if(count($query->result()) == 0) {
       return null;
     }
-    return $query->result()[0]->idobjectif;
+    return $query->result()[0];
   }
 
 }

@@ -32,6 +32,14 @@ class Code_model extends CI_Model {
     return $query->result();
   }
 
+  public function validerRecharge($idcode) {
+    try {
+      $this->db->update('recharge_utilisateur', ['statut' => 10], ['idcode' => $idcode]);
+    } catch(Exception $e) {
+      throw $e;
+    }
+  }
+
   public function update($idcode, $token, $valeur){
     $this->db->where('id', $idcode);
     $this->db->update('code',['token' => $token, 'valeur' => $valeur]);
