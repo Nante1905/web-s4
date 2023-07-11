@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-        <strong>Nom App</strong>
+        <strong>Regime</strong>
     </a>
     <button
       class="navbar-toggler"
