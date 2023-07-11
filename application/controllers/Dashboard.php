@@ -25,6 +25,7 @@ class Dashboard extends CI_Controller
   {
     parent::__construct();
     $this->load->model('Dashboard_model', 'dashboard', true);
+    $this->load->model('Code_model', 'code', true);
   }
 
   public function index()
@@ -62,6 +63,26 @@ class Dashboard extends CI_Controller
       'recharge' => $recharge,
       'vente' => $vente
     ]);
+  }
+
+  public function validation() {
+
+    $this->load->view('templates/body', [
+			'metadata' => [
+				'styles' => ['validation'],
+				'script' => [],
+				'title' => 'Validation',
+        'active' => '',
+        'sidebar' => true
+			],
+			'page' => 'validation',
+      'recharges' => $this->dashboard->findInvalideRecharge()
+		]);
+  }
+
+  public function validerRecharge($idcode) {
+    $this->code->validerRecharge($idcode);
+    redirect("./dashboard/validation");
   }
 
 }

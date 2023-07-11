@@ -75,12 +75,12 @@ class Utilisateur_model extends CI_Model {
     return $recharge-$achat;
   }
 
-  public function recharger($idutilisateur, $idcode) {
+  public function recharger($idutilisateur, $code) {
     try {
 
-      // code exist ?
-      $code = $this->db->get_where('code', ['status' => 1, 'id' => $idcode])->result();
-      if(count($code) > 0) {
+      // code exist and dispo ?
+      $idcode = $this->db->get_where('code', ['statut' => 1, 'token' => $code])->result();
+      if(count($idcode) > 0) {
         $this->db->trans_begin();
 
         $this->db->set("daterecharge","now() at time zone 'gmt-3'",false);
@@ -88,17 +88,21 @@ class Utilisateur_model extends CI_Model {
         $this->db->set("statut",1,false);
         $this->db->insert('recharge_utilisateur',[
           'idutilisateur' => $idutilisateur,
-          'idcode'=> $idcode
+          'idcode'=> $idcode[0]->id
         ]);
 
-        $this->db->update('code', ['statut' => 10], ['id' => $idcode]);
+        $this->db->update('code', ['statut' => 10], ['id' => $idcode[0]->id]);
 
         $this->db->trans_commit();
+        return true;
+      } else {
+        return false;
       }
 
     } catch (Exception $e) {
       $this->db->trans_rollback();
       echo $e;
+      throw $e;
     }
   }
 

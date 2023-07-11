@@ -74,6 +74,12 @@ class Dashboard_model extends CI_Model {
     }
   }
 
+  public function findInvalideRecharge() {
+    $recharges = $this->db->get_where('v_recharge_details', ['statut' => 1])->result();
+
+    return $recharges;
+  }
+
   // ------------------------------------------------------------------------
 
 }

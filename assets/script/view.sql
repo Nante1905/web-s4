@@ -4,7 +4,7 @@ create or replace view v_regime_plat as(
     JOIN plat p ON p.id = rp.idplat
 );
 
-create or replace view v_recharge_details as select ru.*, c.valeur from recharge_utilisateur ru join code c on ru.idcode=c.id;
+create or replace view v_recharge_details as select ru.*, u.nom, c.valeur, c.token from recharge_utilisateur ru join code c on ru.idcode=c.id join utilisateur u on u.id=ru.idutilisateur;
 
 create view v_recharge_utilisateur as select idutilisateur, sum(valeur) montant from v_recharge_details where statut=10 GROUP BY idutilisateur;
 

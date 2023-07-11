@@ -25,6 +25,8 @@ class Profil extends CI_Controller
   {
     parent::__construct();
     $this->load->model('Utilisateur_model', 'user', true);
+    $this->load->model('Code_model', 'code', true);
+
   }
 
   public function index()
@@ -38,6 +40,7 @@ class Profil extends CI_Controller
       ],
       'page' => 'profil',
       'solde' => $this->user->getMontantPorteMonnaie()
+      // 'codes' => $this->code->findAll()
     ]);
   }
 
@@ -45,12 +48,43 @@ class Profil extends CI_Controller
     $this->load->view('templates/body', [
       'metadata' => [
         'styles' => ['ajoutsolde'],
-        'script' => [],
+        'script' => ['ajoutsolde'],
         'title' => 'Ajout solde',
         'active' => 'Profil'
       ],
-      'page' => 'ajoutsolde'
+      'page' => 'ajoutsolde',
+      'codes' => $this->code->findAll()
     ]);
+  }
+
+  public function recharger() {
+    $token = trim($this->input->post("code"));
+    if($token == null) {
+      echo json_encode([
+        'OK' => false,
+        'message' => "Code ne peut etre null"
+      ]);
+    } else {
+      try {
+        $res = $this->user->recharger($this->session->userid, $token);
+        if($res == false) {
+          echo json_encode([
+            'OK' => false,
+            'message' => "Code invalide ou indisponible"
+          ]);  
+        } else {
+          echo json_encode([
+            'OK' => true,
+            'message' => "Requete prise en compte"
+          ]);
+        }
+      } catch(Exception $e) {
+        echo json_encode([
+          'OK' => false,
+          'message' => $e->getMessage()
+        ]);
+      }
+    }
   }
 }
 
