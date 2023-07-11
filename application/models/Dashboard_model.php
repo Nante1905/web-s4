@@ -25,25 +25,53 @@ class Dashboard_model extends CI_Model {
     parent::__construct();
   }
 
-  public function getClassementRegime($annee, $mois){
-      $sql= " select r.id idregime, coalesce(c.nbr_users,0) nbr_users from regime r
+  public function getClassementRegime($annee = null, $mois = null){
+      if($annee == null) {
+        $annee = date('Y');
+      }
+      if($mois == null) {
+        $mois = date('m');
+      }
+      $sql= " select r.*, coalesce(c.nbr_users,0) valeur from regime r
               LEFT JOIN get_classement(%s,%s) c
-              ON r.id = c.idregime order by nbr_users DESC";
+              ON r.id = c.idregime order by valeur desc";
       $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
       $query = $this->db->query($sql);
       return $query->result();
   }
 
   public function getUsersPerMonth($annee, $mois){
-      $sql= "SELECT * FROM nombre_utilisateurs_par_mois(%s, %s)";
-      $sql = sprintf($sql,$this->db->escape($annee),$this->db->escape($mois));
+      $sql= "SELECT datedujour, nbr_users valeur FROM nombre_utilisateurs_par_mois(%s, %s)";
+      if($annee == null) {
+        $annee = date('Y');
+      }
+      if($mois == null) {
+        $mois = date('m');
+      }
+      $sql = sprintf($sql, $this->db->escape($annee), $this->db->escape($mois));
       $query = $this->db->query($sql);
       return $query->result();
     
   }
-  public function index()
-  {
-    // 
+  
+  public function getStatRecharge($year, $month) {
+    $query = "select date_genere datedujour, COALESCE(valeur, 0) valeur  from get_all_dates_in_month(%d,%d) d left outer join (select sum(valeur) valeur, daterecharge::date from v_recharge_details group by daterecharge::date) t on d.date_genere=t.daterecharge;";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res->result()) > 0) {
+      return $res->result();
+    }
+  }
+
+  public function getStatAchat($year, $month) {
+    $query = "select date_genere datedujour, COALESCE(valeur, 0) valeur from get_all_dates_in_month(%d,%d) d left outer join (select sum(montant) valeur, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat;";
+    $query = sprintf($query, $year, $month);
+
+    $res = $this->db->query($query);
+    if(count($res->result()) > 0) {
+      return $res->result();
+    }
   }
 
   // ------------------------------------------------------------------------

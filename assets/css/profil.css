@@ -2,10 +2,15 @@
   padding-top: 5rem;
 }
 
-.wallet-card-container {
+.transactions {
+  display: flex;
+  justify-content: space-evenly;
+}
+.transactions .wallet-card-container {
   display: flex;
   justify-content: center;
 }
-.wallet-card-container .wallet-card {
-  width: 25%;
+.transactions .wallet-card-container .wallet-card {
+  height: -moz-max-content;
+  height: max-content;
 }

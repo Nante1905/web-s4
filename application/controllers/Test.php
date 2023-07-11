@@ -50,6 +50,19 @@ class Test extends CI_Controller
 		]);
   }
 
+  public function pdf() {
+    $this->load->library('Pdf', null, 'pdf');
+    $html = $this->load->view('pages/testpdf', [], true);
+    $this->pdf->createPDF($html);
+  }
+  public function login() {
+    $this->session->set_userdata('userid', 1);
+  }
+
+  public function profil() {
+    var_dump($this->utilisateur->getMontantPorteMonnaie(null));
+  }
+
 }
 
 

@@ -1,62 +1,60 @@
 html {
-    --theme-color: #64c14a;
-    --danger-color: #f43434;
-    height: 100%;
+  --theme-color: #64c14a;
+  --danger-color: #f43434;
+  --back-theme: #528ebc;
+  height: 100%;
 }
-
 
 @font-face {
-    font-family: Poppins;
-    src: url('../font/Poppins-Regular.ttf');
+  font-family: Poppins;
+  src: url("../font/Poppins-Regular.ttf");
 }
-
 body {
-    height: inherit;
-    margin: 0;
-    font-family: Poppins !important;
-    color: black;
+  height: inherit;
+  margin: 0;
+  font-family: Poppins !important;
+  color: black !important;
 }
 
 .danger {
-    color: var(--danger-color) !important;
-    /* background-color: var(--danger-color) !important; */
+  color: var(--danger-color) !important;
+  /* background-color: var(--danger-color) !important; */
 }
 
 .success {
-    color: var(--theme-color) !important;
-    /* background-color: var(--theme-color) !important; */
+  color: var(--theme-color) !important;
+  /* background-color: var(--theme-color) !important; */
 }
 
 .strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .primary {
-    background-color: var(--theme-color) !important;
-    color: white !important;
-    font-weight: bold !important;
+  background-color: var(--theme-color) !important;
+  color: white !important;
+  font-weight: bold !important;
 }
 
 .secondary {
-    background-color: white !important;
-    color: var(--theme-color) !important;
-    border: 2px solid var(--theme-color) !important;
-    font-weight: bold !important;
+  background-color: white !important;
+  color: var(--theme-color) !important;
+  border: 2px solid var(--theme-color) !important;
+  font-weight: bold !important;
 }
 
 /* width */
 ::-webkit-scrollbar {
-    width: 5px;
-  }
+  width: 5px;
+}
 
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgba(128, 128, 128, 0.442);
-    border-radius: 6px;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.442);
+  border-radius: 6px;
+}

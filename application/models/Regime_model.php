@@ -22,7 +22,7 @@ class Regime_model extends CI_Model {
     public $prix;
     public $apport;
     public $duree;
-    public $idobjectif;
+    public $idobjectif;  //1 +, 2 -
   // ------------------------------------------------------------------------
 
   public function __construct()
@@ -47,6 +47,30 @@ class Regime_model extends CI_Model {
     $query = $this->db->get('regime');
     return $query->result();
   }
+
+  public function findById($id) {
+    $this->db->where('id', $id);
+    $query = $this->db->get('regime');
+    if(count($query->result()) == 0) {
+      return null;
+    }
+    return $query->result()[0];
+  }
+
+  public function accept($id) {
+    $idutilisateur = $this->session->userid;
+    $montantActuel = $this->utilisateur->getMontantPorteMonnaie($idutilisateur);
+    $montantRegime = $this->utilisateur->getMontantRegime($id);
+    if($montantActuel >= $montantRegime) {
+      $this->utilisateur->buy($idutilisateur, $id, $montantRegime);
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  
 
 }
 

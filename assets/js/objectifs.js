@@ -9,8 +9,6 @@ window.addEventListener('load',() => {
 		button.addEventListener("click", () => {
 			id = button.getAttribute("data-id");
 			let xhr = new XMLHttpRequest();
-			// xhr.send(formData);
-            // id = 2;
 			xhr.open("get", `${URL.APP_URL}welcome/details/${ id }`, true);
             xhr.send();
 
@@ -43,7 +41,7 @@ window.addEventListener('load',() => {
                 let res = JSON.parse(xhr.responseText)
                 Snackbar.show({
                     text: "Objectif mis a jour",
-                    duration: 5000,
+                    duration: 2000,
                     onClose: () => location.reload()
                 })
                 fromObjectif.reset()
@@ -51,7 +49,7 @@ window.addEventListener('load',() => {
                 console.log(xhr.responseText)
                 Snackbar.show({
                     text: "Une erreur s'est produite",
-                    duration: 5000
+                    duration: 2000
                 })
                 console.error(e)
             }
