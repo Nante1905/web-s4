@@ -46,6 +46,10 @@ LEFT JOIN get_classement(2023,7) c
 ON r.id = c.idregime
 ORDER BY nbr_users desc;
 
+select sum(coalesce(c.nbr_users,0)) from regime r
+LEFT JOIN get_classement(2023,7) c
+ON r.id = c.idregime;
+
 -- stat achat
 select date_genere date, COALESCE(montant, 0) montant from get_all_dates_in_month(2023,7) d 
 left outer join (select sum(montant) montant, dateachat::date from achat_utilisateur group by dateachat::date) t on d.date_genere=t.dateachat;
