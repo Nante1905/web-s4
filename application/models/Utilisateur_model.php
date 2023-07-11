@@ -117,7 +117,7 @@ class Utilisateur_model extends CI_Model {
   public function getProfil() {
     $id = $this->session->userid;
     if($id == null) {
-      throw new Exception("USer not connected", 1);
+      throw new Exception("User not connected", 1);
     }
     $this->db->where('id',$id);
     $query = $this->db->get('utilisateur');

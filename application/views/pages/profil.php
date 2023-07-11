@@ -15,4 +15,25 @@
 
         </div>
     </div>
+
+    <div class="detailProfil">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-header">
+                    <h3 class="card-title alignement_style"><img src="<?= base_url().'assets/img/user.svg' ?>" class="icon_user"><?= $user->nom ?></h3>
+                    <h6 class="card-subtitle mb-2 text-muted"><?= $user->email ?></h6>
+                </div>
+                <div style="
+                    margin-left: 22px;
+                    margin-top: 24px;">
+                    <p class="card-text">Poids:  <?= $user->poids ?>kg </p>
+                    <p class="card-text">Taille:  <?= $user->taille ?>cm</p>
+                    <p class="card-text">IMC:  <?= $imc ?></p>
+                    <button type="button" class="btn btn-danger">Se déconnecter</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
 </div>
