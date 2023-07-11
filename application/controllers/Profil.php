@@ -90,16 +90,34 @@ class Profil extends CI_Controller
   }
 
   public function gold() {
+    $this->load->model('Transaction_model', 'transaction', true);
     $this->load->view('templates/body', [
       'metadata' => [
         'styles' => ['gold'],
-        'script' => [],
+        'script' => ['gold'],
         'title' => 'Passez à gold',
         'active' => 'Profil'
       ],
       'page' => 'gold',
-      'isGold' => $this->user->is_gold( $this->session->userid)
+      'isGold' => $this->user->is_gold( $this->session->userid),
+      'prix' => $this->transaction->getLastGold()
     ]);
+  }
+  public function toGold() {
+    $idUtilisateur = $this->session->userid;
+    try {
+      if($this->user->transformToGold($idUtilisateur) == false) {
+        echo json_encode(['OK' => false, 'msg' => 'Solde insuffisant']); 
+      }
+      else {
+        echo json_encode(['OK' => true]);
+      }
+    } catch (\Throwable $th) {
+      //throw $th;
+      var_dump($th);
+      echo json_encode(['OK' => false]);
+    }
+    // var_dump($this->user->transformToGold($idUtilisateur));
   }
 }
 

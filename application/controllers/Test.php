@@ -57,8 +57,8 @@ class Test extends CI_Controller
     // var_dump($html);
     $this->pdf->createPDF($html);
   }
-  public function login() {
-    $this->session->set_userdata('userid', 2);
+  public function login($id) {
+    $this->session->set_userdata('userid', $id);
   }
 
   public function profil() {

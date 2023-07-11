@@ -87,6 +87,7 @@ insert into achat_utilisateur values
     (default,2,2300,1,'2023-07-31',15),
     (default,1,2600,1,'2023-07-30',15);
 
+insert into prix_gold values ('2023-07-01', 15000);
 
 
 

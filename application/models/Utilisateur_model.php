@@ -26,29 +26,36 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
-  public function transformToGold($idutilisateur, $volagold){
+  public function transformToGold($idutilisateur){
     try {
+      $this->load->model('Transaction_model', 'transaction', true);
+      $volagold = $this->transaction->getLastGold();
       $portmonaie = $this->getMontantPorteMonnaie($idutilisateur);
+      
       if ($portmonaie<$volagold){
-        throw new Exception("Argent insuffisant", 1);
+        return false;
       }
-      $this->db->trans_begin();
-      $this->db->where('id', $$idutilisateur);
-      $this->db->update('utilisateur',["isgold" => 't']);
-      $this->db->set('date_gold',"now() at time zone 'gmt-3'",false);
-      $this->db->insert('utilisateur_gold',[
-        "idutilisateur" => $idutilisateur
-      ]);
-      $this->db->set('dateachat',"now() at time zone 'gmt-3'",false);
-      $this->db->insert('achat_utilisateur',[
-        "idutilisateur" =>$idutilisateur,
-        "montant" =>$volagold,
-        "remise"=>0
-      ]);
-      $this->db->trans_commit();
+      else {
+        $this->db->trans_begin();
+        $this->db->where('id', $idutilisateur);
+        $this->db->update('utilisateur',["isgold" => 't']);
+        $this->db->set('date_gold',"now() at time zone 'gmt-3'",false);
+        $this->db->insert('utilisateur_gold',[
+          "idutilisateur" => $idutilisateur
+        ]);
+        $this->db->set('dateachat',"now() at time zone 'gmt-3'",false);
+        $this->db->insert('achat_utilisateur',[
+          "idutilisateur" =>$idutilisateur,
+          "montant" =>$volagold,
+          "remise"=>0
+        ]);
+        $this->db->trans_commit();
+        return true;
+      }
     } catch (Exception $ex) {
       $this->db->trans_rollback();
-      echo $ex;
+      // echo $ex;
+      throw $ex;
     }
   }
 
@@ -185,47 +192,53 @@ class Utilisateur_model extends CI_Model {
 
   public function getSuggestionSport($idutilisateur){
     $objectif = $this->getLastObjectif($idutilisateur);
-    $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
-    $idobjectif = $objectif->idobjectif;
-    if($objectif->idobjectif == 3) {
-      if($poidsobjectif > 0) {
-        $idobjectif = 1;
+    if($objectif != null) {
+      $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+      $idobjectif = $objectif->idobjectif;
+      if($objectif->idobjectif == 3) {
+        if($poidsobjectif > 0) {
+          $idobjectif = 1;
+        }
+        else {
+          $idobjectif = 2;
+        }
       }
-      else {
-        $idobjectif = 2;
+      $sports = $this->sport->findByObjectif($idobjectif);
+      $result = array();
+      foreach ($sports as $sport) {
+        $data['sport']= $sport;
+        $data['dureetotal']=ceil(abs($poidsobjectif)/$sport->apportjour);
+        array_push($result, $data);
       }
+      return $result;
     }
-    $sports = $this->sport->findByObjectif($idobjectif);
-    $result = array();
-    foreach ($sports as $sport) {
-      $data['sport']= $sport;
-      $data['dureetotal']=ceil(abs($poidsobjectif)/$sport->apportjour);
-      array_push($result, $data);
-    }
-    return $result;
+    return [];
   }
 
   public function getSuggestionRegime($idutilisateur){
     $objectif = $this->getLastObjectif($idutilisateur);
-    $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
-    $idobjectif = $objectif->idobjectif;
-    if($objectif->idobjectif == 3) {
-      if($poidsobjectif > 0) {
-        $idobjectif = 1;
+    if($objectif != null) {
+      $poidsobjectif = $this->getLastPoidsObjectif($idutilisateur);
+      $idobjectif = $objectif->idobjectif;
+      if($objectif->idobjectif == 3) {
+        if($poidsobjectif > 0) {
+          $idobjectif = 1;
+        }
+        else {
+          $idobjectif = 2;
+        }
       }
-      else {
-        $idobjectif = 2;
+      $regimes= $this->regime->findByObjectif($idobjectif);
+      $result = array();
+      foreach ($regimes as $regime){
+          $data['regime']= $regime;
+          $data['dureetotal']=ceil(abs($poidsobjectif)*($regime->duree/$regime->apport));
+          $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
+          array_push($result, $data);
       }
+      return $result;
     }
-    $regimes= $this->regime->findByObjectif($idobjectif);
-    $result = array();
-    foreach ($regimes as $regime){
-        $data['regime']= $regime;
-        $data['dureetotal']=ceil(abs($poidsobjectif)*($regime->duree/$regime->apport));
-        $data['prixtotal']= ceil($regime->prix*( $data['dureetotal']/$regime->duree));
-        array_push($result, $data);
-    }
-    return $result;
+    return [];
   }
 
   public function getMontantRegime($idregime) {
