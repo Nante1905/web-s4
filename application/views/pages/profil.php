@@ -29,7 +29,6 @@
                     <p class="card-text">Poids:  <?= $user->poids ?>kg </p>
                     <p class="card-text">Taille:  <?= $user->taille ?>cm</p>
                     <p class="card-text">IMC:  <?= $imc ?></p>
-                    <button type="button" class="btn btn-danger">Se déconnecter</button>
                 </div>
                 
             </div>
