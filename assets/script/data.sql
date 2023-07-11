@@ -37,11 +37,11 @@ insert into code values
     (default,'6489201573',20000,1);
 
 insert into regime values
-    (default,'Régime équilibré', 12000,20,21,'',1),
-    (default,'Régime viande', 20000, 18,7,'',1),
-    (default,'Régime sans gluten', 18000, 15,14,'', 2),
-    (default,'Régime végétarien', 18500, 10,17,'',2),
-    (default,'Régime méditerranéen', 23000, 21,11,'',2);
+    (default,'Régime équilibré', 12000,20,21,'plat.jpg',1),
+    (default,'Régime viande', 20000, 18,7,'plat.jpg',1),
+    (default,'Régime sans gluten', 18000, 15,14,'plat.jpg', 2),
+    (default,'Régime végétarien', 18500, 10,17,'plat.jpg',2),
+    (default,'Régime méditerranéen', 23000, 21,11,'plat.jpg',2);
 
 insert into sport values
     (default,'jogging',0.75,'',1),

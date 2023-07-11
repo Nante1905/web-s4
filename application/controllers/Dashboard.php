@@ -79,7 +79,7 @@ class Dashboard extends CI_Controller
     $this->load->view('templates/body', [
 			'metadata' => [
 				'styles' => ['validation'],
-				'script' => [],
+				'script' => [], 
 				'title' => 'Validation',
         'active' => '',
         'sidebar' => true
