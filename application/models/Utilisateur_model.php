@@ -26,6 +26,30 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
+  public function transformToGold($idutilisateur){
+    try {
+      $this->db->trans_begin();
+      $this->db->where('id', $$idutilisateur);
+      $this->db->update('utilisateur',["isgold" => 't']);
+      $this->db->set('date_gold',"now() at time zone 'gmt-3'",false);
+      $this->db->insert('utilisateur_gold',[
+        "idutilisateur" => $idutilisateur
+      ]);
+      $this->db->trans_commit();
+    } catch (Exception $ex) {
+      $this->db->trans_rollback();
+      echo $ex;
+    }
+  }
+
+  public function is_gold($idutilisateur){
+    $this->db->where('id',$idutilisateur);
+    $query = $this->db->get('utilisateur');
+    if ($query->result()[0]->isgold == "t") return true;
+    return false;
+
+  }
+
   public function IMC_ideal($idutilisateur){
     $this->db->where('id',$idutilisateur);
     $query = $this->db->get('utilisateur');
