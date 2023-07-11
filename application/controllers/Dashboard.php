@@ -41,7 +41,8 @@ class Dashboard extends CI_Controller
 			],
 			'page' => 'dashboard',
       'mois' => $mois,
-      'annee' => date("Y")
+      'annee' => date("Y"),
+      'moisCourant' => date('m')
 		]);
   }
 
@@ -58,13 +59,17 @@ class Dashboard extends CI_Controller
     $totalRecharge = $this->dashboard->getSumRecharge($annee, $mois);
     $vente = $this->dashboard->getStatAchat($annee, $mois);
     $totalVente = $this->dashboard->getSumAchat($annee, $mois);
+    $totalUtilisateur = $this->dashboard->getTotalUserPerMonth($annee, $mois);
+    $totalRegime = $this->dashboard->getTotalRegimePerMonth($annee, $mois);
     echo json_encode([
       'utilisateurs' => $nbrUtilisateur,
       'classement' => $regime,
       'recharge' => $recharge,
       'vente' => $vente,
       'totalRecharge' => $totalRecharge,
-      'totalVente' => $totalVente
+      'totalVente' => $totalVente,
+      'totalUtilisateur' => $totalUtilisateur,
+      'totalRegime' => $totalRegime
     ]);
   }
 
