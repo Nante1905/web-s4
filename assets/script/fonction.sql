@@ -21,7 +21,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-select * from get_classement(2023,7);
+-- select * from get_classement(2023,7);
 
 create OR REPLACE FUNCTION nombre_utilisateurs_par_mois(year integer, month integer)
 RETURNS TABLE(
@@ -58,7 +58,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
-select * from generate_date('2023-06-25'::date,10);
+-- select * from generate_date('2023-06-25'::date,10);
 
 
 CREATE OR REPLACE FUNCTION get_all_dates_in_month(year integer, month integer)
@@ -74,4 +74,4 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-    SELECT * FROM get_all_dates_in_month(2023, 7); 
+    -- SELECT * FROM get_all_dates_in_month(2023, 7); 

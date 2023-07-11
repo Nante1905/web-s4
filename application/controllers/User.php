@@ -25,6 +25,8 @@ class User extends CI_Controller
   {
     parent::__construct();
     $this->load->model('utilisateur_model','utilisateur',true);
+    $this->load->model('genre_model','genre',true);
+
   }
 
   public function index()
@@ -33,7 +35,7 @@ class User extends CI_Controller
   }
 
   public function inscription(){
-    $this->load->view('pages/inscription');
+    $this->load->view('pages/inscription', ['genres' => $this->genre->findAll()]);
   }
 
   public function login() {
