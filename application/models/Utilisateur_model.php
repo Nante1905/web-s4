@@ -26,14 +26,24 @@ class Utilisateur_model extends CI_Model {
     $this->load->model('sport_model','sport',true);
   }
 
-  public function transformToGold($idutilisateur){
+  public function transformToGold($idutilisateur, $volagold){
     try {
+      $portmonaie = $this->getMontantPorteMonnaie($idutilisateur);
+      if ($portmonaie<$volagold){
+        throw new Exception("Argent insuffisant", 1);
+      }
       $this->db->trans_begin();
       $this->db->where('id', $$idutilisateur);
       $this->db->update('utilisateur',["isgold" => 't']);
       $this->db->set('date_gold',"now() at time zone 'gmt-3'",false);
       $this->db->insert('utilisateur_gold',[
         "idutilisateur" => $idutilisateur
+      ]);
+      $this->db->set('dateachat',"now() at time zone 'gmt-3'",false);
+      $this->db->insert('achat_utilisateur',[
+        "idutilisateur" =>$idutilisateur,
+        "montant" =>$volagold,
+        "remise"=>0
       ]);
       $this->db->trans_commit();
     } catch (Exception $ex) {
